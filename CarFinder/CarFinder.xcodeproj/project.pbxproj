@@ -15,6 +15,7 @@
 		F3169BAD1EB04809005DBCA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3169BAC1EB04809005DBCA0 /* Assets.xcassets */; };
 		F3169BB01EB04809005DBCA0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3169BAE1EB04809005DBCA0 /* LaunchScreen.storyboard */; };
 		F3169BBB1EB04809005DBCA0 /* CarFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3169BBA1EB04809005DBCA0 /* CarFinderTests.swift */; };
+		F38699EC1EBD417E006D43E1 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38699EB1EBD417E006D43E1 /* RegisterViewController.swift */; };
 		F39730521EBACD8A00EADFC8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F39730511EBACD8A00EADFC8 /* GoogleService-Info.plist */; };
 		F39730541EBAE8BC00EADFC8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39730531EBAE8BC00EADFC8 /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
@@ -44,6 +45,7 @@
 		F3169BB61EB04809005DBCA0 /* CarFinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarFinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3169BBA1EB04809005DBCA0 /* CarFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarFinderTests.swift; sourceTree = "<group>"; };
 		F3169BBC1EB04809005DBCA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F38699EB1EBD417E006D43E1 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		F39730511EBACD8A00EADFC8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F39730531EBAE8BC00EADFC8 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F41E576C10FF67310C54E3CA /* Pods-CarFinderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarFinderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarFinderTests/Pods-CarFinderTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				F3169BB11EB04809005DBCA0 /* Info.plist */,
 				F3169BA91EB04809005DBCA0 /* CarFinder.xcdatamodeld */,
 				F39730531EBAE8BC00EADFC8 /* LoginViewController.swift */,
+				F38699EB1EBD417E006D43E1 /* RegisterViewController.swift */,
 			);
 			path = CarFinder;
 			sourceTree = "<group>";
@@ -342,6 +345,7 @@
 				F39730541EBAE8BC00EADFC8 /* LoginViewController.swift in Sources */,
 				F3169BAB1EB04809005DBCA0 /* CarFinder.xcdatamodeld in Sources */,
 				F3169BA31EB04809005DBCA0 /* AppDelegate.swift in Sources */,
+				F38699EC1EBD417E006D43E1 /* RegisterViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
