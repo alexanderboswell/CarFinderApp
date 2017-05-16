@@ -16,8 +16,10 @@
 		F3169BB01EB04809005DBCA0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3169BAE1EB04809005DBCA0 /* LaunchScreen.storyboard */; };
 		F3169BBB1EB04809005DBCA0 /* CarFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3169BBA1EB04809005DBCA0 /* CarFinderTests.swift */; };
 		F38699EC1EBD417E006D43E1 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38699EB1EBD417E006D43E1 /* RegisterViewController.swift */; };
+		F38699F31EBE500F006D43E1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38699F21EBE500F006D43E1 /* MainViewController.swift */; };
 		F39730521EBACD8A00EADFC8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F39730511EBACD8A00EADFC8 /* GoogleService-Info.plist */; };
 		F39730541EBAE8BC00EADFC8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39730531EBAE8BC00EADFC8 /* LoginViewController.swift */; };
+		F3B1642B1ECAC36A000BED95 /* SetAPinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B1642A1ECAC36A000BED95 /* SetAPinViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,8 +48,10 @@
 		F3169BBA1EB04809005DBCA0 /* CarFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarFinderTests.swift; sourceTree = "<group>"; };
 		F3169BBC1EB04809005DBCA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F38699EB1EBD417E006D43E1 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		F38699F21EBE500F006D43E1 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		F39730511EBACD8A00EADFC8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F39730531EBAE8BC00EADFC8 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		F3B1642A1ECAC36A000BED95 /* SetAPinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetAPinViewController.swift; sourceTree = "<group>"; };
 		F41E576C10FF67310C54E3CA /* Pods-CarFinderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarFinderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarFinderTests/Pods-CarFinderTests.release.xcconfig"; sourceTree = "<group>"; };
 		FBB82EB1B6B5BD56E2413750 /* Pods-CarFinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarFinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CarFinder/Pods-CarFinder.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -124,6 +128,8 @@
 				F3169BA91EB04809005DBCA0 /* CarFinder.xcdatamodeld */,
 				F39730531EBAE8BC00EADFC8 /* LoginViewController.swift */,
 				F38699EB1EBD417E006D43E1 /* RegisterViewController.swift */,
+				F38699F21EBE500F006D43E1 /* MainViewController.swift */,
+				F3B1642A1ECAC36A000BED95 /* SetAPinViewController.swift */,
 			);
 			path = CarFinder;
 			sourceTree = "<group>";
@@ -343,9 +349,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F39730541EBAE8BC00EADFC8 /* LoginViewController.swift in Sources */,
+				F3B1642B1ECAC36A000BED95 /* SetAPinViewController.swift in Sources */,
 				F3169BAB1EB04809005DBCA0 /* CarFinder.xcdatamodeld in Sources */,
 				F3169BA31EB04809005DBCA0 /* AppDelegate.swift in Sources */,
 				F38699EC1EBD417E006D43E1 /* RegisterViewController.swift in Sources */,
+				F38699F31EBE500F006D43E1 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
