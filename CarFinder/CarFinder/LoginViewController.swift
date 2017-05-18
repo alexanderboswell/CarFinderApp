@@ -15,6 +15,10 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
+    override func viewDidLoad() {
+    
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -22,7 +26,6 @@ class LoginViewController: UIViewController {
             self.signIn()
         }
     }
-    
     @IBAction func signIn(_ sender: UIButton) {
         let email = emailTextField.text
         let password = passwordTextField.text

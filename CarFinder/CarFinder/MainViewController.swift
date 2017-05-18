@@ -18,7 +18,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         mapView.delegate = self
-        // set initial location in st louis
+        // set initial location of the mapview
         let initialLocation = CLLocation(latitude: 38.623283, longitude: -90.190816)
         centerMapOnLocation(location: initialLocation)
     }
@@ -33,21 +33,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
         
         mapView.addAnnotation(pin)
     }
-    // maybe need this ? --------------------------
-    var locationManager = CLLocationManager()
-    func checkLocationAuthorizationStatus() {
-        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
-            mapView.showsUserLocation = true
-        } else {
-            locationManager.requestWhenInUseAuthorization()
-        }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        checkLocationAuthorizationStatus()
-    }
-    // -------------------------------------
 
     @IBAction func signOut(_ sender: UIBarButtonItem) {
         do {
