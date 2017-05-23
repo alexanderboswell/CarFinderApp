@@ -16,7 +16,7 @@ class SetAPinViewController: UIViewController,CLLocationManagerDelegate {
     @IBOutlet weak var mapView: MKMapView!
     
     var descriptionOfPin = ""
-    var location = CLLocation()
+    var location = CLLocationCoordinate2D()
     
     
     let locationManager = CLLocationManager()
@@ -40,8 +40,9 @@ class SetAPinViewController: UIViewController,CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
        // print("locations = \(locValue.latitude) \(locValue.longitude)")
-        location = CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
-        centerMapOnLocation(location: location)
+        let tempLocation = CLLocationCoordinate2D(latitude: locValue.latitude, longitude: locValue.longitude)
+        centerMapOnLocation(location: CLLocation(latitude: locValue.latitude, longitude: locValue.longitude))
+        location = tempLocation
     }
     
     @IBAction func closeNewPin(_ sender: UIBarButtonItem) {
@@ -53,11 +54,6 @@ class SetAPinViewController: UIViewController,CLLocationManagerDelegate {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
                                                                   regionRadius, regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
-        let pin = Pin(title: "Busch Stadium",
-                      locationName: "Cardinals Baseball Stadium",
-                      coordinate: CLLocationCoordinate2D(latitude: 38.6223399, longitude: -90.192415))
-        
-        mapView.addAnnotation(pin)
     }
     @IBAction func descriptionEditingChanged(_ sender: UITextField) {
         if sender.text != nil {
@@ -67,10 +63,19 @@ class SetAPinViewController: UIViewController,CLLocationManagerDelegate {
         }
     }
     @IBAction func share(_ sender: UIBarButtonItem) {
-        print ("TESTING")
-        print(descriptionOfPin)
-        print(location)
-        performSegue(withIdentifier: "setAPinToShare", sender: nil)
+        if descriptionOfPin != "" {
+            let pin = Pin(title: descriptionOfPin, locationName: "location", coordinate:location)
+            let shareViewController = self.storyboard?.instantiateViewController(withIdentifier: "ShareViewController") as! ShareViewController
+            shareViewController.pin = pin
+            self.present(shareViewController, animated: false, completion: nil)
+        } else {
+            showAlert("Please fill in a description")
+        }
+    }
+    func showAlert(_ message: String) {
+        let alertController = UIAlertController(title: "CarFinder", message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+        self.present(alertController, animated: true, completion: nil)
     }
 
     

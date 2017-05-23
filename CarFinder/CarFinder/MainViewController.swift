@@ -27,11 +27,10 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
                                                                   regionRadius, regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
-        let pin = Pin(title: "Busch Stadium",
-                              locationName: "Cardinals Baseball Stadium",
-                              coordinate: CLLocationCoordinate2D(latitude: 38.6223399, longitude: -90.192415))
-        
-        mapView.addAnnotation(pin)
+
+        for pin in TempSingleton.sharedInstance.pins {
+            mapView.addAnnotation(pin)
+        }
     }
 
     @IBAction func signOut(_ sender: UIBarButtonItem) {

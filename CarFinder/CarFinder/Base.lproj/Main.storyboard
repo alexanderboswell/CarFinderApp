@@ -364,15 +364,6 @@
                                 </items>
                                 <color key="barTintColor" red="0.0031618294310000001" green="0.70007854700000005" blue="0.65687686199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </toolbar>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RUd-uQ-e4L">
-                                <rect key="frame" x="31" y="125" width="352" height="30"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="descriptionEditingChanged:" destination="XHl-NF-o9f" eventType="editingChanged" id="fzw-xl-hA1"/>
-                                </connections>
-                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set A Pin" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gnd-nY-jgy">
                                 <rect key="frame" x="172" y="32" width="70" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -397,6 +388,15 @@
                                     <constraint firstAttribute="width" secondItem="Wh7-ge-QH1" secondAttribute="height" multiplier="1:1" id="x45-ZD-yXG"/>
                                 </constraints>
                             </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RUd-uQ-e4L">
+                                <rect key="frame" x="31" y="125" width="352" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="descriptionEditingChanged:" destination="XHl-NF-o9f" eventType="editingChanged" id="fzw-xl-hA1"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -428,12 +428,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2yJ-tW-GLG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="787" y="954"/>
+            <point key="canvasLocation" x="807" y="954"/>
         </scene>
-        <!--View Controller-->
+        <!--Share View Controller-->
         <scene sceneID="a6g-zo-jrc">
             <objects>
-                <viewController id="IL7-VC-27J" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShareViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="IL7-VC-27J" customClass="ShareViewController" customModule="CarFinder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8Yy-dh-V48"/>
                         <viewControllerLayoutGuide type="bottom" id="YRQ-78-Zeq"/>
@@ -452,7 +452,7 @@
                                     <barButtonItem systemItem="reply" id="r53-ai-H1F">
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <action selector="closeNewPin:" destination="XHl-NF-o9f" id="N3c-kb-pIF"/>
+                                            <action selector="exit:" destination="IL7-VC-27J" id="qqB-DC-s42"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="5h9-M7-HCK"/>
@@ -462,19 +462,46 @@
                                 </items>
                                 <color key="barTintColor" red="0.0031618294310000001" green="0.70007854700000005" blue="0.65687686199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </toolbar>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="FPS-hh-l2n">
+                                <rect key="frame" x="0.0" y="65" width="414" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4IF-XP-Ula">
+                                <rect key="frame" x="0.0" y="109" width="414" height="627"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="FPS-hh-l2n" firstAttribute="leading" secondItem="rpg-kz-mgh" secondAttribute="leading" id="0AU-Gm-7GR"/>
+                            <constraint firstAttribute="trailing" secondItem="FPS-hh-l2n" secondAttribute="trailing" id="0pv-M7-AJ0"/>
+                            <constraint firstItem="4IF-XP-Ula" firstAttribute="leading" secondItem="rpg-kz-mgh" secondAttribute="leading" id="8wv-tF-t6O"/>
                             <constraint firstItem="CrP-A8-4cl" firstAttribute="centerX" secondItem="rpg-kz-mgh" secondAttribute="centerX" id="9VE-ZJ-fWO"/>
+                            <constraint firstAttribute="trailing" secondItem="4IF-XP-Ula" secondAttribute="trailing" id="E8K-Ga-pGw"/>
                             <constraint firstAttribute="trailing" secondItem="CrP-A8-4cl" secondAttribute="trailing" id="EZP-5b-1yx"/>
                             <constraint firstItem="CrP-A8-4cl" firstAttribute="top" secondItem="8Yy-dh-V48" secondAttribute="bottom" id="FI0-P2-gpN"/>
+                            <constraint firstItem="FPS-hh-l2n" firstAttribute="centerX" secondItem="rpg-kz-mgh" secondAttribute="centerX" id="NDi-rs-wi1"/>
+                            <constraint firstItem="4IF-XP-Ula" firstAttribute="top" secondItem="FPS-hh-l2n" secondAttribute="bottom" id="fKE-Bn-rb9"/>
+                            <constraint firstItem="FPS-hh-l2n" firstAttribute="top" secondItem="CrP-A8-4cl" secondAttribute="bottom" id="rV3-7m-HGj"/>
                             <constraint firstItem="CrP-A8-4cl" firstAttribute="leading" secondItem="rpg-kz-mgh" secondAttribute="leading" id="tdE-MR-nDb"/>
+                            <constraint firstItem="YRQ-78-Zeq" firstAttribute="top" secondItem="4IF-XP-Ula" secondAttribute="bottom" id="uF4-CY-QHC"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="C1O-WG-6L2" id="0ZF-mK-Y41"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ahu-S3-2mb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="C1O-WG-6L2">
+                    <connections>
+                        <outlet property="delegate" destination="IL7-VC-27J" id="ank-td-ixZ"/>
+                        <outlet property="searchContentsController" destination="IL7-VC-27J" id="OrV-qF-EW9"/>
+                        <outlet property="searchResultsDataSource" destination="IL7-VC-27J" id="5yj-6V-L9o"/>
+                        <outlet property="searchResultsDelegate" destination="IL7-VC-27J" id="IpA-ND-FdV"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1687" y="954"/>
+            <point key="canvasLocation" x="1686.9565217391305" y="953.804347826087"/>
         </scene>
     </scenes>
     <resources>
