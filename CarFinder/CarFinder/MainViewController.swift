@@ -11,16 +11,24 @@ import UIKit
 import FirebaseAuth
 import MapKit
 
-class MainViewController: UIViewController, CLLocationManagerDelegate {
+class MainViewController: UIViewController, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var mapView: MKMapView!
     
+    @IBOutlet weak var tableView: UITableView!
+    
+    var pins = [Pin(title: "Busch Stadium", locationName: "Cardinals Baseball Stadium", coordinate: CLLocationCoordinate2D(latitude: 38.6223399, longitude: -90.192415)),Pin(title: "Gateway Arch", locationName: "St Louis momument", coordinate: CLLocationCoordinate2D(latitude: 38.624754, longitude: -90.184908)),Pin(title: "City Museum", locationName: "Best Museum, ever.", coordinate: CLLocationCoordinate2D(latitude: 38.633188, longitude: -90.200173))]
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         mapView.delegate = self
         // set initial location of the mapview
         let initialLocation = CLLocation(latitude: 38.623283, longitude: -90.190816)
         centerMapOnLocation(location: initialLocation)
+        for pin in pins {
+            mapView.addAnnotation(pin)
+        }
+       // self.tableView.register(PinTableViewCell.self, forCellReuseIdentifier: "PinTableViewCell")
     }
     let regionRadius: CLLocationDistance = 1000
     func centerMapOnLocation(location: CLLocation) {
@@ -28,9 +36,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
                                                                   regionRadius, regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
 
-        for pin in TempSingleton.sharedInstance.pins {
-            mapView.addAnnotation(pin)
-        }
     }
 
     @IBAction func signOut(_ sender: UIBarButtonItem) {
@@ -43,6 +48,49 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
     }
     func signOut() {
         performSegue(withIdentifier: "signOutSegue", sender: nil)
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return pins.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let cellIdentifier = "PinTableViewCell"
+           
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? PinTableViewCell  else {
+                fatalError("The dequeued cell is not an instance of PinTableViewCell.")
+            }
+
+            cell.titleLabel.text = pins[indexPath.row].title
+            cell.subTitleLabel.text = pins[indexPath.row].locationName
+        
+            return cell
+            
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            let pin = pins[indexPath.row]
+            pins.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            for annotation in mapView.annotations {
+                if let aTitle = annotation.title, let pinTitle = pin.title, let aSub = annotation.subtitle, let pinSub = pin.subtitle {
+                if aTitle! == pinTitle && aSub == pinSub {
+                    mapView.removeAnnotation(annotation)
+                }
+                }
+            }
+            
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let pin = pins[(indexPath.row)]
+        centerMapOnLocation( location: CLLocation(latitude: pin.coordinate.latitude, longitude: pin.coordinate.longitude))
+    }
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
     }
 
 }

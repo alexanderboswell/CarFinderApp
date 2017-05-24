@@ -17,6 +17,7 @@
 		F3169BBB1EB04809005DBCA0 /* CarFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3169BBA1EB04809005DBCA0 /* CarFinderTests.swift */; };
 		F32B5D231ECBFA0000F28779 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32B5D221ECBFA0000F28779 /* Pin.swift */; };
 		F32B5D251ECBFEA500F28779 /* VCMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32B5D241ECBFEA500F28779 /* VCMapView.swift */; };
+		F37285121ED52DF100A3E4A3 /* PinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37285111ED52DF100A3E4A3 /* PinTableViewCell.swift */; };
 		F38699EC1EBD417E006D43E1 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38699EB1EBD417E006D43E1 /* RegisterViewController.swift */; };
 		F38699F31EBE500F006D43E1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38699F21EBE500F006D43E1 /* MainViewController.swift */; };
 		F39730521EBACD8A00EADFC8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F39730511EBACD8A00EADFC8 /* GoogleService-Info.plist */; };
@@ -53,6 +54,7 @@
 		F3169BBC1EB04809005DBCA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F32B5D221ECBFA0000F28779 /* Pin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
 		F32B5D241ECBFEA500F28779 /* VCMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VCMapView.swift; sourceTree = "<group>"; };
+		F37285111ED52DF100A3E4A3 /* PinTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinTableViewCell.swift; sourceTree = "<group>"; };
 		F38699EB1EBD417E006D43E1 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		F38699F21EBE500F006D43E1 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		F39730511EBACD8A00EADFC8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				F32B5D241ECBFEA500F28779 /* VCMapView.swift */,
 				F3D2760B1ED3E29B0050F9F1 /* ShareViewController.swift */,
 				F3D2760F1ED3FC3C0050F9F1 /* TempSingleton.swift */,
+				F37285111ED52DF100A3E4A3 /* PinTableViewCell.swift */,
 			);
 			path = CarFinder;
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 				F32B5D231ECBFA0000F28779 /* Pin.swift in Sources */,
 				F39730541EBAE8BC00EADFC8 /* LoginViewController.swift in Sources */,
 				F3B1642B1ECAC36A000BED95 /* SetAPinViewController.swift in Sources */,
+				F37285121ED52DF100A3E4A3 /* PinTableViewCell.swift in Sources */,
 				F3169BAB1EB04809005DBCA0 /* CarFinder.xcdatamodeld in Sources */,
 				F32B5D251ECBFEA500F28779 /* VCMapView.swift in Sources */,
 				F3169BA31EB04809005DBCA0 /* AppDelegate.swift in Sources */,
