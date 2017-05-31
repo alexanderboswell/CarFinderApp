@@ -17,7 +17,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
     
     @IBOutlet weak var tableView: UITableView!
     
-    var pins = [Pin(title: "Busch Stadium", locationName: "Cardinals Baseball Stadium", coordinate: CLLocationCoordinate2D(latitude: 38.6223399, longitude: -90.192415)),Pin(title: "Gateway Arch", locationName: "St Louis momument", coordinate: CLLocationCoordinate2D(latitude: 38.624754, longitude: -90.184908)),Pin(title: "City Museum", locationName: "Best Museum, ever.", coordinate: CLLocationCoordinate2D(latitude: 38.633188, longitude: -90.200173))]
+    var pins = TempSingleton.sharedInstance.pins
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +28,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
         for pin in pins {
             mapView.addAnnotation(pin)
         }
-       // self.tableView.register(PinTableViewCell.self, forCellReuseIdentifier: "PinTableViewCell")
     }
     let regionRadius: CLLocationDistance = 1000
     func centerMapOnLocation(location: CLLocation) {

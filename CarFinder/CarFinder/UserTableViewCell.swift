@@ -1,18 +1,16 @@
 //
-//  PinTableViewCell.swift
+//  UsersTableViewCell.swift
 //  CarFinder
 //
-//  Created by alexander boswell on 5/23/17.
+//  Created by alexander boswell on 5/25/17.
 //  Copyright © 2017 alexander boswell. All rights reserved.
 //
 
 import UIKit
 
-class PinTableViewCell : UITableViewCell {
+class UserTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var titleLabel: UILabel!
-    
-    @IBOutlet weak var subTitleLabel: UILabel!
+    @IBOutlet weak var usernameLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,7 +18,5 @@ class PinTableViewCell : UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
     }
-    
 }

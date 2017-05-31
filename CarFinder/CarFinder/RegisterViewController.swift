@@ -48,7 +48,7 @@ class RegisterViewController: UIViewController {
         
     }
     func signIn(){
-        
+        performSegue(withIdentifier: "RegisterToMainView", sender: nil)   
     }
 
     

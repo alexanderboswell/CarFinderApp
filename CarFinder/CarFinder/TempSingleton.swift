@@ -11,6 +11,7 @@ import MapKit
 
 class TempSingleton: NSObject {
     var pins:[Pin] = []
+    var users:[User] = []
     static let sharedInstance = TempSingleton()
     override init() {
         var pin = Pin(title: "Busch Stadium", locationName: "Cardinals Baseball Stadium", coordinate: CLLocationCoordinate2D(latitude: 38.6223399, longitude: -90.192415))
@@ -19,5 +20,11 @@ class TempSingleton: NSObject {
         pins.append(pin)
         pin = Pin(title: "City Museum", locationName: "Best Museum, ever.", coordinate: CLLocationCoordinate2D(latitude: 38.633188, longitude: -90.200173))
         pins.append(pin)
+        var user = User(username: "Alex")
+        users.append(user)
+        user = User(username: "Hannah")
+        users.append(user)
+        user = User(username : "Louis")
+        users.append(user)        
     }
 }
