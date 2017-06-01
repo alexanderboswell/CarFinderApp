@@ -30,11 +30,9 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
+        
         tableView.tableHeaderView = searchController.searchBar
-
-        for user in users {
-            print(user.username)
-        }
+        tableView.allowsMultipleSelection = true
         
        // tableView.register(UserTableViewCell.self, forCellReuseIdentifier: "UserTableViewCell")
         
@@ -63,24 +61,31 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return users.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("test")
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
-        print("blah")
         let user: User
         if searchController.isActive && searchController.searchBar.text != "" {
             user = filteredUsers[indexPath.row]
-            print("1")
-            print(user.username)
         } else {
             user = users[indexPath.row]
-            print("2")
-            print(user.username)
         }
-        print(user.username)
         cell.textLabel?.text = user.username
+        
+        cell.accessoryType = cell.isSelected ? .checkmark : .none
+        cell.selectionStyle = .none // to prevent cells from being "highlighted"
+        
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.accessoryType = .none
+    }
+    
     func filterContentForSearchText(searchText: String) {
         filteredUsers = users.filter { user in
             return user.username.lowercased().contains(searchText.lowercased())
@@ -94,12 +99,10 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
 extension ShareViewController: UISearchResultsUpdating {
     @available(iOS 8.0, *)
     func updateSearchResults(for searchController: UISearchController) {
-        print ("here")
         filterContentForSearchText(searchText: searchController.searchBar.text!)
     }
 
     func updateSearchResultsForSearchController(searchController: UISearchController) {
-        print("there")
         filterContentForSearchText(searchText: searchController.searchBar.text!)
     }
 }
