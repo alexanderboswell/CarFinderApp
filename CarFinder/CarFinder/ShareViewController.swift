@@ -31,6 +31,11 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
 
+        for user in users {
+            print(user.username)
+        }
+        
+       // tableView.register(UserTableViewCell.self, forCellReuseIdentifier: "UserTableViewCell")
         
     }
     
@@ -58,17 +63,21 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("test")
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserTableViewCell", for: indexPath) as? UserTableViewCell else {
-            fatalError("The dequeued cell is not an instance of UserTableViewCell")
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+
         print("blah")
         let user: User
         if searchController.isActive && searchController.searchBar.text != "" {
             user = filteredUsers[indexPath.row]
+            print("1")
+            print(user.username)
         } else {
             user = users[indexPath.row]
+            print("2")
+            print(user.username)
         }
-        cell.usernameLabel!.text = user.username
+        print(user.username)
+        cell.textLabel?.text = user.username
         return cell
     }
     func filterContentForSearchText(searchText: String) {
