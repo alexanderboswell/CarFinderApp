@@ -27,6 +27,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         users = TempSingleton.sharedInstance.users
         
         // Setup the Search Controller
+        searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
@@ -82,7 +83,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     func filterContentForSearchText(searchText: String) {
         filteredUsers = users.filter { user in
-            return user.username.lowercased().contains(searchText)
+            return user.username.lowercased().contains(searchText.lowercased())
         }
         
         tableView.reloadData()
@@ -93,10 +94,12 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
 extension ShareViewController: UISearchResultsUpdating {
     @available(iOS 8.0, *)
     func updateSearchResults(for searchController: UISearchController) {
+        print ("here")
         filterContentForSearchText(searchText: searchController.searchBar.text!)
     }
 
     func updateSearchResultsForSearchController(searchController: UISearchController) {
+        print("there")
         filterContentForSearchText(searchText: searchController.searchBar.text!)
     }
 }
