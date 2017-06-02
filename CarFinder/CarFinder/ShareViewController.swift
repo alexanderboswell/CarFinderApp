@@ -71,7 +71,8 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
             user = users[indexPath.row]
         }
         cell.textLabel?.text = user.username
-        
+        cell.textLabel?.textColor = UIColor.darkGray
+        cell.textLabel?.font = UIFont.init(name: "Avenir Next Regular", size: 17.0)
         cell.accessoryType = cell.isSelected ? .checkmark : .none
         cell.selectionStyle = .none // to prevent cells from being "highlighted"
         
