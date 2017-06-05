@@ -25,6 +25,7 @@ class SetAPinViewController: UIViewController,CLLocationManagerDelegate {
         // Ask for Authorisation from the User.
         self.locationManager.requestAlwaysAuthorization()
         
+        
         // For use in foreground
         self.locationManager.requestWhenInUseAuthorization()
         
@@ -46,7 +47,7 @@ class SetAPinViewController: UIViewController,CLLocationManagerDelegate {
     }
     
     @IBAction func closeNewPin(_ sender: UIBarButtonItem) {
-        self.dismiss(animated: true, completion: {});
+        self.dismiss(animated: true, completion: {})
     }
     
     let regionRadius: CLLocationDistance = 1000

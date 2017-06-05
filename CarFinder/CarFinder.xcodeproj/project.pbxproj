@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		10842854A368032FC5BA302B /* Pods_CarFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91AFB58E093D3DCF109BED16 /* Pods_CarFinder.framework */; };
 		3675858AB547C730D562A0E1 /* Pods_CarFinderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9477765B632D4153073CEE94 /* Pods_CarFinderTests.framework */; };
+		F30D5E8F1EE597CC00F9C82D /* FindAFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30D5E8E1EE597CC00F9C82D /* FindAFriendViewController.swift */; };
 		F3169BA31EB04809005DBCA0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3169BA21EB04809005DBCA0 /* AppDelegate.swift */; };
 		F3169BA81EB04809005DBCA0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3169BA61EB04809005DBCA0 /* Main.storyboard */; };
 		F3169BAB1EB04809005DBCA0 /* CarFinder.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F3169BA91EB04809005DBCA0 /* CarFinder.xcdatamodeld */; };
@@ -17,6 +18,8 @@
 		F3169BBB1EB04809005DBCA0 /* CarFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3169BBA1EB04809005DBCA0 /* CarFinderTests.swift */; };
 		F32B5D231ECBFA0000F28779 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32B5D221ECBFA0000F28779 /* Pin.swift */; };
 		F32B5D251ECBFEA500F28779 /* VCMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32B5D241ECBFEA500F28779 /* VCMapView.swift */; };
+		F340B40D1EE19AEC002C5EA7 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340B40C1EE19AEC002C5EA7 /* MenuController.swift */; };
+		F340B4121EE19C07002C5EA7 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F340B4111EE19C07002C5EA7 /* SWRevealViewController.m */; };
 		F37285121ED52DF100A3E4A3 /* PinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37285111ED52DF100A3E4A3 /* PinTableViewCell.swift */; };
 		F37FE28F1EDEF17200496110 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37FE28E1EDEF17200496110 /* User.swift */; };
 		F38699EC1EBD417E006D43E1 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38699EB1EBD417E006D43E1 /* RegisterViewController.swift */; };
@@ -43,6 +46,7 @@
 		9477765B632D4153073CEE94 /* Pods_CarFinderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarFinderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6E0EC1BE30A6B1BFEC575E3 /* Pods-CarFinderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarFinderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CarFinderTests/Pods-CarFinderTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EF6BEFF0CAC2EBFDB5F6E5D9 /* Pods-CarFinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarFinder.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarFinder/Pods-CarFinder.release.xcconfig"; sourceTree = "<group>"; };
+		F30D5E8E1EE597CC00F9C82D /* FindAFriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindAFriendViewController.swift; sourceTree = "<group>"; };
 		F3169B9F1EB04809005DBCA0 /* CarFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3169BA21EB04809005DBCA0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3169BA71EB04809005DBCA0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -55,6 +59,10 @@
 		F3169BBC1EB04809005DBCA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F32B5D221ECBFA0000F28779 /* Pin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
 		F32B5D241ECBFEA500F28779 /* VCMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VCMapView.swift; sourceTree = "<group>"; };
+		F340B40C1EE19AEC002C5EA7 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
+		F340B40F1EE19BFF002C5EA7 /* SWRevealViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = "../../../../Downloads/SidebarMenu 2/SidebarMenu/SWRevealViewController.h"; sourceTree = "<group>"; };
+		F340B4101EE19C07002C5EA7 /* CarFinder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CarFinder-Bridging-Header.h"; sourceTree = "<group>"; };
+		F340B4111EE19C07002C5EA7 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = "../../../../Downloads/SidebarMenu 2/SidebarMenu/SWRevealViewController.m"; sourceTree = "<group>"; };
 		F37285111ED52DF100A3E4A3 /* PinTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinTableViewCell.swift; sourceTree = "<group>"; };
 		F37FE28E1EDEF17200496110 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F38699EB1EBD417E006D43E1 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -131,6 +139,7 @@
 		F3169BA11EB04809005DBCA0 /* CarFinder */ = {
 			isa = PBXGroup;
 			children = (
+				F340B40E1EE19BD9002C5EA7 /* SWRevealViewController */,
 				F39730511EBACD8A00EADFC8 /* GoogleService-Info.plist */,
 				F3169BA21EB04809005DBCA0 /* AppDelegate.swift */,
 				F3169BA61EB04809005DBCA0 /* Main.storyboard */,
@@ -148,6 +157,8 @@
 				F3D2760F1ED3FC3C0050F9F1 /* TempSingleton.swift */,
 				F37285111ED52DF100A3E4A3 /* PinTableViewCell.swift */,
 				F37FE28E1EDEF17200496110 /* User.swift */,
+				F340B40C1EE19AEC002C5EA7 /* MenuController.swift */,
+				F30D5E8E1EE597CC00F9C82D /* FindAFriendViewController.swift */,
 			);
 			path = CarFinder;
 			sourceTree = "<group>";
@@ -159,6 +170,16 @@
 				F3169BBC1EB04809005DBCA0 /* Info.plist */,
 			);
 			path = CarFinderTests;
+			sourceTree = "<group>";
+		};
+		F340B40E1EE19BD9002C5EA7 /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F340B4111EE19C07002C5EA7 /* SWRevealViewController.m */,
+				F340B40F1EE19BFF002C5EA7 /* SWRevealViewController.h */,
+				F340B4101EE19C07002C5EA7 /* CarFinder-Bridging-Header.h */,
+			);
+			name = SWRevealViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,6 +239,7 @@
 					F3169B9E1EB04809005DBCA0 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = A6N8P4N2HZ;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 					F3169BB51EB04809005DBCA0 = {
@@ -373,10 +395,13 @@
 				F37285121ED52DF100A3E4A3 /* PinTableViewCell.swift in Sources */,
 				F3169BAB1EB04809005DBCA0 /* CarFinder.xcdatamodeld in Sources */,
 				F32B5D251ECBFEA500F28779 /* VCMapView.swift in Sources */,
+				F340B4121EE19C07002C5EA7 /* SWRevealViewController.m in Sources */,
 				F3169BA31EB04809005DBCA0 /* AppDelegate.swift in Sources */,
 				F3D2760C1ED3E29B0050F9F1 /* ShareViewController.swift in Sources */,
 				F3D276101ED3FC3C0050F9F1 /* TempSingleton.swift in Sources */,
 				F38699EC1EBD417E006D43E1 /* RegisterViewController.swift in Sources */,
+				F340B40D1EE19AEC002C5EA7 /* MenuController.swift in Sources */,
+				F30D5E8F1EE597CC00F9C82D /* FindAFriendViewController.swift in Sources */,
 				F38699F31EBE500F006D43E1 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -517,11 +542,14 @@
 			baseConfigurationReference = FBB82EB1B6B5BD56E2413750 /* Pods-CarFinder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = A6N8P4N2HZ;
 				INFOPLIST_FILE = CarFinder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bozzy.CarFinder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CarFinder/CarFinder-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -531,11 +559,13 @@
 			baseConfigurationReference = EF6BEFF0CAC2EBFDB5F6E5D9 /* Pods-CarFinder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = A6N8P4N2HZ;
 				INFOPLIST_FILE = CarFinder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bozzy.CarFinder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CarFinder/CarFinder-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

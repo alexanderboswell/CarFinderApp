@@ -17,6 +17,8 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var menuButton: UIBarButtonItem!
+    
     var pins = TempSingleton.sharedInstance.pins
     
     override func viewDidLoad() {
@@ -28,6 +30,14 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
         for pin in pins {
             mapView.addAnnotation(pin)
         }
+        // set up side menu
+        if self.revealViewController() != nil {
+
+            menuButton.target = self.revealViewController()
+            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+        
     }
     let regionRadius: CLLocationDistance = 1000
     func centerMapOnLocation(location: CLLocation) {
@@ -37,17 +47,17 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
 
     }
 
-    @IBAction func signOut(_ sender: UIBarButtonItem) {
-        do {
-            try FIRAuth.auth()?.signOut()
-        } catch let error {
-            assertionFailure("Error signing out: \(error)")
-        }
-        signOut()
-    }
-    func signOut() {
-        performSegue(withIdentifier: "signOutSegue", sender: nil)
-    }
+//    @IBAction func signOut(_ sender: UIBarButtonItem) {
+//        do {
+//            try FIRAuth.auth()?.signOut()
+//        } catch let error {
+//            assertionFailure("Error signing out: \(error)")
+//        }
+//        signOut()
+//    }
+//    func signOut() {
+//        performSegue(withIdentifier: "signOutSegue", sender: nil)
+//    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return pins.count

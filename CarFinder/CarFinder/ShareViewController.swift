@@ -26,6 +26,8 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
         users = TempSingleton.sharedInstance.users
         
+        self.navigationController?.isNavigationBarHidden = true
+        
         // Setup the Search Controller
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
@@ -34,7 +36,6 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.tableHeaderView = searchController.searchBar
         tableView.allowsMultipleSelection = true
         
-       // tableView.register(UserTableViewCell.self, forCellReuseIdentifier: "UserTableViewCell")
         
     }
     
@@ -51,6 +52,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         TempSingleton.sharedInstance.pins.append(pin!)
         performSegue(withIdentifier: "ShareToMainView", sender: nil)
     }
+    
     
     // tableView
 

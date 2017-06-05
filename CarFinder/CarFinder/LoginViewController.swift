@@ -89,7 +89,10 @@ class LoginViewController: UIViewController {
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
         self.present(alertController, animated: true, completion: nil)
     }
-        func signIn() {
-                    performSegue(withIdentifier: "LoginToMainView", sender: nil)
+    func signIn() {
+        performSegue(withIdentifier: "LoginToMainView", sender: nil)
+        passwordTextField.text = ""
+        emailTextField.text = ""
+            
     }
 }

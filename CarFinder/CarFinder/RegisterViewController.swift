@@ -48,7 +48,9 @@ class RegisterViewController: UIViewController {
         
     }
     func signIn(){
-        performSegue(withIdentifier: "RegisterToMainView", sender: nil)   
+        performSegue(withIdentifier: "RegisterToMainView", sender: nil)
+        emailTextField.text = ""
+        passwordTextField.text = ""
     }
 
     
