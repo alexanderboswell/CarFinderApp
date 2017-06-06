@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 import FirebaseAuth
+import Firebase
+import FirebaseDatabase
 import MapKit
 
 class MainViewController: UIViewController, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
@@ -21,8 +23,23 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
     
     var pins = TempSingleton.sharedInstance.pins
     
+    // FireBase varibales
+    var user: FIRUser!
+    
+    var databasePins = [Pin]()
+    
+    var ref: FIRDatabaseReference!
+    
+    private var databaseHandle: FIRDatabaseHandle!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // set up Firebase
+        user = FIRAuth.auth()?.currentUser
+        ref = FIRDatabase.database().reference()
+        startObservingDatabase()
+        
         mapView.delegate = self
         // set initial location of the mapview
         let initialLocation = CLLocation(latitude: 38.623283, longitude: -90.190816)
@@ -37,6 +54,8 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
+        // set up for FireBase user and observe database
+        
         
     }
     let regionRadius: CLLocationDistance = 1000
@@ -46,18 +65,9 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
         mapView.setRegion(coordinateRegion, animated: true)
 
     }
-
-//    @IBAction func signOut(_ sender: UIBarButtonItem) {
-//        do {
-//            try FIRAuth.auth()?.signOut()
-//        } catch let error {
-//            assertionFailure("Error signing out: \(error)")
-//        }
-//        signOut()
-//    }
-//    func signOut() {
-//        performSegue(withIdentifier: "signOutSegue", sender: nil)
-//    }
+    func startObservingDatabase () {
+            
+    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return pins.count
