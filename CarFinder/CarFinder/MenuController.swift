@@ -33,8 +33,8 @@ class MenuController: UITableViewController {
             signOut()
         }
         func signOut() {
-            //performSegue(withIdentifier: "signOutSegue", sender: nil)
-                   self.dismiss(animated: true, completion: {});
+            performSegue(withIdentifier: "signOutSegue", sender: nil)
+                   //self.dismiss(animated: true, completion: {});
         }
     
     

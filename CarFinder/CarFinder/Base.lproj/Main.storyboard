@@ -770,6 +770,9 @@
                             <outlet property="delegate" destination="GI3-nm-ePu" id="nuX-9s-XOY"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="signOutSegue" id="d3R-lO-Rdf"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x8h-dl-NBD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -805,5 +808,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="pSa-pb-nKA"/>
         <segue reference="kR8-9u-6Dp"/>
+        <segue reference="d3R-lO-Rdf"/>
     </inferredMetricsTieBreakers>
 </document>
