@@ -21,7 +21,8 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
-    var pins = TempSingleton.sharedInstance.pins
+//    var pins = TempSingleton.sharedInstance.pins
+    var pins = [Pin]()
     
     // FireBase varibales
     var user: FIRUser!
@@ -44,9 +45,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
         // set initial location of the mapview
         let initialLocation = CLLocation(latitude: 38.623283, longitude: -90.190816)
         centerMapOnLocation(location: initialLocation)
-        for pin in pins {
-            mapView.addAnnotation(pin)
-        }
         // set up side menu
         if self.revealViewController() != nil {
 
@@ -54,9 +52,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
-        // set up for FireBase user and observe database
-        
-        
     }
     let regionRadius: CLLocationDistance = 1000
     func centerMapOnLocation(location: CLLocation) {
@@ -65,9 +60,49 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
         mapView.setRegion(coordinateRegion, animated: true)
 
     }
-    func startObservingDatabase () {
-            
+    func resetAnotations(){
+        mapView.removeAnnotations(mapView.annotations)
+        for pin in pins {
+            mapView.addAnnotation(pin)
+        }
     }
+    /// --------------------------------------------------------------------------------
+    
+    @IBAction func didTapAddItem(_ sender: UIBarButtonItem) {
+        let prompt = UIAlertController(title: "CarFinder", message: "Location", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            let userInput = prompt.textFields![0].text
+            if (userInput!.isEmpty) {
+                return
+            }
+            self.ref.child("users").child(self.user.uid).child("pins").childByAutoId().child("title").setValue(userInput)
+        }
+        prompt.addTextField(configurationHandler: nil)
+        prompt.addAction(okAction)
+        present(prompt, animated: true, completion: nil);
+    }
+    func startObservingDatabase () {
+        databaseHandle = ref.child("users/\(self.user.uid)/pins").observe(.value, with: { (snapshot) in
+            var newPins = [Pin]()
+            
+            for itemSnapShot in snapshot.children {
+                let pin = Pin(snapshot: itemSnapShot as! FIRDataSnapshot)
+                newPins.append(pin)
+            }
+            
+            self.pins = newPins
+            self.tableView.reloadData()
+            self.resetAnotations()
+            
+        })
+    }
+    
+    deinit {
+        ref.child("users/\(self.user.uid)/pins").removeObserver(withHandle: databaseHandle)
+        }
+    
+    
+    /// --------------------------------------------------------------------------------
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return pins.count
@@ -88,8 +123,10 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
+
             let pin = pins[indexPath.row]
             pins.remove(at: indexPath.row)
+            pin.ref?.removeValue()
             tableView.deleteRows(at: [indexPath], with: .fade)
             for annotation in mapView.annotations {
                 if let aTitle = annotation.title, let pinTitle = pin.title, let aSub = annotation.subtitle, let pinSub = pin.subtitle {

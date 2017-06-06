@@ -9,11 +9,13 @@
 import Foundation
 import MapKit
 import AddressBook
+import FirebaseDatabase
 
 class Pin : NSObject, MKAnnotation {
     let locationName: String
     let title: String?
     let coordinate: CLLocationCoordinate2D
+    var ref : FIRDatabaseReference?
     
     init( title: String, locationName: String, coordinate: CLLocationCoordinate2D) {
         self.title = title
@@ -22,6 +24,16 @@ class Pin : NSObject, MKAnnotation {
         
         super.init()
     }
+    init (snapshot: FIRDataSnapshot) {
+        ref = snapshot.ref
+        
+        let data = snapshot.value as! Dictionary<String, String>
+        self.title = data["title"]! as String
+        self.locationName = "blah"
+        self.coordinate =  CLLocationCoordinate2D(latitude: 38.6223399, longitude: -90.192415)
+        super.init()
+    }
+    
     var subtitle: String? {
         return locationName
     }
