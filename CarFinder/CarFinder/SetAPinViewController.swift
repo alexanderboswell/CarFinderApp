@@ -36,11 +36,16 @@ class SetAPinViewController: UIViewController,CLLocationManagerDelegate {
         }
         mapView.showsUserLocation = true
         mapView.isUserInteractionEnabled = false
+
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
         
+        view.addGestureRecognizer(tap)
+    }
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-       // print("locations = \(locValue.latitude) \(locValue.longitude)")
         let tempLocation = CLLocationCoordinate2D(latitude: locValue.latitude, longitude: locValue.longitude)
         centerMapOnLocation(location: CLLocation(latitude: locValue.latitude, longitude: locValue.longitude))
         location = tempLocation

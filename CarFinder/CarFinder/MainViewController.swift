@@ -33,6 +33,10 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
     
     private var databaseHandle: FIRDatabaseHandle!
     
+    let locationManager = CLLocationManager()
+    
+    var centerLocation = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,15 +46,31 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
         startObservingDatabase()
         
         mapView.delegate = self
-        // set initial location of the mapview
-        let initialLocation = CLLocation(latitude: 38.623283, longitude: -90.190816)
-        centerMapOnLocation(location: initialLocation)
+
         // set up side menu
         if self.revealViewController() != nil {
 
             menuButton.target = self.revealViewController()
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+        // set up configuration for showing user location
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+        mapView.showsUserLocation = true
+    }
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+        _ = CLLocationCoordinate2D(latitude: locValue.latitude, longitude: locValue.longitude)
+        if centerLocation {
+            centerMapOnLocation(location: CLLocation(latitude: locValue.latitude, longitude: locValue.longitude))
+            centerLocation = false
         }
     }
     let regionRadius: CLLocationDistance = 1000
