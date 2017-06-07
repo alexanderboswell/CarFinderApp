@@ -14,23 +14,30 @@ import FirebaseDatabase
 class Pin : NSObject, MKAnnotation {
     let locationName: String
     let title: String?
+    let latitude: Double?
+    let longitude: Double?
     let coordinate: CLLocationCoordinate2D
+    
     var ref : FIRDatabaseReference?
     
-    init( title: String, locationName: String, coordinate: CLLocationCoordinate2D) {
+    init( title: String, locationName: String, latitude: Double, longitude: Double) {
         self.title = title
         self.locationName = locationName
-        self.coordinate = coordinate
-        
+        self.latitude = latitude
+        self.longitude = longitude
+        self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         super.init()
     }
     init (snapshot: FIRDataSnapshot) {
         ref = snapshot.ref
         
-        let data = snapshot.value as! Dictionary<String, String>
-        self.title = data["title"]! as String
-        self.locationName = "blah"
-        self.coordinate =  CLLocationCoordinate2D(latitude: 38.6223399, longitude: -90.192415)
+        let data = snapshot.value as! Dictionary<String, Any>
+        
+        self.title = data["title"]! as? String
+        self.locationName = data["locationName"]! as! String
+        self.latitude = data["latitude"]! as! NSNumber as? Double
+        self.longitude = data["longitude"]! as! NSNumber as? Double
+        self.coordinate = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
         super.init()
     }
     
@@ -40,6 +47,7 @@ class Pin : NSObject, MKAnnotation {
     // annotation callout info button opens this mapItem in Maps app
     func mapItem() -> MKMapItem {
         let addressDictionary = [String(kABPersonAddressStreetKey): subtitle]
+        let coordinate = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
         let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: addressDictionary)
         
         let mapItem = MKMapItem(placemark: placemark)

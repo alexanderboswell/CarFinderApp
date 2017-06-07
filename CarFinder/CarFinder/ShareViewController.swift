@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Firebase
+import FirebaseDatabase
 
 class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -21,8 +22,17 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBOutlet weak var tableView: UITableView!
     
+    // FireBase varibales
+    var user: FIRUser!
+    
+    var ref: FIRDatabaseReference!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // set up Firebase
+        user = FIRAuth.auth()?.currentUser
+        ref = FIRDatabase.database().reference()
 
         users = TempSingleton.sharedInstance.users
         
@@ -49,7 +59,18 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     @IBAction func save(_ sender: UIBarButtonItem) {
-        TempSingleton.sharedInstance.pins.append(pin!)
+        let newPinRef = self.ref.child("users").child(self.user.uid).child("pins").childByAutoId()
+        _ = newPinRef.key
+        let newPinData = [
+            "title": pin?.title as! String,
+            "locationName": pin?.locationName as! String,
+            "latitude": pin?.latitude as! NSNumber,
+            "longitude": pin?.longitude as! NSNumber
+            ] as [String : Any]
+        
+        newPinRef.setValue(newPinData)
+        
+        
         performSegue(withIdentifier: "ShareToMainView", sender: nil)
     }
     

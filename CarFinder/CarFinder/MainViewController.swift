@@ -66,25 +66,10 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
             mapView.addAnnotation(pin)
         }
     }
-    /// --------------------------------------------------------------------------------
-    
-    @IBAction func didTapAddItem(_ sender: UIBarButtonItem) {
-        let prompt = UIAlertController(title: "CarFinder", message: "Location", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
-            let userInput = prompt.textFields![0].text
-            if (userInput!.isEmpty) {
-                return
-            }
-            self.ref.child("users").child(self.user.uid).child("pins").childByAutoId().child("title").setValue(userInput)
-        }
-        prompt.addTextField(configurationHandler: nil)
-        prompt.addAction(okAction)
-        present(prompt, animated: true, completion: nil);
-    }
+
     func startObservingDatabase () {
         databaseHandle = ref.child("users/\(self.user.uid)/pins").observe(.value, with: { (snapshot) in
             var newPins = [Pin]()
-            
             for itemSnapShot in snapshot.children {
                 let pin = Pin(snapshot: itemSnapShot as! FIRDataSnapshot)
                 newPins.append(pin)
@@ -101,22 +86,18 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
         ref.child("users/\(self.user.uid)/pins").removeObserver(withHandle: databaseHandle)
         }
     
-    
-    /// --------------------------------------------------------------------------------
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return pins.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cellIdentifier = "PinTableViewCell"
-           
             guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? PinTableViewCell  else {
                 fatalError("The dequeued cell is not an instance of PinTableViewCell.")
             }
 
             cell.titleLabel.text = pins[indexPath.row].title
             cell.subTitleLabel.text = pins[indexPath.row].locationName
-        
             return cell
             
     }

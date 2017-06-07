@@ -65,7 +65,7 @@ class SetAPinViewController: UIViewController,CLLocationManagerDelegate {
     }
     @IBAction func share(_ sender: UIBarButtonItem) {
         if descriptionOfPin != "" {
-            let pin = Pin(title: descriptionOfPin, locationName: "location", coordinate:location)
+            let pin = Pin(title: descriptionOfPin, locationName: "location", latitude:location.latitude, longitude:location.longitude)
             let shareViewController = self.storyboard?.instantiateViewController(withIdentifier: "ShareViewController") as! ShareViewController
             shareViewController.pin = pin
             self.present(shareViewController, animated: false, completion: nil)
