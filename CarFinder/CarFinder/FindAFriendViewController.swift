@@ -10,12 +10,10 @@ import Foundation
 
 class FindAFriendViewController: UIViewController {
     
+    // MARK: UI Elements
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
-    @IBAction func addFriend(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: "AddAFriendToMainView", sender: nil)
-    }
-
+    // MARK: Overridden functions
     override func viewDidLoad() {
      
         if self.revealViewController() != nil {
@@ -24,5 +22,10 @@ class FindAFriendViewController: UIViewController {
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
+    }
+    
+    // MARK: UI Actions
+    @IBAction func addFriend(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "AddAFriendToMainView", sender: nil)
     }
 }

@@ -10,29 +10,30 @@ import Foundation
 import UIKit
 import FirebaseAuth
 
-
 class LoginViewController: UIViewController, UITextFieldDelegate {
+    
+    // MARK: UI Elements
     @IBOutlet weak var emailTextField: UITextField!
+    
     @IBOutlet weak var passwordTextField: UITextField!
     
+    let FireBaseDAO = FireBaseDataObject.sharedInstance
+    
+    // MARK: Overriden functions
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
+        // set up tap to close keyboard
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
-        
         view.addGestureRecognizer(tap)
     }
-    func dismissKeyboard() {
-        view.endEditing(true)
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         if let _ = FIRAuth.auth()?.currentUser {
             self.signIn()
         }
     }
+    // MARK: UI Actions
     @IBAction func signIn(_ sender: UIButton) {
         let email = emailTextField.text
         let password = passwordTextField.text
@@ -90,7 +91,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         prompt.addAction(okAction)
         present(prompt, animated: true, completion: nil)
     }
-    
+    // MARK: Other functions
     func showAlert(_ message: String) {
         let alertController = UIAlertController(title: "CarFinder", message: message, preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
@@ -101,5 +102,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.text = ""
         emailTextField.text = ""
             
+    }
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

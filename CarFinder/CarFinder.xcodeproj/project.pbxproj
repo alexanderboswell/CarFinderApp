@@ -16,6 +16,7 @@
 		F3169BAD1EB04809005DBCA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3169BAC1EB04809005DBCA0 /* Assets.xcassets */; };
 		F3169BB01EB04809005DBCA0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3169BAE1EB04809005DBCA0 /* LaunchScreen.storyboard */; };
 		F3169BBB1EB04809005DBCA0 /* CarFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3169BBA1EB04809005DBCA0 /* CarFinderTests.swift */; };
+		F316C20F1EE97AB400FEF885 /* FireBaseDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F316C20E1EE97AB400FEF885 /* FireBaseDataObject.swift */; };
 		F32B5D231ECBFA0000F28779 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32B5D221ECBFA0000F28779 /* Pin.swift */; };
 		F32B5D251ECBFEA500F28779 /* VCMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32B5D241ECBFEA500F28779 /* VCMapView.swift */; };
 		F340B40D1EE19AEC002C5EA7 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340B40C1EE19AEC002C5EA7 /* MenuController.swift */; };
@@ -57,6 +58,7 @@
 		F3169BB61EB04809005DBCA0 /* CarFinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarFinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3169BBA1EB04809005DBCA0 /* CarFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarFinderTests.swift; sourceTree = "<group>"; };
 		F3169BBC1EB04809005DBCA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F316C20E1EE97AB400FEF885 /* FireBaseDataObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseDataObject.swift; sourceTree = "<group>"; };
 		F32B5D221ECBFA0000F28779 /* Pin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
 		F32B5D241ECBFEA500F28779 /* VCMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VCMapView.swift; sourceTree = "<group>"; };
 		F340B40C1EE19AEC002C5EA7 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				F340B4111EE19C07002C5EA7 /* SWRevealViewController.m */,
 				F340B40F1EE19BFF002C5EA7 /* SWRevealViewController.h */,
 				F340B4101EE19C07002C5EA7 /* CarFinder-Bridging-Header.h */,
+				F316C20E1EE97AB400FEF885 /* FireBaseDataObject.swift */,
 			);
 			name = SWRevealViewController;
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 				F39730541EBAE8BC00EADFC8 /* LoginViewController.swift in Sources */,
 				F3B1642B1ECAC36A000BED95 /* SetAPinViewController.swift in Sources */,
 				F37285121ED52DF100A3E4A3 /* PinTableViewCell.swift in Sources */,
+				F316C20F1EE97AB400FEF885 /* FireBaseDataObject.swift in Sources */,
 				F3169BAB1EB04809005DBCA0 /* CarFinder.xcdatamodeld in Sources */,
 				F32B5D251ECBFEA500F28779 /* VCMapView.swift in Sources */,
 				F340B4121EE19C07002C5EA7 /* SWRevealViewController.m in Sources */,

@@ -9,8 +9,11 @@
 import Foundation
 
 class User : NSObject {
+    
+    // MARK: Class variables
     let username : String
     
+    // MARK: Initizalition
     init(username : String) {
         self.username = username
     

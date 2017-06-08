@@ -13,20 +13,26 @@ import FirebaseDatabase
 
 class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    // MARK: Variables
     var pin:Pin?
+    
     var users = TempSingleton.sharedInstance.users
+    
     var filteredUsers = [User]()
+    
     let searchController = UISearchController(searchResultsController: nil)
     
+    // MARK: UI Elements
     @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var tableView: UITableView!
     
-    // FireBase varibales
+    // MARK: FireBase variables
     var user: FIRUser!
     
     var ref: FIRDatabaseReference!
     
+    // MARK: Overriden functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,9 +42,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
         users = TempSingleton.sharedInstance.users
         
-        self.navigationController?.isNavigationBarHidden = true
-        
-        // Setup the Search Controller
+        // set up the Search Controller
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
@@ -46,18 +50,19 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.tableHeaderView = searchController.searchBar
         tableView.allowsMultipleSelection = true
         
+        // set up navigation bar
+        self.navigationController?.isNavigationBarHidden = true
+        
         
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
     }
     
+    //MARK: UI Actions
     @IBAction func exit(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: {});
     }
-    
     @IBAction func save(_ sender: UIBarButtonItem) {
         let newPinRef = self.ref.child("users").child(self.user.uid).child("pins").childByAutoId()
         _ = newPinRef.key
@@ -73,10 +78,8 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         performSegue(withIdentifier: "ShareToMainView", sender: nil)
     }
-    
-    
-    // tableView
 
+    // MARK: tableView functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searchController.isActive && searchController.searchBar.text != "" {
             return filteredUsers.count
@@ -97,7 +100,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.textLabel?.textColor = UIColor.darkGray
         cell.textLabel?.font = UIFont.init(name: "Avenir Next Regular", size: 17.0)
         cell.accessoryType = cell.isSelected ? .checkmark : .none
-        cell.selectionStyle = .none // to prevent cells from being "highlighted"
+        cell.selectionStyle = .none
         
         return cell
     }
@@ -119,7 +122,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
 }
 
-
+// MARK: Search Controller Extension
 extension ShareViewController: UISearchResultsUpdating {
     @available(iOS 8.0, *)
     func updateSearchResults(for searchController: UISearchController) {

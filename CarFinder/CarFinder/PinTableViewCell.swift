@@ -10,10 +10,12 @@ import UIKit
 
 class PinTableViewCell : UITableViewCell {
     
+    // MARK: UI Elements
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet weak var subTitleLabel: UILabel!
     
+    // MARK: Overridden functions
     override func awakeFromNib() {
         super.awakeFromNib()
     }

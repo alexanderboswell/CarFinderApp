@@ -12,14 +12,18 @@ import AddressBook
 import FirebaseDatabase
 
 class Pin : NSObject, MKAnnotation {
+    
+    // MARK: Class variables
     let locationName: String
     let title: String?
     let latitude: Double?
     let longitude: Double?
     let coordinate: CLLocationCoordinate2D
-    
     var ref : FIRDatabaseReference?
-    
+    var subtitle: String? {
+        return locationName
+    }
+    //MARK: Initizalition
     init( title: String, locationName: String, latitude: Double, longitude: Double) {
         self.title = title
         self.locationName = locationName
@@ -41,10 +45,7 @@ class Pin : NSObject, MKAnnotation {
         super.init()
     }
     
-    var subtitle: String? {
-        return locationName
-    }
-    // annotation callout info button opens this mapItem in Maps app
+    // MARK: Class functions
     func mapItem() -> MKMapItem {
         let addressDictionary = [String(kABPersonAddressStreetKey): subtitle]
         let coordinate = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)

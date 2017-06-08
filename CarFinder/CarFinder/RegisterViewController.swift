@@ -13,20 +13,20 @@ import FirebaseAuth
 
 class RegisterViewController: UIViewController {
 
+    // MARK: UI Elements
     @IBOutlet weak var emailTextField: UITextField!
+    
     @IBOutlet weak var passwordTextField: UITextField!
     
+    // MARK: Overriden functions
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // set up tap to close keyboard
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(RegisterViewController.dismissKeyboard))
-        
         view.addGestureRecognizer(tap)
     }
-    func dismissKeyboard() {
-        view.endEditing(true)
-    }
-    
+
+    // MARK: UI Actions
     @IBAction func registerAccount(_ sender: UIButton) {
         let email = emailTextField.text
         let password = passwordTextField.text
@@ -51,6 +51,7 @@ class RegisterViewController: UIViewController {
         self.dismiss(animated: true, completion: {})
     }
     
+    // MARK: Other functions
     func showAlert(_ message: String){
             let alertController = UIAlertController(title: "CarFinder", message: message, preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil))
@@ -63,7 +64,7 @@ class RegisterViewController: UIViewController {
         emailTextField.text = ""
         passwordTextField.text = ""
     }
-
-    
-    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }

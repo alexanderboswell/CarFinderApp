@@ -15,16 +15,23 @@ import MapKit
 
 class MainViewController: UIViewController, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
     
+    // MARK: UI Elements
     @IBOutlet weak var mapView: MKMapView!
     
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
-//    var pins = TempSingleton.sharedInstance.pins
+    // MARK: Map Variables
     var pins = [Pin]()
+ 
+    let locationManager = CLLocationManager()
     
-    // FireBase varibales
+    var centerLocation = true
+    
+    let regionRadius: CLLocationDistance = 1000
+    
+    // MARK: FireBase variables
     var user: FIRUser!
     
     var databasePins = [Pin]()
@@ -33,10 +40,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
     
     private var databaseHandle: FIRDatabaseHandle!
     
-    let locationManager = CLLocationManager()
-    
-    var centerLocation = true
-    
+    // MARK: Overriden functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,7 +49,15 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
         ref = FIRDatabase.database().reference()
         startObservingDatabase()
         
+        // set up mapView
         mapView.delegate = self
+        self.locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+        mapView.showsUserLocation = true
 
         // set up side menu
         if self.revealViewController() != nil {
@@ -54,17 +66,9 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
-        // set up configuration for showing user location
-        // For use in foreground
-        self.locationManager.requestWhenInUseAuthorization()
-        
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
-        }
-        mapView.showsUserLocation = true
     }
+    
+    // MARK: mapView functions
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
         _ = CLLocationCoordinate2D(latitude: locValue.latitude, longitude: locValue.longitude)
@@ -73,7 +77,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
             centerLocation = false
         }
     }
-    let regionRadius: CLLocationDistance = 1000
     func centerMapOnLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
                                                                   regionRadius, regionRadius)
@@ -86,7 +89,8 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
             mapView.addAnnotation(pin)
         }
     }
-
+    
+    // MARK: FireBase functions
     func startObservingDatabase () {
         databaseHandle = ref.child("users/\(self.user.uid)/pins").observe(.value, with: { (snapshot) in
             var newPins = [Pin]()
@@ -101,12 +105,11 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
             
         })
     }
-    
     deinit {
         ref.child("users/\(self.user.uid)/pins").removeObserver(withHandle: databaseHandle)
         }
-    
 
+    // MARK: table functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return pins.count
     }
@@ -115,16 +118,12 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
             guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? PinTableViewCell  else {
                 fatalError("The dequeued cell is not an instance of PinTableViewCell.")
             }
-
             cell.titleLabel.text = pins[indexPath.row].title
             cell.subTitleLabel.text = pins[indexPath.row].locationName
             return cell
-            
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-
             let pin = pins[indexPath.row]
             pins.remove(at: indexPath.row)
             pin.ref?.removeValue()
@@ -136,9 +135,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
                 }
                 }
             }
-            
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -146,8 +142,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
         centerMapOnLocation( location: CLLocation(latitude: pin.coordinate.latitude, longitude: pin.coordinate.longitude))
     }
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return true
     }
-
 }
