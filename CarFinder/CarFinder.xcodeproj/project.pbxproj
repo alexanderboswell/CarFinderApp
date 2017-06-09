@@ -160,6 +160,7 @@
 				F37285111ED52DF100A3E4A3 /* PinTableViewCell.swift */,
 				F37FE28E1EDEF17200496110 /* User.swift */,
 				F340B40C1EE19AEC002C5EA7 /* MenuController.swift */,
+				F316C20E1EE97AB400FEF885 /* FireBaseDataObject.swift */,
 				F30D5E8E1EE597CC00F9C82D /* FindAFriendViewController.swift */,
 			);
 			path = CarFinder;
@@ -180,7 +181,6 @@
 				F340B4111EE19C07002C5EA7 /* SWRevealViewController.m */,
 				F340B40F1EE19BFF002C5EA7 /* SWRevealViewController.h */,
 				F340B4101EE19C07002C5EA7 /* CarFinder-Bridging-Header.h */,
-				F316C20E1EE97AB400FEF885 /* FireBaseDataObject.swift */,
 			);
 			name = SWRevealViewController;
 			sourceTree = "<group>";

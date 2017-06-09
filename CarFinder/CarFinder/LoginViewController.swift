@@ -17,7 +17,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var passwordTextField: UITextField!
     
-    let FireBaseDAO = FireBaseDataObject.sharedInstance
+//    let FireBaseDAO = FireBaseDataObject.sharedInstance
     
     // MARK: Overriden functions
     override func viewDidLoad() {

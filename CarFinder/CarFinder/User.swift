@@ -8,14 +8,17 @@
 
 import Foundation
 
-class User : NSObject {
+class User {
     
-    // MARK: Class variables
-    let username : String
+    // MARK: Class Variables
+    var email: String!
+    
+    var id: String!
     
     // MARK: Initizalition
-    init(username : String) {
-        self.username = username
-    
+    init(userEmail: String, userID: String) {
+        self.email = userEmail
+        self.id = userID
     }
+    
 }

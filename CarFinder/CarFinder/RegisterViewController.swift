@@ -9,11 +9,14 @@
 import Foundation
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
 
 
 class RegisterViewController: UIViewController {
 
     // MARK: UI Elements
+    @IBOutlet weak var nameTextField: UITextField!
+    
     @IBOutlet weak var emailTextField: UITextField!
     
     @IBOutlet weak var passwordTextField: UITextField!
@@ -30,6 +33,7 @@ class RegisterViewController: UIViewController {
     @IBAction func registerAccount(_ sender: UIButton) {
         let email = emailTextField.text
         let password = passwordTextField.text
+        // check to see if name field is empty
         FIRAuth.auth()?.createUser(withEmail: email!, password: password!, completion: { (user, error) in
             if let error = error {
                 if let errCode = FIRAuthErrorCode(rawValue: error._code) {
@@ -44,6 +48,16 @@ class RegisterViewController: UIViewController {
                 }
                 return
             }
+            let values = ["name": self.nameTextField.text!,"email":self.emailTextField.text!]
+            FIRDatabase.database().reference().child("users").child((user!.uid)).updateChildValues(values, withCompletionBlock: { (err,ref) in
+                
+                if err != nil {
+                    print(err ?? "Error in adding user info to database")
+                    return
+                }
+                print("Saved User Success")
+                
+            })
             self.signIn()
         })
     }
@@ -61,6 +75,7 @@ class RegisterViewController: UIViewController {
     }
     func signIn(){
         performSegue(withIdentifier: "RegisterToMainView", sender: nil)
+        nameTextField.text = ""
         emailTextField.text = ""
         passwordTextField.text = ""
     }

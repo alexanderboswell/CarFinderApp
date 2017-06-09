@@ -96,7 +96,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         } else {
             user = users[indexPath.row]
         }
-        cell.textLabel?.text = user.username
+        cell.textLabel?.text = user.email
         cell.textLabel?.textColor = UIColor.darkGray
         cell.textLabel?.font = UIFont.init(name: "Avenir Next Regular", size: 17.0)
         cell.accessoryType = cell.isSelected ? .checkmark : .none
@@ -115,7 +115,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func filterContentForSearchText(searchText: String) {
         filteredUsers = users.filter { user in
-            return user.username.lowercased().contains(searchText.lowercased())
+            return user.email.lowercased().contains(searchText.lowercased())
         }
         
         tableView.reloadData()
