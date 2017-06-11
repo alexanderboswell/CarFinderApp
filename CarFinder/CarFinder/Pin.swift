@@ -16,10 +16,15 @@ class Pin : NSObject, MKAnnotation {
     // MARK: Class variables
     let locationName: String
     let title: String?
+    
     let latitude: Double?
+    
     let longitude: Double?
+    
     let coordinate: CLLocationCoordinate2D
+    
     var ref : FIRDatabaseReference?
+    
     var subtitle: String? {
         return locationName
     }

@@ -19,6 +19,7 @@
 		F316C20F1EE97AB400FEF885 /* FireBaseDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F316C20E1EE97AB400FEF885 /* FireBaseDataObject.swift */; };
 		F32B5D231ECBFA0000F28779 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32B5D221ECBFA0000F28779 /* Pin.swift */; };
 		F32B5D251ECBFEA500F28779 /* VCMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32B5D241ECBFEA500F28779 /* VCMapView.swift */; };
+		F33421C21EED097F000CF148 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33421C11EED097F000CF148 /* UserTableViewCell.swift */; };
 		F340B40D1EE19AEC002C5EA7 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340B40C1EE19AEC002C5EA7 /* MenuController.swift */; };
 		F340B4121EE19C07002C5EA7 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F340B4111EE19C07002C5EA7 /* SWRevealViewController.m */; };
 		F37285121ED52DF100A3E4A3 /* PinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37285111ED52DF100A3E4A3 /* PinTableViewCell.swift */; };
@@ -61,6 +62,7 @@
 		F316C20E1EE97AB400FEF885 /* FireBaseDataObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseDataObject.swift; sourceTree = "<group>"; };
 		F32B5D221ECBFA0000F28779 /* Pin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
 		F32B5D241ECBFEA500F28779 /* VCMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VCMapView.swift; sourceTree = "<group>"; };
+		F33421C11EED097F000CF148 /* UserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		F340B40C1EE19AEC002C5EA7 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		F340B40F1EE19BFF002C5EA7 /* SWRevealViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = "../../../../Downloads/SidebarMenu 2/SidebarMenu/SWRevealViewController.h"; sourceTree = "<group>"; };
 		F340B4101EE19C07002C5EA7 /* CarFinder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CarFinder-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				F340B4111EE19C07002C5EA7 /* SWRevealViewController.m */,
 				F340B40F1EE19BFF002C5EA7 /* SWRevealViewController.h */,
 				F340B4101EE19C07002C5EA7 /* CarFinder-Bridging-Header.h */,
+				F33421C11EED097F000CF148 /* UserTableViewCell.swift */,
 			);
 			name = SWRevealViewController;
 			sourceTree = "<group>";
@@ -406,6 +409,7 @@
 				F38699EC1EBD417E006D43E1 /* RegisterViewController.swift in Sources */,
 				F340B40D1EE19AEC002C5EA7 /* MenuController.swift in Sources */,
 				F30D5E8F1EE597CC00F9C82D /* FindAFriendViewController.swift in Sources */,
+				F33421C21EED097F000CF148 /* UserTableViewCell.swift in Sources */,
 				F38699F31EBE500F006D43E1 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

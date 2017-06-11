@@ -26,8 +26,17 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
     override func viewDidLoad() {
 
         FIRDatabase.database().reference().child("users").observe(.value, with: { (snapshot) in
-            print("user found")
-            print(snapshot)
+            
+            var newUsers = [User]()
+            for itemSnapShot in snapshot.children {
+                let email = (itemSnapShot as AnyObject).childSnapshot(forPath: "email").value as! String
+                if email != FIRAuth.auth()?.currentUser?.email!{
+                let user = User(snapshot: itemSnapShot as! FIRDataSnapshot)
+                newUsers.append(user)
+                }
+            }
+            self.users = newUsers
+            self.tableView.reloadData()
             
         }, withCancel : nil)
         if self.revealViewController() != nil {
@@ -48,14 +57,14 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
             return users.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserTableViewCell", for: indexPath) as? UserTableViewCell else {
+            fatalError("The dequeued ceel is not an instance of UserTableViewCell")
+        }
 
         let user = users[indexPath.row]
-        cell.textLabel?.text = user.email
-        cell.textLabel?.textColor = UIColor.darkGray
-        cell.textLabel?.font = UIFont.init(name: "Avenir Next Regular", size: 17.0)
-//        cell.accessoryType = cell.isSelected ? .checkmark : .none
-//        cell.selectionStyle = .none
+        cell.emailTextField.text = user.email
+        cell.nameTextField.text = user.name
+        cell.selectionStyle = .none
         return cell
     }
 }
