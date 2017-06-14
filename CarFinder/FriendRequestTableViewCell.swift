@@ -1,26 +1,27 @@
 //
-//  UserTableViewCell.swift
+//  File.swift
 //  CarFinder
 //
-//  Created by alexander boswell on 6/10/17.
+//  Created by alexander boswell on 6/13/17.
 //  Copyright © 2017 alexander boswell. All rights reserved.
 //
 
 import UIKit
 
-class UserTableViewCell : UITableViewCell {
+class FriendRequestTableViewCell : UITableViewCell {
     
     // MARK: UI Elements
+    
     @IBOutlet weak var nameTextField: UILabel!
     
     @IBOutlet weak var emailTextField: UILabel!
     
     @IBOutlet weak var button: UIButton!
     
-    
+
     var buttonFunc: (() -> (Void))!
     
-    // MARK: Overridden
+    // MARK: Overridden 
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -28,6 +29,7 @@ class UserTableViewCell : UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    
     @IBAction func buttonTapped(_ sender: UIButton) {
         buttonFunc()
     }

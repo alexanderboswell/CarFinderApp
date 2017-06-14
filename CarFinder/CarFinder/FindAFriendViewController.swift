@@ -22,23 +22,21 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
     // MARK: UI Elements
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
+    // MARK: FireBase variables
+    var user: FIRUser!
+    
+    var ref: FIRDatabaseReference!
+    
+    private var databaseHandle: FIRDatabaseHandle!
+    
     // MARK: Overridden functions
     override func viewDidLoad() {
 
-        FIRDatabase.database().reference().child("users").observe(.value, with: { (snapshot) in
-            
-            var newUsers = [User]()
-            for itemSnapShot in snapshot.children {
-                let email = (itemSnapShot as AnyObject).childSnapshot(forPath: "email").value as! String
-                if email != FIRAuth.auth()?.currentUser?.email!{
-                let user = User(snapshot: itemSnapShot as! FIRDataSnapshot)
-                newUsers.append(user)
-                }
-            }
-            self.users = newUsers
-            self.tableView.reloadData()
-            
-        }, withCancel : nil)
+        // set up Firebase
+        user = FIRAuth.auth()?.currentUser
+        ref = FIRDatabase.database().reference()
+        
+        startObservingDataBase()
         if self.revealViewController() != nil {
             
             menuButton.target = self.revealViewController()
@@ -48,9 +46,10 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
     }
     
     // MARK: UI Actions
-    @IBAction func addFriend(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: "AddAFriendToMainView", sender: nil)
+    @IBAction func toRequests(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "toRequests", sender: nil)
     }
+    
     
     // MARK: tableView functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -58,13 +57,43 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserTableViewCell", for: indexPath) as? UserTableViewCell else {
-            fatalError("The dequeued ceel is not an instance of UserTableViewCell")
+            fatalError("The dequeued cell is not an instance of UserTableViewCell")
         }
 
         let user = users[indexPath.row]
+        print(user.id)
         cell.emailTextField.text = user.email
         cell.nameTextField.text = user.name
         cell.selectionStyle = .none
+        cell.setFunction {
+            let id = self.users[indexPath.row].id
+            self.sendRequestToUser(id!)
+        }
         return cell
+    }
+    
+    // MARK: FireBase functions
+    func startObservingDataBase () {
+        databaseHandle = ref.child("users").observe(.value, with: { (snapshot) in
+            var newUsers = [User]()
+            for itemSnapShot in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                let id = itemSnapShot.key
+                let user = User(snapshot: itemSnapShot )
+                if(user.email != self.user.email){
+                user.id = id
+                newUsers.append(user)
+                }
+            }
+            
+            self.users = newUsers
+            self.tableView.reloadData()
+        })
+    }
+    deinit {
+        ref.child("users").removeObserver(withHandle: databaseHandle)
+    }
+    func sendRequestToUser(_ userID: String) {
+        print("friend request sent!")
+        FIRDatabase.database().reference().child("users").child(userID).child("requests").child((FIRAuth.auth()?.currentUser!.uid)!).setValue(true)
     }
 }

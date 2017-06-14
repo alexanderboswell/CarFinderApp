@@ -61,7 +61,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     //MARK: UI Actions
     @IBAction func exit(_ sender: UIBarButtonItem) {
-        self.dismiss(animated: true, completion: {});
+        self.dismiss(animated: true, completion: {})
     }
     @IBAction func save(_ sender: UIBarButtonItem) {
         let newPinRef = self.ref.child("users").child(self.user.uid).child("pins").childByAutoId()

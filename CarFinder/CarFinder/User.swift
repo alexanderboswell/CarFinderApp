@@ -21,9 +21,10 @@ class User {
     var ref : FIRDatabaseReference?
     
     // MARK: Initizalition
-    init(userEmail: String, userID: String) {
+    init(userEmail: String, userID: String, userName: String) {
         self.email = userEmail
         self.id = userID
+        self.name = userName
     }
     init (snapshot: FIRDataSnapshot) {
         ref = snapshot.ref

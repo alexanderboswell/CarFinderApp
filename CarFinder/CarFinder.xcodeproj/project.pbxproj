@@ -20,8 +20,10 @@
 		F32B5D231ECBFA0000F28779 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32B5D221ECBFA0000F28779 /* Pin.swift */; };
 		F32B5D251ECBFEA500F28779 /* VCMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32B5D241ECBFEA500F28779 /* VCMapView.swift */; };
 		F33421C21EED097F000CF148 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33421C11EED097F000CF148 /* UserTableViewCell.swift */; };
+		F33B50281EEECAA300719443 /* FriendRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33B50271EEECAA300719443 /* FriendRequestViewController.swift */; };
 		F340B40D1EE19AEC002C5EA7 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340B40C1EE19AEC002C5EA7 /* MenuController.swift */; };
 		F340B4121EE19C07002C5EA7 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F340B4111EE19C07002C5EA7 /* SWRevealViewController.m */; };
+		F34460531EF01EB400CAB26C /* FriendRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34460521EF01EB400CAB26C /* FriendRequestTableViewCell.swift */; };
 		F37285121ED52DF100A3E4A3 /* PinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37285111ED52DF100A3E4A3 /* PinTableViewCell.swift */; };
 		F37FE28F1EDEF17200496110 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37FE28E1EDEF17200496110 /* User.swift */; };
 		F38699EC1EBD417E006D43E1 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38699EB1EBD417E006D43E1 /* RegisterViewController.swift */; };
@@ -63,10 +65,12 @@
 		F32B5D221ECBFA0000F28779 /* Pin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
 		F32B5D241ECBFEA500F28779 /* VCMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VCMapView.swift; sourceTree = "<group>"; };
 		F33421C11EED097F000CF148 /* UserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
+		F33B50271EEECAA300719443 /* FriendRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendRequestViewController.swift; sourceTree = "<group>"; };
 		F340B40C1EE19AEC002C5EA7 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		F340B40F1EE19BFF002C5EA7 /* SWRevealViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = "../../../../Downloads/SidebarMenu 2/SidebarMenu/SWRevealViewController.h"; sourceTree = "<group>"; };
 		F340B4101EE19C07002C5EA7 /* CarFinder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CarFinder-Bridging-Header.h"; sourceTree = "<group>"; };
 		F340B4111EE19C07002C5EA7 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = "../../../../Downloads/SidebarMenu 2/SidebarMenu/SWRevealViewController.m"; sourceTree = "<group>"; };
+		F34460521EF01EB400CAB26C /* FriendRequestTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FriendRequestTableViewCell.swift; path = ../FriendRequestTableViewCell.swift; sourceTree = "<group>"; };
 		F37285111ED52DF100A3E4A3 /* PinTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinTableViewCell.swift; sourceTree = "<group>"; };
 		F37FE28E1EDEF17200496110 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F38699EB1EBD417E006D43E1 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -160,10 +164,13 @@
 				F3D2760B1ED3E29B0050F9F1 /* ShareViewController.swift */,
 				F3D2760F1ED3FC3C0050F9F1 /* TempSingleton.swift */,
 				F37285111ED52DF100A3E4A3 /* PinTableViewCell.swift */,
+				F33421C11EED097F000CF148 /* UserTableViewCell.swift */,
+				F34460521EF01EB400CAB26C /* FriendRequestTableViewCell.swift */,
 				F37FE28E1EDEF17200496110 /* User.swift */,
 				F340B40C1EE19AEC002C5EA7 /* MenuController.swift */,
 				F316C20E1EE97AB400FEF885 /* FireBaseDataObject.swift */,
 				F30D5E8E1EE597CC00F9C82D /* FindAFriendViewController.swift */,
+				F33B50271EEECAA300719443 /* FriendRequestViewController.swift */,
 			);
 			path = CarFinder;
 			sourceTree = "<group>";
@@ -183,7 +190,6 @@
 				F340B4111EE19C07002C5EA7 /* SWRevealViewController.m */,
 				F340B40F1EE19BFF002C5EA7 /* SWRevealViewController.h */,
 				F340B4101EE19C07002C5EA7 /* CarFinder-Bridging-Header.h */,
-				F33421C11EED097F000CF148 /* UserTableViewCell.swift */,
 			);
 			name = SWRevealViewController;
 			sourceTree = "<group>";
@@ -402,6 +408,7 @@
 				F316C20F1EE97AB400FEF885 /* FireBaseDataObject.swift in Sources */,
 				F3169BAB1EB04809005DBCA0 /* CarFinder.xcdatamodeld in Sources */,
 				F32B5D251ECBFEA500F28779 /* VCMapView.swift in Sources */,
+				F33B50281EEECAA300719443 /* FriendRequestViewController.swift in Sources */,
 				F340B4121EE19C07002C5EA7 /* SWRevealViewController.m in Sources */,
 				F3169BA31EB04809005DBCA0 /* AppDelegate.swift in Sources */,
 				F3D2760C1ED3E29B0050F9F1 /* ShareViewController.swift in Sources */,
@@ -410,6 +417,7 @@
 				F340B40D1EE19AEC002C5EA7 /* MenuController.swift in Sources */,
 				F30D5E8F1EE597CC00F9C82D /* FindAFriendViewController.swift in Sources */,
 				F33421C21EED097F000CF148 /* UserTableViewCell.swift in Sources */,
+				F34460531EF01EB400CAB26C /* FriendRequestTableViewCell.swift in Sources */,
 				F38699F31EBE500F006D43E1 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
