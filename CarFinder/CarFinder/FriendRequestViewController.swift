@@ -45,11 +45,21 @@ class FriendRequestViewController: UIViewController, UITableViewDelegate, UITabl
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FriendRequestTableViewCell", for: indexPath) as? FriendRequestTableViewCell else {
             fatalError("The dequeued cell is not an instance of FriendRequestTableViewCell")
         }
-        cell.emailTextField.text = self.friendRequests[indexPath.row].email
-        cell.nameTextField.text = self.friendRequests[indexPath.row].name
+        let user = friendRequests[indexPath.row]
+        cell.emailTextField.text = user.email
+        cell.nameTextField.text = user.name
+        let id = user.id
         cell.setFunction {
-            let id = self.friendRequests[indexPath.row].id
+            self.friendRequests.remove(at:indexPath.row)
             self.acceptRequestToUser(id!)
+            self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+            self.tableView.reloadData()
+        }
+        cell.setFunctionDecline {
+            self.friendRequests.remove(at: indexPath.row)
+            self.declineRequestToUser(id!)
+            self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+            self.tableView.reloadData()
         }
         return cell
     }
@@ -76,7 +86,22 @@ class FriendRequestViewController: UIViewController, UITableViewDelegate, UITabl
         })
     }
     func acceptRequestToUser(_ userID: String){
-        
+        CURRENT_USER_REF.child("requests").child(userID).removeValue()
+        CURRENT_USER_REF.child("friends").child(userID).setValue(true)
+        FIRDatabase.database().reference().child("users").child(userID).child("friends").child(CURRENT_USER_ID).setValue(true)
+        FIRDatabase.database().reference().child("users").child(userID).child("requests").child(CURRENT_USER_ID).removeValue()
     }
+    func declineRequestToUser(_ userID: String){
+        CURRENT_USER_REF.child("requests").child(userID).removeValue()
+    }
+    var CURRENT_USER_ID: String {
+        let id = FIRAuth.auth()?.currentUser!.uid
+        return id!
+    }
+    var CURRENT_USER_REF: FIRDatabaseReference {
+        let id = FIRAuth.auth()?.currentUser!.uid
+        return USER_REF.child("\(id!)")
+    }
+    let USER_REF = FIRDatabase.database().reference().child("users")
     
 }

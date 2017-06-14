@@ -18,8 +18,11 @@ class FriendRequestTableViewCell : UITableViewCell {
     
     @IBOutlet weak var button: UIButton!
     
+    @IBOutlet weak var declineButton: UIButton!
 
     var buttonFunc: (() -> (Void))!
+    
+    var buttonFuncDecline: (() -> (Void))!
     
     // MARK: Overridden 
     override func awakeFromNib() {
@@ -33,7 +36,13 @@ class FriendRequestTableViewCell : UITableViewCell {
     @IBAction func buttonTapped(_ sender: UIButton) {
         buttonFunc()
     }
+    @IBAction func declineButtonTapped(_ sender: UIButton) {
+        buttonFuncDecline()
+    }
     func setFunction(_ function: @escaping () -> Void) {
         self.buttonFunc = function
+    }
+    func setFunctionDecline(_ function: @escaping () -> Void) {
+        self.buttonFuncDecline = function
     }
 }

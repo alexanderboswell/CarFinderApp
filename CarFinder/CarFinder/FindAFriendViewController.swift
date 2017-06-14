@@ -17,11 +17,14 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
     
     var users = [User]()
     
+    var requestCount = 0;
+    
     @IBOutlet weak var tableView: UITableView!
     
     // MARK: UI Elements
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
+    @IBOutlet weak var friendRequestsButton: UIBarButtonItem!
     // MARK: FireBase variables
     var user: FIRUser!
     
@@ -37,6 +40,7 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
         ref = FIRDatabase.database().reference()
         
         startObservingDataBase()
+        startObervingNumberOfRequests()
         if self.revealViewController() != nil {
             
             menuButton.target = self.revealViewController()
@@ -61,7 +65,6 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
         }
 
         let user = users[indexPath.row]
-        print(user.id)
         cell.emailTextField.text = user.email
         cell.nameTextField.text = user.name
         cell.selectionStyle = .none
@@ -95,5 +98,16 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
     func sendRequestToUser(_ userID: String) {
         print("friend request sent!")
         FIRDatabase.database().reference().child("users").child(userID).child("requests").child((FIRAuth.auth()?.currentUser!.uid)!).setValue(true)
+    }
+    func startObervingNumberOfRequests() {
+        let current_user_ref = FIRDatabase.database().reference().child("users").child(user.uid)
+        current_user_ref.child("requests").observe(FIRDataEventType.value,with: {(snapshot) in
+            self.requestCount = 0
+            for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                self.requestCount += 1
+                self.friendRequestsButton.title = "FriendRequests (" + String(self.requestCount) + ")"
+            }
+        })
+        
     }
 }
