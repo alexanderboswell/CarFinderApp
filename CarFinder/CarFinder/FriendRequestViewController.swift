@@ -12,8 +12,9 @@ import FirebaseDatabase
 
 class FriendRequestViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
+    // MARK: UI Elements
     @IBOutlet weak var tableView: UITableView!
+    
     // MARK: Variables
     
     var friendRequests = [User]()
@@ -54,8 +55,7 @@ class FriendRequestViewController: UIViewController, UITableViewDelegate, UITabl
         return cell
     }
     func startObservingDataBase(){
-        let current_user_ref = FIRDatabase.database().reference().child("users").child(FireBaseDataObject.system.CURRENT_USER_ID)
-        current_user_ref.child("requests").observe(FIRDataEventType.value,with: {(snapshot) in
+        FireBaseDataObject.system.CURRENT_USER_REF.child("requests").observe(FIRDataEventType.value,with: {(snapshot) in
             self.friendRequests.removeAll()
             for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
                 let id = child.key

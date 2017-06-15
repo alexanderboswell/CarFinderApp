@@ -11,7 +11,7 @@ import MapKit
 
 extension UIViewController :MKMapViewDelegate {
     
-    func mapView(_ mapView: MKMapView!, viewFor annotation: MKAnnotation!) -> MKAnnotationView! {
+    public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if let annotation = annotation as? Pin {
             let identifier = "pin"
             var view: MKPinAnnotationView
@@ -30,8 +30,8 @@ extension UIViewController :MKMapViewDelegate {
         }
         return nil
     }
-    func mapView(_ mapView: MKMapView!, annotationView view: MKAnnotationView!,
-                 calloutAccessoryControlTapped control: UIControl!) {
+    public func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
+                 calloutAccessoryControlTapped control: UIControl) {
         let location = view.annotation as! Pin
         let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
         location.mapItem().openInMaps(launchOptions: launchOptions)

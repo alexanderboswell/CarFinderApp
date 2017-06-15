@@ -92,7 +92,7 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
             for _ in snapshot.children.allObjects as! [FIRDataSnapshot] {
                 self.requestCount += 1
             }
-            self.friendRequestsButton.title = "FriendRequests (" + String(self.requestCount) + ")"
+            self.friendRequestsButton.title = "Friend Requests (" + String(self.requestCount) + ")"
         })
         
     }
