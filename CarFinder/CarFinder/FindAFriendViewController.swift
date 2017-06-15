@@ -25,19 +25,8 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
     @IBOutlet weak var friendRequestsButton: UIBarButtonItem!
-    // MARK: FireBase variables
-    var user: FIRUser!
-    
-    var ref: FIRDatabaseReference!
-    
-    private var databaseHandle: FIRDatabaseHandle!
-    
-    // MARK: Overridden functions
-    override func viewDidLoad() {
 
-        // set up Firebase
-        user = FIRAuth.auth()?.currentUser
-        ref = FIRDatabase.database().reference()
+    override func viewDidLoad() {
         
         startObservingDataBase()
         startObervingNumberOfRequests()
@@ -70,19 +59,19 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
         cell.selectionStyle = .none
         cell.setFunction {
             let id = self.users[indexPath.row].id
-            self.sendRequestToUser(id!)
+            FireBaseDataObject.system.sendRequestToUser(id!)
         }
         return cell
     }
     
     // MARK: FireBase functions
     func startObservingDataBase () {
-        databaseHandle = ref.child("users").observe(.value, with: { (snapshot) in
+    FireBaseDataObject.system.USER_REF.observe(.value, with: { (snapshot) in
             var newUsers = [User]()
             for itemSnapShot in snapshot.children.allObjects as! [FIRDataSnapshot] {
                 let id = itemSnapShot.key
                 let user = User(snapshot: itemSnapShot )
-                if(user.email != self.user.email){
+                if user.email != FIRAuth.auth()?.currentUser?.email! {
                 user.id = id
                 newUsers.append(user)
                 }
@@ -93,17 +82,14 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
         })
     }
     deinit {
-        ref.child("users").removeObserver(withHandle: databaseHandle)
+      //  ref.child("users").removeObserver(withHandle: databaseHandle)
+        FireBaseDataObject.system.removeUserObserver()
     }
-    func sendRequestToUser(_ userID: String) {
-        print("friend request sent!")
-        FIRDatabase.database().reference().child("users").child(userID).child("requests").child((FIRAuth.auth()?.currentUser!.uid)!).setValue(true)
-    }
+    
     func startObervingNumberOfRequests() {
-        let current_user_ref = FIRDatabase.database().reference().child("users").child(user.uid)
-        current_user_ref.child("requests").observe(FIRDataEventType.value,with: {(snapshot) in
+        FireBaseDataObject.system.CURRENT_USER_REF.child("requests").observe(FIRDataEventType.value,with: {(snapshot) in
             self.requestCount = 0
-            for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
+            for _ in snapshot.children.allObjects as! [FIRDataSnapshot] {
                 self.requestCount += 1
             }
             self.friendRequestsButton.title = "FriendRequests (" + String(self.requestCount) + ")"

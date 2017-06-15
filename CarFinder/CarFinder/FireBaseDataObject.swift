@@ -25,6 +25,8 @@ class FireBaseDataObject {
     }
     let USER_REF = FIRDatabase.database().reference().child("users")
     
+    let BASE_REF = FIRDatabase.database().reference()
+    
     
     func getUser(_ userID: String, completion: @escaping (User) -> Void) {
         FIRDatabase.database().reference().child("users").child(userID).observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
@@ -34,6 +36,9 @@ class FireBaseDataObject {
             completion(User(userEmail: email, userID: id, userName: name))
         })
     }
+    func sendRequestToUser(_ userID: String) {
+        USER_REF.child(userID).child("requests").child((FIRAuth.auth()?.currentUser!.uid)!).setValue(true)
+    }
     func acceptRequestToUser(_ userID: String){
         CURRENT_USER_REF.child("requests").child(userID).removeValue()
         CURRENT_USER_REF.child("friends").child(userID).setValue(true)
@@ -42,6 +47,9 @@ class FireBaseDataObject {
     }
     func declineRequestToUser(_ userID: String){
         CURRENT_USER_REF.child("requests").child(userID).removeValue()
+    }
+    func removeUserObserver() {
+        USER_REF.removeAllObservers()
     }
 
 }
