@@ -17,17 +17,15 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var editButton: UIBarButtonItem!
+    
     // MARK: Variables
     
     var friends = [User]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      //  let user = User(userEmail: "testing@gmail.com", userID: "alejfqhoqgoqegiqo", userName: "billy bob")
-       // friends.append(user)
-       // self.tableView.reloadData()
-        // set up side menu
-        
+       // self.tableView.setEditing(true, animated: true)
         startObservingDataBase()
         
         if self.revealViewController() != nil {
@@ -36,6 +34,16 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
     }
+    @IBAction func editButton(_ sender: UIBarButtonItem) {
+        if editButton.title == "Edit"{
+        self.tableView.setEditing(true, animated: true)
+            editButton.title = "Done"
+        }else if editButton.title == "Done" {
+            self.tableView.setEditing(false, animated: true)
+            editButton.title = "Edit"
+        }
+    }
+    
     // MARK: tableView functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return  friends.count
@@ -49,6 +57,15 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
         cell.emailTextField.text = user.email
         
         return cell
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let user = friends[indexPath.row]
+            self.friends.remove(at: indexPath.row)
+            FireBaseDataObject.system.removeFriendRelationship(user.id!)
+            self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+            self.tableView.reloadData()            
+        }
     }
     func startObservingDataBase() {
         FireBaseDataObject.system.CURRENT_USER_REF.child("friends").observe (FIRDataEventType.value,with: {(snapshot) in

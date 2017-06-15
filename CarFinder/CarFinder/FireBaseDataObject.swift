@@ -51,5 +51,10 @@ class FireBaseDataObject {
     func removeUserObserver() {
         USER_REF.removeAllObservers()
     }
+    func removeFriendRelationship(_ friendUserID: String){
+        USER_REF.child(CURRENT_USER_ID).child("friends").child(friendUserID).removeValue()
+        USER_REF.child(friendUserID).child("friends").child(CURRENT_USER_ID)
+        .removeValue()
+    }
 
 }
