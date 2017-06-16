@@ -64,9 +64,11 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
             self.friends.remove(at: indexPath.row)
             FireBaseDataObject.system.removeFriendRelationship(user.id!)
             self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
-            self.tableView.reloadData()            
+            self.tableView.reloadData()
         }
     }
+    
+    // MARK: FireBase functions
     func startObservingDataBase() {
         FireBaseDataObject.system.CURRENT_USER_REF.child("friends").observe (FIRDataEventType.value,with: {(snapshot) in
             self.friends.removeAll()

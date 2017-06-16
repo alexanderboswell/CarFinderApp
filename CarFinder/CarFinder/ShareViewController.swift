@@ -40,7 +40,9 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         user = FIRAuth.auth()?.currentUser
         ref = FIRDatabase.database().reference()
 
-        users = TempSingleton.sharedInstance.users
+        //users = TempSingleton.sharedInstance.users
+        
+        startObservingDataBase()
         
         // set up the Search Controller
         searchController.searchResultsUpdater = self
@@ -88,7 +90,9 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "FriendShareTableViewCell", for: indexPath) as? FriendShareTableViewCell else {
+            fatalError("The dequeued cell is not an instance of FriendTableViewCell")
+        }
 
         let user: User
         if searchController.isActive && searchController.searchBar.text != "" {
@@ -96,9 +100,8 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         } else {
             user = users[indexPath.row]
         }
-        cell.textLabel?.text = user.email
-        cell.textLabel?.textColor = UIColor.darkGray
-        cell.textLabel?.font = UIFont.init(name: "Avenir Next Regular", size: 17.0)
+        cell.nameTextField.text = user.name
+        cell.emailTextField.text = user.email
         cell.accessoryType = cell.isSelected ? .checkmark : .none
         cell.selectionStyle = .none
         
@@ -119,6 +122,20 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         
         tableView.reloadData()
+    }
+    
+    // MARK: FireBase functions
+    func startObservingDataBase(){
+        FireBaseDataObject.system.CURRENT_USER_REF.child("friends").observe (FIRDataEventType.value,with: {(snapshot) in
+            self.users.removeAll()
+            for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                let id = child.key
+                FireBaseDataObject.system.getUser(id, completion: { (user) in
+                    self.users.append(user)
+                    self.tableView.reloadData()
+                })
+            }
+        })
     }
 }
 

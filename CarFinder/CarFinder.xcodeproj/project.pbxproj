@@ -22,6 +22,7 @@
 		F33421C21EED097F000CF148 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33421C11EED097F000CF148 /* UserTableViewCell.swift */; };
 		F33A77A71EF1F5FF00A8FCF9 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33A77A61EF1F5FF00A8FCF9 /* FriendsViewController.swift */; };
 		F33A77A91EF2BB9300A8FCF9 /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33A77A81EF2BB9300A8FCF9 /* FriendTableViewCell.swift */; };
+		F33A77AD1EF39D7B00A8FCF9 /* FriendShareTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33A77AC1EF39D7B00A8FCF9 /* FriendShareTableViewCell.swift */; };
 		F33B50281EEECAA300719443 /* FriendRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33B50271EEECAA300719443 /* FriendRequestViewController.swift */; };
 		F340B40D1EE19AEC002C5EA7 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340B40C1EE19AEC002C5EA7 /* MenuController.swift */; };
 		F340B4121EE19C07002C5EA7 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F340B4111EE19C07002C5EA7 /* SWRevealViewController.m */; };
@@ -69,6 +70,7 @@
 		F33421C11EED097F000CF148 /* UserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		F33A77A61EF1F5FF00A8FCF9 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FriendsViewController.swift; path = ../FriendsViewController.swift; sourceTree = "<group>"; };
 		F33A77A81EF2BB9300A8FCF9 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FriendTableViewCell.swift; path = ../FriendTableViewCell.swift; sourceTree = "<group>"; };
+		F33A77AC1EF39D7B00A8FCF9 /* FriendShareTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendShareTableViewCell.swift; sourceTree = "<group>"; };
 		F33B50271EEECAA300719443 /* FriendRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendRequestViewController.swift; sourceTree = "<group>"; };
 		F340B40C1EE19AEC002C5EA7 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		F340B40F1EE19BFF002C5EA7 /* SWRevealViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = "../../../../Downloads/SidebarMenu 2/SidebarMenu/SWRevealViewController.h"; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				F37285111ED52DF100A3E4A3 /* PinTableViewCell.swift */,
 				F33421C11EED097F000CF148 /* UserTableViewCell.swift */,
 				F34460521EF01EB400CAB26C /* FriendRequestTableViewCell.swift */,
+				F33A77AC1EF39D7B00A8FCF9 /* FriendShareTableViewCell.swift */,
 			);
 			name = TableViewCells;
 			sourceTree = "<group>";
@@ -427,6 +430,7 @@
 				F39730541EBAE8BC00EADFC8 /* LoginViewController.swift in Sources */,
 				F3B1642B1ECAC36A000BED95 /* SetAPinViewController.swift in Sources */,
 				F37285121ED52DF100A3E4A3 /* PinTableViewCell.swift in Sources */,
+				F33A77AD1EF39D7B00A8FCF9 /* FriendShareTableViewCell.swift in Sources */,
 				F316C20F1EE97AB400FEF885 /* FireBaseDataObject.swift in Sources */,
 				F33A77A91EF2BB9300A8FCF9 /* FriendTableViewCell.swift in Sources */,
 				F3169BAB1EB04809005DBCA0 /* CarFinder.xcdatamodeld in Sources */,
