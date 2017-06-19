@@ -17,6 +17,10 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
     
     var users = [User]()
     
+    var friends = [User]()
+    
+    var sentRequests = [User]()
+    
     var requestCount = 0;
     
     @IBOutlet weak var tableView: UITableView!
@@ -29,7 +33,7 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
     override func viewDidLoad() {
         
         startObservingDataBase()
-        startObervingNumberOfRequests()
+        
         if self.revealViewController() != nil {
             
             menuButton.target = self.revealViewController()
@@ -60,12 +64,22 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
         cell.setFunction {
             let id = self.users[indexPath.row].id
             FireBaseDataObject.system.sendRequestToUser(id!)
+            FireBaseDataObject.system.saveSentRequestToUser(id!)
+            
         }
         return cell
     }
     
     // MARK: FireBase functions
-    func startObservingDataBase () {
+    func startObservingDataBase(){
+        
+        startObservingUsers()
+        startObservingFriends()
+        startObservingSentRequests()
+        startObervingNumberOfRequests()
+    }
+    
+    func startObservingUsers() {
     FireBaseDataObject.system.USER_REF.observe(.value, with: { (snapshot) in
             var newUsers = [User]()
             for itemSnapShot in snapshot.children.allObjects as! [FIRDataSnapshot] {
@@ -76,15 +90,45 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
                 newUsers.append(user)
                 }
             }
-            
+        
             self.users = newUsers
             self.tableView.reloadData()
         })
     }
     deinit {
-      //  ref.child("users").removeObserver(withHandle: databaseHandle)
         FireBaseDataObject.system.removeUserObserver()
     }
+    
+    func startObservingFriends() {
+        FireBaseDataObject.system.CURRENT_USER_REF.child("friends").observe (FIRDataEventType.value,with: {(snapshot) in
+            self.friends.removeAll()
+            print("friends")
+            for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                let id = child.key
+                FireBaseDataObject.system.getUser(id, completion: { (user) in
+                    print(user.name)
+                    self.friends.append(user)
+                    self.tableView.reloadData()
+                })
+            }
+        })
+    }
+    
+    func startObservingSentRequests() {
+        FireBaseDataObject.system.CURRENT_USER_REF.child("sent requests").observe (FIRDataEventType.value, with: {(snapshot) in
+            self.sentRequests.removeAll()
+            print("sent requests")
+            for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                let id = child.key
+                FireBaseDataObject.system.getUser(id, completion: { (user) in
+                    print(user.name)
+                    self.sentRequests.append(user)
+                    self.tableView.reloadData()
+                })
+            }
+        })
+    }
+    
     
     func startObervingNumberOfRequests() {
         FireBaseDataObject.system.CURRENT_USER_REF.child("requests").observe(FIRDataEventType.value,with: {(snapshot) in

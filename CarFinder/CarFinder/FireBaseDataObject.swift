@@ -39,13 +39,22 @@ class FireBaseDataObject {
     func sendRequestToUser(_ userID: String) {
         USER_REF.child(userID).child("requests").child((FIRAuth.auth()?.currentUser!.uid)!).setValue(true)
     }
+    func saveSentRequestToUser(_ userID: String) {
+        CURRENT_USER_REF.child("sent requests").child(userID).setValue(true)
+    }
+    func removeSentRequestToUser(_ userID: String) {
+        USER_REF.child(userID).child("sent requests").child(CURRENT_USER_ID).removeValue()
+    }
     func acceptRequestToUser(_ userID: String){
+        removeSentRequestToUser(userID)
         CURRENT_USER_REF.child("requests").child(userID).removeValue()
         CURRENT_USER_REF.child("friends").child(userID).setValue(true)
         FIRDatabase.database().reference().child("users").child(userID).child("friends").child(CURRENT_USER_ID).setValue(true)
         FIRDatabase.database().reference().child("users").child(userID).child("requests").child(CURRENT_USER_ID).removeValue()
     }
+
     func declineRequestToUser(_ userID: String){
+        removeSentRequestToUser(userID)
         CURRENT_USER_REF.child("requests").child(userID).removeValue()
     }
     func removeUserObserver() {

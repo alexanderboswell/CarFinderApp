@@ -16,9 +16,11 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     // MARK: Variables
     var pin:Pin?
     
-    var users = TempSingleton.sharedInstance.users
+    var users = [User]()
     
     var filteredUsers = [User]()
+    
+    var selectedUserIndexes = [NSIndexPath]()
     
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -66,19 +68,26 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         self.dismiss(animated: true, completion: {})
     }
     @IBAction func save(_ sender: UIBarButtonItem) {
-        let newPinRef = self.ref.child("users").child(self.user.uid).child("pins").childByAutoId()
-        _ = newPinRef.key
         let newPinData = [
             "title": pin?.title as! String,
             "locationName": pin?.locationName as! String,
             "latitude": pin?.latitude as! NSNumber,
             "longitude": pin?.longitude as! NSNumber
             ] as [String : Any]
+        var ids = [String]()
+        ids.append(self.user.uid)
+        for NSIndexPath in selectedUserIndexes {
+            print(users[NSIndexPath.row].name)
+            print(users[NSIndexPath.row].id)
+            print(users[NSIndexPath.row].email)
+            ids.append(users[NSIndexPath.row].id)
+        }
+        for String in ids {
+            FireBaseDataObject.system.USER_REF.child(String).child("pins").childByAutoId().setValue(newPinData)
+        }
         
-        newPinRef.setValue(newPinData)
         
-        
-        performSegue(withIdentifier: "ShareToMainView", sender: nil)
+       performSegue(withIdentifier: "ShareToMainView", sender: nil)
     }
 
     // MARK: tableView functions
@@ -110,6 +119,8 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        selectedUserIndexes = (tableView.indexPathsForSelectedRows as [NSIndexPath]?)!
+        
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

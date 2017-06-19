@@ -23,9 +23,14 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
     
     var friends = [User]()
     
+    var filteredFriends = [User]()
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-       // self.tableView.setEditing(true, animated: true)
+        
         startObservingDataBase()
         
         if self.revealViewController() != nil {
@@ -33,6 +38,7 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
+        
     }
     @IBAction func editButton(_ sender: UIBarButtonItem) {
         if editButton.title == "Edit"{

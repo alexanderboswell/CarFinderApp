@@ -56,15 +56,15 @@ class FriendRequestViewController: UIViewController, UITableViewDelegate, UITabl
     }
     func startObservingDataBase(){
         FireBaseDataObject.system.CURRENT_USER_REF.child("requests").observe(FIRDataEventType.value,with: {(snapshot) in
-            self.friendRequests.removeAll()
+            var newFriendRequests = [User]()
             for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
                 let id = child.key
                 FireBaseDataObject.system.getUser(id, completion: { (user) in
-                    self.friendRequests.append(user)
-                self.tableView.reloadData()
+                    newFriendRequests.append(user)
+                    self.friendRequests = newFriendRequests
+                    self.tableView.reloadData()
                 })
             }
-            
         })
     }
 }

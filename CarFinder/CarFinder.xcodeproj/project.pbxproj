@@ -35,7 +35,6 @@
 		F39730541EBAE8BC00EADFC8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39730531EBAE8BC00EADFC8 /* LoginViewController.swift */; };
 		F3B1642B1ECAC36A000BED95 /* SetAPinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B1642A1ECAC36A000BED95 /* SetAPinViewController.swift */; };
 		F3D2760C1ED3E29B0050F9F1 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D2760B1ED3E29B0050F9F1 /* ShareViewController.swift */; };
-		F3D276101ED3FC3C0050F9F1 /* TempSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D2760F1ED3FC3C0050F9F1 /* TempSingleton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,7 +84,6 @@
 		F39730531EBAE8BC00EADFC8 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F3B1642A1ECAC36A000BED95 /* SetAPinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetAPinViewController.swift; sourceTree = "<group>"; };
 		F3D2760B1ED3E29B0050F9F1 /* ShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
-		F3D2760F1ED3FC3C0050F9F1 /* TempSingleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempSingleton.swift; sourceTree = "<group>"; };
 		F41E576C10FF67310C54E3CA /* Pods-CarFinderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarFinderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarFinderTests/Pods-CarFinderTests.release.xcconfig"; sourceTree = "<group>"; };
 		FBB82EB1B6B5BD56E2413750 /* Pods-CarFinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarFinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CarFinder/Pods-CarFinder.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -166,7 +164,6 @@
 				F32B5D221ECBFA0000F28779 /* Pin.swift */,
 				F37FE28E1EDEF17200496110 /* User.swift */,
 				F32B5D241ECBFEA500F28779 /* VCMapView.swift */,
-				F3D2760F1ED3FC3C0050F9F1 /* TempSingleton.swift */,
 				F316C20E1EE97AB400FEF885 /* FireBaseDataObject.swift */,
 			);
 			path = CarFinder;
@@ -439,7 +436,6 @@
 				F340B4121EE19C07002C5EA7 /* SWRevealViewController.m in Sources */,
 				F3169BA31EB04809005DBCA0 /* AppDelegate.swift in Sources */,
 				F3D2760C1ED3E29B0050F9F1 /* ShareViewController.swift in Sources */,
-				F3D276101ED3FC3C0050F9F1 /* TempSingleton.swift in Sources */,
 				F38699EC1EBD417E006D43E1 /* RegisterViewController.swift in Sources */,
 				F340B40D1EE19AEC002C5EA7 /* MenuController.swift in Sources */,
 				F30D5E8F1EE597CC00F9C82D /* FindAFriendViewController.swift in Sources */,
