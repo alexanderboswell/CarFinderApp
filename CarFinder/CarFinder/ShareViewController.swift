@@ -22,7 +22,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var selectedUserIndexes = [NSIndexPath]()
     
-    let searchController = UISearchController(searchResultsController: nil)
+ //   let searchController = UISearchController(searchResultsController: nil)
     
     // MARK: UI Elements
     @IBOutlet weak var searchBar: UISearchBar!
@@ -47,12 +47,12 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         startObservingDataBase()
         
         // set up the Search Controller
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = false
-        definesPresentationContext = true
+ //       searchController.searchResultsUpdater = self
+ //       searchController.dimsBackgroundDuringPresentation = false
+ //       definesPresentationContext = true
         
-        tableView.tableHeaderView = searchController.searchBar
-        tableView.allowsMultipleSelection = true
+ //       tableView.tableHeaderView = searchController.searchBar
+ //       tableView.allowsMultipleSelection = true
         
         // set up navigation bar
         self.navigationController?.isNavigationBarHidden = true
@@ -92,9 +92,9 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     // MARK: tableView functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchController.isActive && searchController.searchBar.text != "" {
-            return filteredUsers.count
-        }
+   //     if searchController.isActive && searchController.searchBar.text != "" {
+     //       return filteredUsers.count
+      //  }
         return users.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -104,11 +104,11 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
 
         let user: User
-        if searchController.isActive && searchController.searchBar.text != "" {
-            user = filteredUsers[indexPath.row]
-        } else {
+     //   if searchController.isActive && searchController.searchBar.text != "" {
+     //       user = filteredUsers[indexPath.row]
+     //   } else {
             user = users[indexPath.row]
-        }
+     //   }
         cell.nameTextField.text = user.name
         cell.emailTextField.text = user.email
         cell.accessoryType = cell.isSelected ? .checkmark : .none
@@ -151,7 +151,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
 }
 
 // MARK: Search Controller Extension
-extension ShareViewController: UISearchResultsUpdating {
+/*extension ShareViewController: UISearchResultsUpdating {
     @available(iOS 8.0, *)
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchText: searchController.searchBar.text!)
@@ -160,5 +160,5 @@ extension ShareViewController: UISearchResultsUpdating {
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         filterContentForSearchText(searchText: searchController.searchBar.text!)
     }
-}
+}*/
 

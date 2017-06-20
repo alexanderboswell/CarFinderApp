@@ -23,6 +23,15 @@ class FireBaseDataObject {
         let id = FIRAuth.auth()?.currentUser!.uid
         return USER_REF.child("\(id!)")
     }
+    var current_user_name : String {
+        return (CURRENT_USER_REF.value(forKey: "name") as? String)!
+    }
+    
+    var current_user_email : String {
+        return (CURRENT_USER_REF.value(forKey: "email") as? String)!
+    }
+    
+    
     let USER_REF = FIRDatabase.database().reference().child("users")
     
     let BASE_REF = FIRDatabase.database().reference()
@@ -33,6 +42,14 @@ class FireBaseDataObject {
             let email = snapshot.childSnapshot(forPath: "email").value as! String
             let name = snapshot.childSnapshot(forPath: "name").value as! String
             let id = snapshot.key
+            completion(User(userEmail: email, userID: id, userName: name))
+        })
+    }
+    func getCurrentUser(_ completion: @escaping (User) -> Void) {
+        CURRENT_USER_REF.observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
+            let email = snapshot.childSnapshot(forPath: "email").value as! String
+            let id = snapshot.key
+            let name = snapshot.childSnapshot(forPath: "name").value as! String
             completion(User(userEmail: email, userID: id, userName: name))
         })
     }

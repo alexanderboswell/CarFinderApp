@@ -32,6 +32,8 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
 
     override func viewDidLoad() {
         
+        super.viewDidLoad()
+        
         startObservingDataBase()
         
         if self.revealViewController() != nil {
