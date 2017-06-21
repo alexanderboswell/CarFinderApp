@@ -16,8 +16,6 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     // MARK: Variables
     var pin:Pin?
     
-    var users = [User]()
-    
     var filteredUsers = [User]()
     
     var selectedUserIndexes = [NSIndexPath]()
@@ -41,10 +39,10 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // set up Firebase
         user = FIRAuth.auth()?.currentUser
         ref = FIRDatabase.database().reference()
-
-        //users = TempSingleton.sharedInstance.users
         
-        startObservingDataBase()
+        FireBaseDataObject.system.addFriendObserver {
+            self.tableView.reloadData()
+        }
         
         // set up the Search Controller
  //       searchController.searchResultsUpdater = self
@@ -77,10 +75,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         var ids = [String]()
         ids.append(self.user.uid)
         for NSIndexPath in selectedUserIndexes {
-            print(users[NSIndexPath.row].name)
-            print(users[NSIndexPath.row].id)
-            print(users[NSIndexPath.row].email)
-            ids.append(users[NSIndexPath.row].id)
+            ids.append(FireBaseDataObject.system.friends[NSIndexPath.row].id)
         }
         for String in ids {
             FireBaseDataObject.system.USER_REF.child(String).child("pins").childByAutoId().setValue(newPinData)
@@ -95,7 +90,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
    //     if searchController.isActive && searchController.searchBar.text != "" {
      //       return filteredUsers.count
       //  }
-        return users.count
+        return FireBaseDataObject.system.friends.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -107,7 +102,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
      //   if searchController.isActive && searchController.searchBar.text != "" {
      //       user = filteredUsers[indexPath.row]
      //   } else {
-            user = users[indexPath.row]
+            user = FireBaseDataObject.system.friends[indexPath.row]
      //   }
         cell.nameTextField.text = user.name
         cell.emailTextField.text = user.email
@@ -128,30 +123,17 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func filterContentForSearchText(searchText: String) {
-        filteredUsers = users.filter { user in
+        filteredUsers = FireBaseDataObject.system.friends.filter { user in
             return user.email.lowercased().contains(searchText.lowercased())
         }
         
         tableView.reloadData()
     }
     
-    // MARK: FireBase functions
-    func startObservingDataBase(){
-        FireBaseDataObject.system.CURRENT_USER_REF.child("friends").observe (FIRDataEventType.value,with: {(snapshot) in
-            self.users.removeAll()
-            for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
-                let id = child.key
-                FireBaseDataObject.system.getUser(id, completion: { (user) in
-                    self.users.append(user)
-                    self.tableView.reloadData()
-                })
-            }
-        })
-    }
 }
 
 // MARK: Search Controller Extension
-/*extension ShareViewController: UISearchResultsUpdating {
+extension ShareViewController: UISearchResultsUpdating {
     @available(iOS 8.0, *)
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchText: searchController.searchBar.text!)
@@ -160,5 +142,5 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         filterContentForSearchText(searchText: searchController.searchBar.text!)
     }
-}*/
+}
 

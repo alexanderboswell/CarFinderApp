@@ -23,10 +23,15 @@ class FireBaseDataObject {
         let id = FIRAuth.auth()?.currentUser!.uid
         return USER_REF.child("\(id!)")
     }
+    var CURRENT_USER_FRIENDS_REF: FIRDatabaseReference {
+        return CURRENT_USER_REF.child("friends")
+    }
+    var CURRENT_USER_SENT_REQUESTS_REF: FIRDatabaseReference {
+        return CURRENT_USER_REF.child("sent requests")
+    }
     var current_user_name : String {
         return (CURRENT_USER_REF.value(forKey: "name") as? String)!
     }
-    
     var current_user_email : String {
         return (CURRENT_USER_REF.value(forKey: "email") as? String)!
     }
@@ -82,5 +87,63 @@ class FireBaseDataObject {
         USER_REF.child(friendUserID).child("friends").child(CURRENT_USER_ID)
         .removeValue()
     }
+    
+    var friends = [User]()
+    
+    func addFriendObserver(_ update: @escaping () -> Void) {
+        CURRENT_USER_FRIENDS_REF.observe(FIRDataEventType.value, with: { (snapshot) in
+            self.friends.removeAll()
+            for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                let id = child.key
+                self.getUser(id, completion: { (user) in
+                    self.friends.append(user)
+                    update()
+                })
+            }
+            if snapshot.childrenCount == 0 {
+                update()
+            }
+        })
+    }
+    
+    var sentRequests = [User]()
+    
+    func addSentRequestObserver(_ update: @escaping() -> Void) {
+        CURRENT_USER_SENT_REQUESTS_REF.observe(FIRDataEventType.value, with: { (snapshot) in
+            self.sentRequests.removeAll()
+            for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                let id = child.key
+                self.getUser(id, completion: { (user) in
+                    self.sentRequests.append(user)
+                    update()
+                    
+                })
+            }
+            if snapshot.childrenCount == 0 {
+                update()
+            }
+        })
+    }
+    
+//    var users = [User]()
+//    
+//    func addUserObserver(_ update: @escaping () -> Void) {
+//        CURRENT_USER_REF.observe(FIRDataEventType.value, with: {
+//            (snapshot) in
+//            self.users.removeAll()
+//            for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
+//                let id = child.key
+//                let user = User(snapshot: child)
+//                user.id = id
+//                if user.email != FIRAuth.auth()?.currentUser?.email! {
+//                    self.users.append(user)
+//                    update()
+//                }
+//            }
+//            if snapshot.childrenCount == 0 {
+//                update()
+//            }
+//        })
+//    }
 
 }

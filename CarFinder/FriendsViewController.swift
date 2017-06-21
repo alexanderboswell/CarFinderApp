@@ -19,19 +19,13 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet weak var editButton: UIBarButtonItem!
     
-    // MARK: Variables
-    
-    var friends = [User]()
-    
-    var filteredFriends = [User]()
-    
-    let searchController = UISearchController(searchResultsController: nil)
-    
-    
+    // MARK: Overriden functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        startObservingDataBase()
+        FireBaseDataObject.system.addFriendObserver {
+            self.tableView.reloadData()
+        }
         
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()
@@ -40,6 +34,8 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
         }
         
     }
+    
+    // MARK: UI Actions
     @IBAction func editButton(_ sender: UIBarButtonItem) {
         if editButton.title == "Edit"{
         self.tableView.setEditing(true, animated: true)
@@ -52,13 +48,13 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
     
     // MARK: tableView functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return  friends.count
+        return  FireBaseDataObject.system.friends.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FriendTableViewCell", for: indexPath) as? FriendTableViewCell else {
             fatalError("The dequeued cell is not an instance of FriendTableViewCell")
         }
-        let user = friends[indexPath.row]
+        let user = FireBaseDataObject.system.friends[indexPath.row]
         cell.nameTextField.text = user.name
         cell.emailTextField.text = user.email
         
@@ -66,25 +62,12 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let user = friends[indexPath.row]
-            self.friends.remove(at: indexPath.row)
+            let user = FireBaseDataObject.system.friends[indexPath.row]
+            FireBaseDataObject.system.friends.remove(at: indexPath.row)
             FireBaseDataObject.system.removeFriendRelationship(user.id!)
             self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
             self.tableView.reloadData()
         }
     }
     
-    // MARK: FireBase functions
-    func startObservingDataBase() {
-        FireBaseDataObject.system.CURRENT_USER_REF.child("friends").observe (FIRDataEventType.value,with: {(snapshot) in
-            self.friends.removeAll()
-            for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
-                let id = child.key
-                FireBaseDataObject.system.getUser(id, completion: { (user) in
-                self.friends.append(user)
-                self.tableView.reloadData()
-                })
-            }
-        })
-    }
 }
