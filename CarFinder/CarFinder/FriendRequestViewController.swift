@@ -52,6 +52,16 @@ class FriendRequestViewController: UIViewController, UITableViewDelegate, UITabl
             self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
             self.tableView.reloadData()
         }
+        cell.profileImageView.layer.cornerRadius = 25
+        cell.profileImageView.clipsToBounds = true
+        cell.profileImageView.contentMode = .scaleAspectFill
+        if let profileImageURL = user.profileImageURL {
+            
+            cell.profileImageView.loadImageUsingCacheWithURLString(urlString: profileImageURL)
+            
+        }else {
+            print (" no user profile image")
+        }
         return cell
     }
     func startObservingDataBase(){

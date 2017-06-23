@@ -101,6 +101,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         performSegue(withIdentifier: "LoginToMainView", sender: nil)
         passwordTextField.text = ""
         emailTextField.text = ""
+        FireBaseDataObject.system.getCurrentUser { (User) in
+            print("USER image url on login")
+            print(User.profileImageURL)
+            UIImageView().loadImageUsingCacheWithURLString(urlString: User.profileImageURL)
+        }
             
     }
     func dismissKeyboard() {

@@ -30,6 +30,7 @@ class AccountViewController: UIViewController {
         self.profileImageView.layer.cornerRadius = 65
         self.profileImageView.clipsToBounds = true
         self.profileImageView.contentMode = .scaleAspectFill
+        
         FireBaseDataObject.system.getCurrentUser { (user) in
             self.profileImageView.loadImageUsingCacheWithURLString(urlString: user.profileImageURL)
             self.emailLabel.text = user.email

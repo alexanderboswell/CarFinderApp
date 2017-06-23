@@ -17,6 +17,7 @@ class UserTableViewCell : UITableViewCell {
     
     @IBOutlet weak var button: UIButton!
     
+    @IBOutlet weak var profileImageView: UIImageView!
     
     var buttonFunc: (() -> (Void))!
     

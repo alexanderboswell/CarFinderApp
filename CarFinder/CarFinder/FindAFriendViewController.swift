@@ -66,6 +66,17 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
             FireBaseDataObject.system.saveSentRequestToUser(id!)
             
         }
+        cell.profileImageView.layer.cornerRadius = 25
+        cell.profileImageView.clipsToBounds = true
+        cell.profileImageView.contentMode = .scaleAspectFill
+        if let profileImageURL = user.profileImageURL {
+            
+            cell.profileImageView.loadImageUsingCacheWithURLString(urlString: profileImageURL)
+            
+        }else {
+            print (" no user profile image")
+        }
+        
         return cell
     }
     

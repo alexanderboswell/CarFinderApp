@@ -12,8 +12,8 @@ let imageCache = NSCache<AnyObject, AnyObject>()
 
 extension UIImageView {
     func loadImageUsingCacheWithURLString( urlString: String){
-        
-        self.image = nil
+    
+        self.image = UIImage(named: "Default Photo Placeholder")
         
         if  let cachedImage = imageCache.object(forKey: urlString as AnyObject) as? UIImage {
             self.image = cachedImage

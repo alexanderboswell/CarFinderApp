@@ -108,7 +108,16 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.emailTextField.text = user.email
         cell.accessoryType = cell.isSelected ? .checkmark : .none
         cell.selectionStyle = .none
-        
+        cell.profileImageView.layer.cornerRadius = 25
+        cell.profileImageView.clipsToBounds = true
+        cell.profileImageView.contentMode = .scaleAspectFill
+        if let profileImageURL = user.profileImageURL {
+            
+            cell.profileImageView.loadImageUsingCacheWithURLString(urlString: profileImageURL)
+            
+        }else {
+            print (" no user profile image")
+        }
         return cell
     }
     

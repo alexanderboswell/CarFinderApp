@@ -31,7 +31,9 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
         view.addGestureRecognizer(tap)
         
         profileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImage)))
-        
+        profileImageView.layer.cornerRadius = 49
+        profileImageView.clipsToBounds = true
+        profileImageView.contentMode = .scaleAspectFill
     }
     func handleSelectProfileImage(){
         let picker = UIImagePickerController()
@@ -104,7 +106,7 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
             let imageName = NSUUID().uuidString
             let storageRef = FIRStorage.storage().reference().child("profile_images").child("\(imageName).jpg")
             
-            if let profileImage = self.profileImageView.image, let uploadData = UIImageJPEGRepresentation(profileImage, 0.05){
+            if let profileImage = self.profileImageView.image, let uploadData = UIImageJPEGRepresentation(profileImage, 0.02){
                 
                 storageRef.put(uploadData, metadata: nil, completion: { (metadata, error) in
                     
