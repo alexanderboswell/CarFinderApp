@@ -19,16 +19,24 @@ class AccountViewController: UIViewController {
     
     @IBOutlet weak var emailLabel: UILabel!
     
+    @IBOutlet weak var profileImageView: UIImageView!
+    
     var currentUser : User!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        self.profileImageView.layer.cornerRadius = 65
+        self.profileImageView.clipsToBounds = true
+        self.profileImageView.contentMode = .scaleAspectFill
         FireBaseDataObject.system.getCurrentUser { (user) in
+            self.profileImageView.loadImageUsingCacheWithURLString(urlString: user.profileImageURL)
             self.emailLabel.text = user.email
             self.nameLabel.text = user.name
             self.currentUser = user
         }
+        
         
         if self.revealViewController() != nil {
             

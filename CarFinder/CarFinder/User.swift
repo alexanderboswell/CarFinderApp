@@ -18,13 +18,16 @@ class User {
     
     var name: String!
     
+    var profileImageURL: String!
+    
     var ref : FIRDatabaseReference?
     
     // MARK: Initizalition
-    init(userEmail: String, userID: String, userName: String) {
+    init(userEmail: String, userID: String, userName: String, profileImageURL: String) {
         self.email = userEmail
         self.id = userID
         self.name = userName
+        self.profileImageURL = profileImageURL
     }
     init (snapshot: FIRDataSnapshot) {
         ref = snapshot.ref
@@ -33,6 +36,7 @@ class User {
         
         self.email = data["email"] as? String
         self.name = data["name"] as? String
+        self.profileImageURL = data["profileImageURL"] as? String
     }
     
 }

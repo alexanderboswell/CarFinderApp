@@ -14,6 +14,9 @@ class FriendTableViewCell : UITableViewCell {
     
     @IBOutlet weak var emailTextField: UILabel!
     
+    @IBOutlet weak var profileImageView: UIImageView!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }

@@ -26,6 +26,8 @@
 	<string>Main</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app would like to use your location to be able to set a pin</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app would like to use your camera roll to upload a profile picture</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

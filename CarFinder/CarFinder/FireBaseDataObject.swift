@@ -46,8 +46,9 @@ class FireBaseDataObject {
         FIRDatabase.database().reference().child("users").child(userID).observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
             let email = snapshot.childSnapshot(forPath: "email").value as! String
             let name = snapshot.childSnapshot(forPath: "name").value as! String
+            let profileImage = snapshot.childSnapshot(forPath: "profileImageURL").value as! String
             let id = snapshot.key
-            completion(User(userEmail: email, userID: id, userName: name))
+            completion(User(userEmail: email, userID: id, userName: name, profileImageURL: profileImage))
         })
     }
     func getCurrentUser(_ completion: @escaping (User) -> Void) {
@@ -55,7 +56,8 @@ class FireBaseDataObject {
             let email = snapshot.childSnapshot(forPath: "email").value as! String
             let id = snapshot.key
             let name = snapshot.childSnapshot(forPath: "name").value as! String
-            completion(User(userEmail: email, userID: id, userName: name))
+            let profileImage = snapshot.childSnapshot(forPath: "profileImageURL").value as! String
+            completion(User(userEmail: email, userID: id, userName: name, profileImageURL : profileImage))
         })
     }
     func sendRequestToUser(_ userID: String) {

@@ -57,6 +57,17 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
         let user = FireBaseDataObject.system.friends[indexPath.row]
         cell.nameTextField.text = user.name
         cell.emailTextField.text = user.email
+        cell.profileImageView.layer.cornerRadius = 25
+        cell.profileImageView.clipsToBounds = true
+        cell.profileImageView.contentMode = .scaleAspectFill
+        if let profileImageURL = user.profileImageURL {
+            
+            cell.profileImageView.loadImageUsingCacheWithURLString(urlString: profileImageURL)
+            
+        }else {
+            print (" no user profile image")
+        }
+        
         
         return cell
     }

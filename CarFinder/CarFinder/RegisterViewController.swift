@@ -10,9 +10,10 @@ import Foundation
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseStorage
 
 
-class RegisterViewController: UIViewController {
+class RegisterViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     // MARK: UI Elements
     @IBOutlet weak var nameTextField: UITextField!
@@ -21,20 +22,72 @@ class RegisterViewController: UIViewController {
     
     @IBOutlet weak var passwordTextField: UITextField!
     
+    @IBOutlet weak var profileImageView: UIImageView!
     // MARK: Overriden functions
     override func viewDidLoad() {
         super.viewDidLoad()
         // set up tap to close keyboard
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(RegisterViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
+        
+        profileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImage)))
+        
+    }
+    func handleSelectProfileImage(){
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true, completion: nil)
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        print("canceled")
+        self.dismiss(animated: true, completion: nil)
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        print(info)
+        
+        var selectedImageFromPicker: UIImage?
+        
+        
+        if let editedImage = info ["UIImagePickerControllerEditedImage"] as? UIImage {
+            selectedImageFromPicker = editedImage
+            
+        } else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+            selectedImageFromPicker = originalImage
+        }
+        
+        if let selectedImage = selectedImageFromPicker {
+            profileImageView.image = selectedImage
+        }
+        
+        self.dismiss(animated: true, completion: nil)
     }
 
+    
     // MARK: UI Actions
     @IBAction func registerAccount(_ sender: UIButton) {
+        
         let email = emailTextField.text
         let password = passwordTextField.text
-        // check to see if name field is empty
-        FIRAuth.auth()?.createUser(withEmail: email!, password: password!, completion: { (user, error) in
+        let name = nameTextField.text
+        if email == "" {
+            self.showAlert("Please enter a email")
+            return
+        } else if password == "" {
+            self.showAlert("Please enter a pasword")
+            return
+        } else if name == "" {
+            self.showAlert("Please enter a name")
+            return
+        } else {
+        self.addNewUser(email: email!, password: password!, name:name!)
+        }
+    }
+    @IBAction func backToLogin(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: {})
+    }
+    func addNewUser(email: String, password: String, name: String ){
+        FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user, error) in
             if let error = error {
                 if let errCode = FIRAuthErrorCode(rawValue: error._code) {
                     switch errCode {
@@ -48,22 +101,39 @@ class RegisterViewController: UIViewController {
                 }
                 return
             }
-            let values = ["name": self.nameTextField.text!,"email":self.emailTextField.text!]
-            FIRDatabase.database().reference().child("users").child((user!.uid)).updateChildValues(values, withCompletionBlock: { (err,ref) in
+            let imageName = NSUUID().uuidString
+            let storageRef = FIRStorage.storage().reference().child("profile_images").child("\(imageName).jpg")
+            
+            if let profileImage = self.profileImageView.image, let uploadData = UIImageJPEGRepresentation(profileImage, 0.05){
                 
-                if err != nil {
-                    print(err ?? "Error in adding user info to database")
-                    return
-                }
-                print("Saved User Success")
-                
-            })
-            self.signIn()
+                storageRef.put(uploadData, metadata: nil, completion: { (metadata, error) in
+                    
+                    if error != nil {
+                        print(error)
+                        return
+                    }
+                    print(metadata)
+                    if let profileImageURL = metadata?.downloadURL()?.absoluteString {
+                        let values = ["name": name,"email":email,"profileImageURL": profileImageURL]
+                        FIRDatabase.database().reference().child("users").child((user!.uid)).updateChildValues(values, withCompletionBlock: { (err,ref) in
+                            
+                            if err != nil {
+                                print(err ?? "Error in adding user info to database")
+                                return
+                            }
+                            print("Saved User Success")
+                            imageCache.object(forKey: profileImageURL as AnyObject)
+                        })
+                        self.signIn()
+                  
+                    }
+                })
+            }
+            
+
         })
     }
-    @IBAction func backToLogin(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: {})
-    }
+    
     
     // MARK: Other functions
     func showAlert(_ message: String){

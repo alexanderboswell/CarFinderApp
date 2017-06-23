@@ -29,6 +29,7 @@
 		F340B4121EE19C07002C5EA7 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F340B4111EE19C07002C5EA7 /* SWRevealViewController.m */; };
 		F34460531EF01EB400CAB26C /* FriendRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34460521EF01EB400CAB26C /* FriendRequestTableViewCell.swift */; };
 		F37285121ED52DF100A3E4A3 /* PinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37285111ED52DF100A3E4A3 /* PinTableViewCell.swift */; };
+		F37CC4291EFC8BD4006AA013 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37CC4281EFC8BD4006AA013 /* Extensions.swift */; };
 		F37FE28F1EDEF17200496110 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37FE28E1EDEF17200496110 /* User.swift */; };
 		F38699EC1EBD417E006D43E1 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38699EB1EBD417E006D43E1 /* RegisterViewController.swift */; };
 		F38699F31EBE500F006D43E1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38699F21EBE500F006D43E1 /* MainViewController.swift */; };
@@ -79,6 +80,7 @@
 		F340B4111EE19C07002C5EA7 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = "../../../../Downloads/SidebarMenu 2/SidebarMenu/SWRevealViewController.m"; sourceTree = "<group>"; };
 		F34460521EF01EB400CAB26C /* FriendRequestTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FriendRequestTableViewCell.swift; path = ../FriendRequestTableViewCell.swift; sourceTree = "<group>"; };
 		F37285111ED52DF100A3E4A3 /* PinTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinTableViewCell.swift; sourceTree = "<group>"; };
+		F37CC4281EFC8BD4006AA013 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		F37FE28E1EDEF17200496110 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F38699EB1EBD417E006D43E1 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		F38699F21EBE500F006D43E1 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 		F3169BA11EB04809005DBCA0 /* CarFinder */ = {
 			isa = PBXGroup;
 			children = (
+				F37CC4271EFC8BB8006AA013 /* Helpers */,
 				F340B40E1EE19BD9002C5EA7 /* SWRevealViewController */,
 				F3169BA21EB04809005DBCA0 /* AppDelegate.swift */,
 				F39730511EBACD8A00EADFC8 /* GoogleService-Info.plist */,
@@ -217,6 +220,14 @@
 				F340B4101EE19C07002C5EA7 /* CarFinder-Bridging-Header.h */,
 			);
 			name = SWRevealViewController;
+			sourceTree = "<group>";
+		};
+		F37CC4271EFC8BB8006AA013 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F37CC4281EFC8BD4006AA013 /* Extensions.swift */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -425,6 +436,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F37CC4291EFC8BD4006AA013 /* Extensions.swift in Sources */,
 				F37FE28F1EDEF17200496110 /* User.swift in Sources */,
 				F32B5D231ECBFA0000F28779 /* Pin.swift in Sources */,
 				F39730541EBAE8BC00EADFC8 /* LoginViewController.swift in Sources */,

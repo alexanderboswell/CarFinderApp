@@ -26,7 +26,7 @@ class Pin : NSObject, MKAnnotation {
     var ref : FIRDatabaseReference?
     
     var subtitle: String? {
-        return locationName
+        return ""
     }
     //MARK: Initizalition
     init( title: String, locationName: String, latitude: Double, longitude: Double) {
