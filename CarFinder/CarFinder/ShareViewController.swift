@@ -27,6 +27,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     // MARK: FireBase variables
     var user: FIRUser!
     
@@ -55,6 +56,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // set up navigation bar
         self.navigationController?.isNavigationBarHidden = true
         
+        saveButton.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], for: UIControlState.normal)
         
     }
     override func viewWillAppear(_ animated: Bool) {

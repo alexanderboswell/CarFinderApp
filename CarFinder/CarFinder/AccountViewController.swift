@@ -11,7 +11,7 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 
-class AccountViewController: UIViewController {
+class AccountViewController: UIViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
@@ -38,14 +38,86 @@ class AccountViewController: UIViewController {
             self.currentUser = user
         }
         
-        
         if self.revealViewController() != nil {
             
             menuButton.target = self.revealViewController()
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
+        profileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImage)))
     }
+    func handleSelectProfileImage() {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker,animated: true, completion: nil)
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        var selectedImageFromPicker: UIImage?
+        
+        
+        if let editedImage = info ["UIImagePickerControllerEditedImage"] as? UIImage {
+            selectedImageFromPicker = editedImage
+            
+        } else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+            selectedImageFromPicker = originalImage
+        }
+        
+        if let selectedImage = selectedImageFromPicker {
+            profileImageView.image = selectedImage
+        }
+        let imageName = NSUUID().uuidString
+        let storageRef = FIRStorage.storage().reference().child("profile_images")
+        let oldImageName = currentUser.imageName + ".jpg"
+        if let profileImage = self.profileImageView.image, let uploadData = UIImageJPEGRepresentation(profileImage, 0.02) {
+            storageRef.child("\(imageName).jpg")
+                .put(uploadData, metadata: nil, completion: {
+                (metadata, error) in
+                
+                if error != nil {
+                    print(error ?? "Error")
+                    return
+                }
+                if let profileImageURL = metadata?.downloadURL()?.absoluteString {
+                    FireBaseDataObject.system.CURRENT_USER_REF.child("profileImageURL").setValue(profileImageURL, withCompletionBlock: { (err,ref) in
+                        
+                        if err != nil {
+                            print(err ?? "Error in adding user info to database")
+                            return
+                        }
+                        
+                        FireBaseDataObject.system.CURRENT_USER_REF.child("imageName").setValue(imageName, withCompletionBlock:
+                            { (err, ref) in
+                            
+                                if err != nil {
+                                 print(err ?? "Error in setting new image name")
+                                    return
+                                } else {
+                                print("Saved User Success")
+                                self.currentUser.imageName = imageName
+                                let imageRef = storageRef.child(oldImageName)
+                                imageRef.delete { error in
+                                if let error = error {
+                                    print(error)
+                                    return
+                                } else {
+                                    print("deleted old profile image")
+                                    self.dismiss(animated: true, completion: nil)
+                                    }
+                                }
+                            }
+                        })
+                    })
+                }
+            })
+        }
+        
+    }
+    
     @IBAction func resetPassword(_ sender: UIButton) {
         FIRAuth.auth()?.sendPasswordReset(withEmail: currentUser.email, completion: {
             (error) in

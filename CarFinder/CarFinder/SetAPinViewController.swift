@@ -13,7 +13,10 @@ import MapKit
 class SetAPinViewController: UIViewController,CLLocationManagerDelegate {
     
     @IBOutlet weak var descriptionTextField: UITextField!
+   
     @IBOutlet weak var mapView: MKMapView!
+    
+    @IBOutlet weak var shareButton: UIBarButtonItem!
     
     var descriptionOfPin = ""
     var location = CLLocationCoordinate2D()
@@ -40,6 +43,8 @@ class SetAPinViewController: UIViewController,CLLocationManagerDelegate {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
         
         view.addGestureRecognizer(tap)
+        
+        shareButton.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], for: UIControlState.normal)
     }
     func dismissKeyboard() {
         view.endEditing(true)

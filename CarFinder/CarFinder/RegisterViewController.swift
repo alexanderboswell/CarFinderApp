@@ -111,12 +111,11 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
                 storageRef.put(uploadData, metadata: nil, completion: { (metadata, error) in
                     
                     if error != nil {
-                        print(error)
+                        print(error ?? "Error")
                         return
                     }
-                    print(metadata)
                     if let profileImageURL = metadata?.downloadURL()?.absoluteString {
-                        let values = ["name": name,"email":email,"profileImageURL": profileImageURL]
+                        let values = ["name": name,"email":email,"profileImageURL": profileImageURL,"imageName": imageName]
                         FIRDatabase.database().reference().child("users").child((user!.uid)).updateChildValues(values, withCompletionBlock: { (err,ref) in
                             
                             if err != nil {

@@ -47,8 +47,9 @@ class FireBaseDataObject {
             let email = snapshot.childSnapshot(forPath: "email").value as! String
             let name = snapshot.childSnapshot(forPath: "name").value as! String
             let profileImage = snapshot.childSnapshot(forPath: "profileImageURL").value as! String
+            let imageName = snapshot.childSnapshot(forPath: "imageName").value as! String
             let id = snapshot.key
-            completion(User(userEmail: email, userID: id, userName: name, profileImageURL: profileImage))
+            completion(User(userEmail: email, userID: id, userName: name, profileImageURL: profileImage, imageName: imageName))
         })
     }
     func getCurrentUser(_ completion: @escaping (User) -> Void) {
@@ -57,7 +58,8 @@ class FireBaseDataObject {
             let id = snapshot.key
             let name = snapshot.childSnapshot(forPath: "name").value as! String
             let profileImage = snapshot.childSnapshot(forPath: "profileImageURL").value as! String
-            completion(User(userEmail: email, userID: id, userName: name, profileImageURL : profileImage))
+            let imageName = snapshot.childSnapshot(forPath: "imageName").value as! String
+            completion(User(userEmail: email, userID: id, userName: name, profileImageURL : profileImage, imageName: imageName))
         })
     }
     func sendRequestToUser(_ userID: String) {

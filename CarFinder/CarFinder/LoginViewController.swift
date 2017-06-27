@@ -29,9 +29,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let _ = FIRAuth.auth()?.currentUser {
-            self.signIn()
-        }
+       // if let _ = FIRAuth.auth()?.currentUser {
+        //    self.signIn()
+        //}
     }
     // MARK: UI Actions
     @IBAction func signIn(_ sender: UIButton) {

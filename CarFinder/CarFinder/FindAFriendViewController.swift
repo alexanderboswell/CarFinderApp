@@ -39,6 +39,7 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
+        friendRequestsButton.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], for: UIControlState.normal)
     }
     
     // MARK: UI Actions

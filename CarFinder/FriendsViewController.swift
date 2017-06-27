@@ -33,6 +33,8 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
         
+        editButton.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], for: UIControlState.normal)
+        
     }
     
     // MARK: UI Actions
