@@ -37,6 +37,7 @@
 		F39730541EBAE8BC00EADFC8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39730531EBAE8BC00EADFC8 /* LoginViewController.swift */; };
 		F3B1642B1ECAC36A000BED95 /* SetAPinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B1642A1ECAC36A000BED95 /* SetAPinViewController.swift */; };
 		F3D2760C1ED3E29B0050F9F1 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D2760B1ED3E29B0050F9F1 /* ShareViewController.swift */; };
+		F3DF45271F046F9E001E9056 /* LoadingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DF45261F046F9E001E9056 /* LoadingOverlay.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,7 @@
 		F39730531EBAE8BC00EADFC8 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F3B1642A1ECAC36A000BED95 /* SetAPinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetAPinViewController.swift; sourceTree = "<group>"; };
 		F3D2760B1ED3E29B0050F9F1 /* ShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		F3DF45261F046F9E001E9056 /* LoadingOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingOverlay.swift; sourceTree = "<group>"; };
 		F41E576C10FF67310C54E3CA /* Pods-CarFinderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarFinderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarFinderTests/Pods-CarFinderTests.release.xcconfig"; sourceTree = "<group>"; };
 		FBB82EB1B6B5BD56E2413750 /* Pods-CarFinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarFinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CarFinder/Pods-CarFinder.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -170,6 +172,7 @@
 				F37FE28E1EDEF17200496110 /* User.swift */,
 				F32B5D241ECBFEA500F28779 /* VCMapView.swift */,
 				F316C20E1EE97AB400FEF885 /* FireBaseDataObject.swift */,
+				F3DF45261F046F9E001E9056 /* LoadingOverlay.swift */,
 			);
 			path = CarFinder;
 			sourceTree = "<group>";
@@ -459,6 +462,7 @@
 				F33421C21EED097F000CF148 /* UserTableViewCell.swift in Sources */,
 				F34460531EF01EB400CAB26C /* FriendRequestTableViewCell.swift in Sources */,
 				F38699F31EBE500F006D43E1 /* MainViewController.swift in Sources */,
+				F3DF45271F046F9E001E9056 /* LoadingOverlay.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

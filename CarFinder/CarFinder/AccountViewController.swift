@@ -144,7 +144,7 @@ class AccountViewController: UIViewController, UIImagePickerControllerDelegate,U
     }
    
     @IBAction func deleteAccount(_ sender: UIButton) {
-       showLoadingOverlay()
+       present(LoadingOverlay.instance.showLoadingOverlay(message: "Deleting Account..."), animated: true, completion: nil)
         removeFriends()
     }
     func removeFriends(){
@@ -251,18 +251,6 @@ class AccountViewController: UIViewController, UIImagePickerControllerDelegate,U
     }
     
     // MARK: Other functions
-    func showLoadingOverlay(){
-        let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
-        
-        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
-        loadingIndicator.hidesWhenStopped = true
-        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-        loadingIndicator.startAnimating();
-        
-        alert.view.addSubview(loadingIndicator)
-        present(alert, animated: true, completion: nil)
-    }
-    
     func showAlert(_ message: String) {
         let alertController = UIAlertController(title: "CarFinder", message: message, preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: { action in

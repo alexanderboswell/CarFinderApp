@@ -89,7 +89,7 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
         self.dismiss(animated: true, completion: {})
     }
     func addNewUser(email: String, password: String, name: String ){
-        showLoadingOverlay()
+        present(LoadingOverlay.instance.showLoadingOverlay(message: "Registering..."), animated: true, completion: nil)
         FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user, error) in
             if let error = error {
                 if let errCode = FIRAuthErrorCode(rawValue: error._code) {
@@ -144,19 +144,6 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
 
         })
     }
-    func showLoadingOverlay(){
-        let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
-        
-        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
-        loadingIndicator.hidesWhenStopped = true
-        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-        loadingIndicator.startAnimating();
-        
-        alert.view.addSubview(loadingIndicator)
-        present(alert, animated: true, completion: nil)
-    }
-    
-    
     
     // MARK: Other functions
     func showAlert(_ message: String){

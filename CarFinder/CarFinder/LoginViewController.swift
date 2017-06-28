@@ -35,7 +35,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     // MARK: UI Actions
     @IBAction func signIn(_ sender: UIButton) {
-        showLoadingOverlay()
+        present(LoadingOverlay.instance.showLoadingOverlay(message: "Logging in..."), animated: true, completion: nil)
         let email = emailTextField.text
         let password = passwordTextField.text
         FIRAuth.auth()?.signIn(withEmail: email!, password: password!, completion: {(user, error) in
@@ -58,6 +58,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 assertionFailure("user and error are nil")
                 return
             }
+            print("signed in")
             self.dismiss(animated: false, completion: { (error) in
                // if error == nil {
                     self.signIn()
@@ -98,19 +99,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         prompt.addAction(okAction)
         present(prompt, animated: true, completion: nil)
     }
-    // MARK: Other functions
-    func showLoadingOverlay(){
-        let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
-        
-        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
-        loadingIndicator.hidesWhenStopped = true
-        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-        loadingIndicator.startAnimating();
-        
-        alert.view.addSubview(loadingIndicator)
-        present(alert, animated: true, completion: nil)
-    }
     
+    // MARK: Other functions
     func showAlert(_ message: String) {
         let alertController = UIAlertController(title: "CarFinder", message: message, preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
