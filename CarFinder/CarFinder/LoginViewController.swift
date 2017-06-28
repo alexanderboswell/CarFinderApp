@@ -35,27 +35,34 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     // MARK: UI Actions
     @IBAction func signIn(_ sender: UIButton) {
+        showLoadingOverlay()
         let email = emailTextField.text
         let password = passwordTextField.text
         FIRAuth.auth()?.signIn(withEmail: email!, password: password!, completion: {(user, error) in
             guard let _ = user else {
                 if let error = error {
                     if let errCode = FIRAuthErrorCode(rawValue: error._code) {
-                        switch errCode {
-                        case .errorCodeUserNotFound:
-                            self.showAlert("User account not found. Try registering")
-                        case .errorCodeWrongPassword:
-                            self.showAlert("Incorrect username/password combination")
-                        default:
-                            self.showAlert("Error: \(error.localizedDescription)")
-                        }
-                    }
+                        self.dismiss(animated: false, completion: { (dissmissOverlayError) in
+                                    switch errCode {
+                                case .errorCodeUserNotFound:
+                                    self.showAlert("User account not found. Try registering")
+                                case .errorCodeWrongPassword:
+                                    self.showAlert("Incorrect username/password combination")
+                                default:
+                                    self.showAlert("Error: \(error.localizedDescription)")
+                                }
+                        })
                     return
+                  }
                 }
                 assertionFailure("user and error are nil")
                 return
             }
-            self.signIn()
+            self.dismiss(animated: false, completion: { (error) in
+               // if error == nil {
+                    self.signIn()
+                //}
+            })
         })
     }
     @IBAction func forgotPassword(_ sender: UIButton) {
@@ -92,11 +99,24 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         present(prompt, animated: true, completion: nil)
     }
     // MARK: Other functions
+    func showLoadingOverlay(){
+        let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
+        
+        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        loadingIndicator.startAnimating();
+        
+        alert.view.addSubview(loadingIndicator)
+        present(alert, animated: true, completion: nil)
+    }
+    
     func showAlert(_ message: String) {
         let alertController = UIAlertController(title: "CarFinder", message: message, preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
         self.present(alertController, animated: true, completion: nil)
     }
+    
     func signIn() {
         performSegue(withIdentifier: "LoginToMainView", sender: nil)
         passwordTextField.text = ""

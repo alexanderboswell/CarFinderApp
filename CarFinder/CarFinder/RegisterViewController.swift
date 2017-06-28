@@ -89,19 +89,23 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
         self.dismiss(animated: true, completion: {})
     }
     func addNewUser(email: String, password: String, name: String ){
+        showLoadingOverlay()
         FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user, error) in
             if let error = error {
                 if let errCode = FIRAuthErrorCode(rawValue: error._code) {
-                    switch errCode {
-                    case .errorCodeInvalidEmail:
-                        self.showAlert("Enter a valid email.")
-                    case .errorCodeEmailAlreadyInUse:
-                        self.showAlert("Email already in use.")
-                    default:
-                        self.showAlert("Error: \(error.localizedDescription)")
-                    }
+                    self.dismiss(animated: false, completion: { (err) in
+                        switch errCode {
+                        case .errorCodeInvalidEmail:
+                            self.showAlert("Enter a valid email.")
+                        case .errorCodeEmailAlreadyInUse:
+                            self.showAlert("Email already in use.")
+                        default:
+                            self.showAlert("Error: \(error.localizedDescription)")
+                        }
+                        
+                    })
+                    return
                 }
-                return
             }
             let imageName = NSUUID().uuidString
             let storageRef = FIRStorage.storage().reference().child("profile_images").child("\(imageName).jpg")
@@ -112,7 +116,9 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
                     
                     if error != nil {
                         print(error ?? "Error")
-                        return
+                        self.dismiss(animated: false, completion: { (error) in
+                            return
+                        })
                     }
                     if let profileImageURL = metadata?.downloadURL()?.absoluteString {
                         let values = ["name": name,"email":email,"profileImageURL": profileImageURL,"imageName": imageName]
@@ -120,12 +126,16 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
                             
                             if err != nil {
                                 print(err ?? "Error in adding user info to database")
-                                return
+                                self.dismiss(animated: false, completion: { (error) in
+                                    return
+                                })
                             }
                             print("Saved User Success")
                             imageCache.object(forKey: profileImageURL as AnyObject)
                         })
-                        self.signIn()
+                        self.dismiss(animated: false, completion: { (error) in
+                            self.signIn()
+                        })
                   
                     }
                 })
@@ -134,6 +144,18 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
 
         })
     }
+    func showLoadingOverlay(){
+        let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
+        
+        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        loadingIndicator.startAnimating();
+        
+        alert.view.addSubview(loadingIndicator)
+        present(alert, animated: true, completion: nil)
+    }
+    
     
     
     // MARK: Other functions
@@ -149,6 +171,7 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
         nameTextField.text = ""
         emailTextField.text = ""
         passwordTextField.text = ""
+        profileImageView.image  = UIImage(named: "Default Photo")
     }
     func dismissKeyboard() {
         view.endEditing(true)

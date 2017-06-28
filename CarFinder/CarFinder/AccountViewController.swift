@@ -142,8 +142,127 @@ class AccountViewController: UIViewController, UIImagePickerControllerDelegate,U
             }
         })
     }
+   
+    @IBAction func deleteAccount(_ sender: UIButton) {
+       showLoadingOverlay()
+        removeFriends()
+    }
+    func removeFriends(){
+        print("delete friends")
+        FireBaseDataObject.system.CURRENT_USER_FRIENDS_REF.observe(FIRDataEventType.value, with: { (snapshot) in
+            for friend in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                let id = friend.key
+                print(id)
+                FireBaseDataObject.system.USER_REF.child(id).child("friends").child(self.currentUser.id).removeValue(completionBlock: { (error,ref)-> Void in
+                    if error != nil {
+                        print(error ?? "Error in removing friendship")
+                        self.dismiss(animated: false, completion: { (dissmissOverlayError) in
+                            return
+                        })
+                    } else {
+                        print("removed friendships")
+                        self.removeSentRequests()
+                    }
+                    
+                })
+            }
+            if snapshot.children.allObjects.count == 0 {
+                self.removeSentRequests()
+            }
+    
+        })
+    }
+    func removeSentRequests(){
+        FireBaseDataObject.system.CURRENT_USER_SENT_REQUESTS_REF.observe(FIRDataEventType.value, with: { (snapshot) in
+            for sentRequest in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                let id = sentRequest.key
+                print(id)
+                FireBaseDataObject.system.USER_REF.child(id).child("requests").child(self.currentUser.id).removeValue(completionBlock: { (error,ref)-> Void in
+                    if error != nil {
+                        print(error ?? "Error in removing sent requests")
+                        self.dismiss(animated: false, completion: { (dissmissOverlayError) in
+                            return
+                        })
+                    } else {
+                        print("removed sent requests")
+                        self.removeRequests()
+                    }
+                    
+                })
+            }
+            if snapshot.children.allObjects.count == 0 {
+                self.removeRequests()
+            }
+        })
+    }
+    
+    func removeRequests() {
+        
+        FireBaseDataObject.system.CURRENT_USER_REQUESTS_REF.observe(FIRDataEventType.value, with: { (snapshot) in
+            for request in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                let id = request.key
+                print(id)
+                FireBaseDataObject.system.USER_REF.child(id).child("sent requests").child(self.currentUser.id).removeValue(completionBlock: {(error,ref)-> Void in
+                    if error != nil {
+                        print(error ?? "Error in removing requests")
+                        self.dismiss(animated: false, completion: { (dissmissOverlayError) in
+                            return
+                        })
+                    } else {
+                        print("removed requests")
+                        self.removeProfileImage()
+                    }
+                })
+            }
+            if snapshot.children.allObjects.count == 0 {
+                self.removeProfileImage()
+            }
+        })
+    }
+    func removeProfileImage() {
+        FIRStorage.storage().reference().child("profile_images").child(currentUser.imageName + ".jpg").delete(completion: { (Error) in
+            if Error != nil {
+                print(Error ?? "Error in removing profile image")
+                self.dismiss(animated: false, completion: { (dissmissOverlayError) in
+                    return
+                })
+            } else {
+                print("removed profile image")
+                self.removeUser()
+            }
+        })
+    }
+    func removeUser(){
+        FireBaseDataObject.system.CURRENT_USER_REF.removeValue(completionBlock: { (Error) in
+        FIRAuth.auth()?.currentUser?.delete(completion: { (err) in
+                if  err != nil{
+                    print(err ?? "Error deleting account")
+                    self.dismiss(animated: false, completion: { (dissmissOverlayError) in
+                        return
+                    })
+                }else {
+                    print("removed user")
+                    self.dismiss(animated: false, completion: { (dissmissOverlayError) in
+                        self.showAlert("Your account has been removed.")
+                    })
+                }
+            })
+        })
+    }
     
     // MARK: Other functions
+    func showLoadingOverlay(){
+        let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
+        
+        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        loadingIndicator.startAnimating();
+        
+        alert.view.addSubview(loadingIndicator)
+        present(alert, animated: true, completion: nil)
+    }
+    
     func showAlert(_ message: String) {
         let alertController = UIAlertController(title: "CarFinder", message: message, preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: { action in

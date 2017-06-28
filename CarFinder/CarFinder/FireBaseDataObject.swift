@@ -29,6 +29,9 @@ class FireBaseDataObject {
     var CURRENT_USER_SENT_REQUESTS_REF: FIRDatabaseReference {
         return CURRENT_USER_REF.child("sent requests")
     }
+    var CURRENT_USER_REQUESTS_REF: FIRDatabaseReference {
+        return CURRENT_USER_REF.child("requests")
+    }
     var current_user_name : String {
         return (CURRENT_USER_REF.value(forKey: "name") as? String)!
     }
