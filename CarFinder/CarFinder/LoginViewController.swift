@@ -35,6 +35,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     // MARK: UI Actions
     @IBAction func signIn(_ sender: UIButton) {
+        dismissKeyboard()
         present(LoadingOverlay.instance.showLoadingOverlay(message: "Logging in..."), animated: true, completion: nil)
         let email = emailTextField.text
         let password = passwordTextField.text

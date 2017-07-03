@@ -19,13 +19,25 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet weak var editButton: UIBarButtonItem!
     
+    
+    private var databaseHandle: FIRDatabaseHandle!
+    
+    var friends = [User]()
+    
+    var user: FIRUser!
+    
+//    var ref =
+    
     // MARK: Overriden functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        FireBaseDataObject.system.addFriendObserver {
-            self.tableView.reloadData()
-        }
+        user = FIRAuth.auth()?.currentUser
+//        ref = FIRDatabase.database().reference()
+        startObservingDatabase()
+       // addFriendObserver {
+         //   self.tableView.reloadData()
+       // }
         
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()
@@ -36,6 +48,27 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
         editButton.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], for: UIControlState.normal)
         
     }
+    
+    func startObservingDatabase() {
+//        databaseHandle = ref.child("users/\(self.user.id)/friends").observe(.value)
+    }
+    
+    
+//    func addFriendObserver(_ update: @escaping () -> Void) {
+//        FireBaseDataObject.system.CURRENT_USER_FRIENDS_REF.observe(FIRDataEventType.value, with: { (snapshot) in
+//            self.friends.removeAll()
+//            for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
+//                let id = child.key
+//                FireBaseDataObject.system.getUser(id, completion: { (user) in
+//                    self.friends.append(user)
+//                    update()
+//                })
+//            }
+//            if snapshot.childrenCount == 0 {
+//                update()
+//            }
+//        })
+//    }
     
     // MARK: UI Actions
     @IBAction func editButton(_ sender: UIBarButtonItem) {
@@ -50,13 +83,13 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
     
     // MARK: tableView functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return  FireBaseDataObject.system.friends.count
+        return  friends.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FriendTableViewCell", for: indexPath) as? FriendTableViewCell else {
             fatalError("The dequeued cell is not an instance of FriendTableViewCell")
         }
-        let user = FireBaseDataObject.system.friends[indexPath.row]
+        let user = friends[indexPath.row]
         cell.nameTextField.text = user.name
         cell.emailTextField.text = user.email
         cell.profileImageView.layer.cornerRadius = 25
@@ -75,8 +108,8 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let user = FireBaseDataObject.system.friends[indexPath.row]
-            FireBaseDataObject.system.friends.remove(at: indexPath.row)
+            let user = friends[indexPath.row]
+            friends.remove(at: indexPath.row)
             FireBaseDataObject.system.removeFriendRelationship(user.id!)
             self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
             self.tableView.reloadData()

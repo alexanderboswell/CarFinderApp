@@ -132,25 +132,25 @@ class FireBaseDataObject {
         })
     }
     
-//    var users = [User]()
-//    
-//    func addUserObserver(_ update: @escaping () -> Void) {
-//        CURRENT_USER_REF.observe(FIRDataEventType.value, with: {
-//            (snapshot) in
-//            self.users.removeAll()
-//            for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
-//                let id = child.key
-//                let user = User(snapshot: child)
-//                user.id = id
-//                if user.email != FIRAuth.auth()?.currentUser?.email! {
-//                    self.users.append(user)
-//                    update()
-//                }
-//            }
-//            if snapshot.childrenCount == 0 {
-//                update()
-//            }
-//        })
-//    }
+    var users = [User]()
+    
+    func addUserObserver(_ update: @escaping () -> Void) {
+        CURRENT_USER_REF.observe(FIRDataEventType.value, with: {
+            (snapshot) in
+            self.users.removeAll()
+            for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                let id = child.key
+                let user = User(snapshot: child)
+                user.id = id
+                if user.email != FIRAuth.auth()?.currentUser?.email! {
+                    self.users.append(user)
+                    update()
+                }
+            }
+            if snapshot.childrenCount == 0 {
+                update()
+            }
+        })
+    }
 
 }

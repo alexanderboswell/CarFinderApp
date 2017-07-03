@@ -26,7 +26,6 @@
 		F33B50281EEECAA300719443 /* FriendRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33B50271EEECAA300719443 /* FriendRequestViewController.swift */; };
 		F34077DC1EF8905E00E02394 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34077DB1EF8905E00E02394 /* AccountViewController.swift */; };
 		F340B40D1EE19AEC002C5EA7 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340B40C1EE19AEC002C5EA7 /* MenuController.swift */; };
-		F340B4121EE19C07002C5EA7 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F340B4111EE19C07002C5EA7 /* SWRevealViewController.m */; };
 		F34460531EF01EB400CAB26C /* FriendRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34460521EF01EB400CAB26C /* FriendRequestTableViewCell.swift */; };
 		F37285121ED52DF100A3E4A3 /* PinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37285111ED52DF100A3E4A3 /* PinTableViewCell.swift */; };
 		F37CC4291EFC8BD4006AA013 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37CC4281EFC8BD4006AA013 /* Extensions.swift */; };
@@ -36,6 +35,7 @@
 		F39730521EBACD8A00EADFC8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F39730511EBACD8A00EADFC8 /* GoogleService-Info.plist */; };
 		F39730541EBAE8BC00EADFC8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39730531EBAE8BC00EADFC8 /* LoginViewController.swift */; };
 		F3B1642B1ECAC36A000BED95 /* SetAPinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B1642A1ECAC36A000BED95 /* SetAPinViewController.swift */; };
+		F3D250E31F09FE7C006BA04E /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3D250E21F09FE7C006BA04E /* SWRevealViewController.m */; };
 		F3D2760C1ED3E29B0050F9F1 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D2760B1ED3E29B0050F9F1 /* ShareViewController.swift */; };
 		F3DF45271F046F9E001E9056 /* LoadingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DF45261F046F9E001E9056 /* LoadingOverlay.swift */; };
 /* End PBXBuildFile section */
@@ -76,9 +76,7 @@
 		F33B50271EEECAA300719443 /* FriendRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendRequestViewController.swift; sourceTree = "<group>"; };
 		F34077DB1EF8905E00E02394 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		F340B40C1EE19AEC002C5EA7 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
-		F340B40F1EE19BFF002C5EA7 /* SWRevealViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = "../../../../Downloads/SidebarMenu 2/SidebarMenu/SWRevealViewController.h"; sourceTree = "<group>"; };
 		F340B4101EE19C07002C5EA7 /* CarFinder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CarFinder-Bridging-Header.h"; sourceTree = "<group>"; };
-		F340B4111EE19C07002C5EA7 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = "../../../../Downloads/SidebarMenu 2/SidebarMenu/SWRevealViewController.m"; sourceTree = "<group>"; };
 		F34460521EF01EB400CAB26C /* FriendRequestTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FriendRequestTableViewCell.swift; path = ../FriendRequestTableViewCell.swift; sourceTree = "<group>"; };
 		F37285111ED52DF100A3E4A3 /* PinTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinTableViewCell.swift; sourceTree = "<group>"; };
 		F37CC4281EFC8BD4006AA013 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -88,6 +86,8 @@
 		F39730511EBACD8A00EADFC8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F39730531EBAE8BC00EADFC8 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F3B1642A1ECAC36A000BED95 /* SetAPinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetAPinViewController.swift; sourceTree = "<group>"; };
+		F3D250E11F09FE73006BA04E /* SWRevealViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		F3D250E21F09FE7C006BA04E /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		F3D2760B1ED3E29B0050F9F1 /* ShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		F3DF45261F046F9E001E9056 /* LoadingOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingOverlay.swift; sourceTree = "<group>"; };
 		F41E576C10FF67310C54E3CA /* Pods-CarFinderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarFinderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarFinderTests/Pods-CarFinderTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -218,8 +218,8 @@
 		F340B40E1EE19BD9002C5EA7 /* SWRevealViewController */ = {
 			isa = PBXGroup;
 			children = (
-				F340B4111EE19C07002C5EA7 /* SWRevealViewController.m */,
-				F340B40F1EE19BFF002C5EA7 /* SWRevealViewController.h */,
+				F3D250E21F09FE7C006BA04E /* SWRevealViewController.m */,
+				F3D250E11F09FE73006BA04E /* SWRevealViewController.h */,
 				F340B4101EE19C07002C5EA7 /* CarFinder-Bridging-Header.h */,
 			);
 			name = SWRevealViewController;
@@ -451,8 +451,8 @@
 				F3169BAB1EB04809005DBCA0 /* CarFinder.xcdatamodeld in Sources */,
 				F32B5D251ECBFEA500F28779 /* VCMapView.swift in Sources */,
 				F34077DC1EF8905E00E02394 /* AccountViewController.swift in Sources */,
+				F3D250E31F09FE7C006BA04E /* SWRevealViewController.m in Sources */,
 				F33B50281EEECAA300719443 /* FriendRequestViewController.swift in Sources */,
-				F340B4121EE19C07002C5EA7 /* SWRevealViewController.m in Sources */,
 				F3169BA31EB04809005DBCA0 /* AppDelegate.swift in Sources */,
 				F3D2760C1ED3E29B0050F9F1 /* ShareViewController.swift in Sources */,
 				F38699EC1EBD417E006D43E1 /* RegisterViewController.swift in Sources */,

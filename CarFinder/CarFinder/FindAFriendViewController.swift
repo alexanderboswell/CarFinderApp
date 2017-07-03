@@ -15,7 +15,12 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
     
     var users = [User]()
     
-   // var sentRequests = [User]()
+    var allUsers = [String]()
+    
+    var filteredUsers = [String]()
+    var sentRequests = [String]()
+    
+   var friends = [String]()
     
     var requestCount = 0
     
@@ -32,6 +37,7 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
         
         super.viewDidLoad()
         
+        users.removeAll()
         startObservingDataBase()
         
         if self.revealViewController() != nil {
@@ -64,8 +70,10 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
         cell.selectionStyle = .none
         cell.setFunction {
             let id = self.users[indexPath.row].id
+            self.users.removeAll()
             FireBaseDataObject.system.sendRequestToUser(id!)
             FireBaseDataObject.system.saveSentRequestToUser(id!)
+            //self.tableView.reloadData()
             
         }
         cell.profileImageView.layer.cornerRadius = 25
@@ -85,64 +93,60 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
     // MARK: FireBase functions
     func startObservingDataBase(){
         
-        FireBaseDataObject.system.addFriendObserver {
-            self.tableView.reloadData()
-        }
-        
-        // FireBaseDataObject.system.addUserObserver {
-        //   self.tableView.reloadData()
-        //}
-        
-        FireBaseDataObject.system.addSentRequestObserver {
-            self.tableView.reloadData()
-            print("requests: " + String(FireBaseDataObject.system.sentRequests.count))
-        }
-        
         startObervingNumberOfRequests()
-        startObservingUsers()
-                
-    
-    }
-    
-    func startObservingUsers() {
-    FireBaseDataObject.system.USER_REF.observe(.value, with: { (snapshot) in
-            var newUsers = [User]()
-            for itemSnapShot in snapshot.children.allObjects as! [FIRDataSnapshot] {
-                let id = itemSnapShot.key
-                let user = User(snapshot: itemSnapShot )
-                user.id = id
-                if user.email != FIRAuth.auth()?.currentUser?.email!{
-                   // if !self.checkFriends(user: user){
-                    for r in FireBaseDataObject.system.sentRequests {
-                        print(r.name)
-                    }
-                        newUsers.append(user)
-                    //}
-                }
+
+        FireBaseDataObject.system.CURRENT_USER_FRIENDS_REF.observe(FIRDataEventType.value, with: { (snapshot) in
+            self.friends.removeAll()
+            self.users.removeAll()
+            for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                let id = child.key
+                self.friends.append(id)
             }
-    
-            self.users = newUsers
-            self.tableView.reloadData()
+        
+            FireBaseDataObject.system.USER_REF.observe(FIRDataEventType.value, with: { (snapshot) in
+                self.allUsers.removeAll()
+                self.users.removeAll()
+                for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                    let id = child.key
+                    let user = User( snapshot: child)
+                    user.id = id
+                    if user.id != FIRAuth.auth()?.currentUser?.uid {
+                        self.allUsers.append(id)
+                    }
+                }
+                self.updateUserList()
+            })
         })
-    }
-    deinit {
-        FireBaseDataObject.system.removeUserObserver()
-    }
+        
+        
     
-//    func checkFriends(user: User) -> Bool {
-//        print("FRIEND TEST")
-//        for friend in FireBaseDataObject.system.friends {
-//            print(user.id + " " + friend.id)
-//            if user.id == friend.id {
-//                print(user.id + " " + friend.id)
-//                print ("found friend")
-//                return true
-//            }
-//        }
-//        print("didnt find friend")
-//        return false
-//    }
-    
+    }
+    func updateUserList() {
+        activityIndicator.startAnimating()
+        filteredUsers.removeAll()
+        self.users.removeAll()
+        
+        for user in allUsers {
+            if friends.contains(user) || sentRequests.contains(user) {
+                
+            } else {
+                filteredUsers.append(user)
+            }
+        }
+        for user in filteredUsers {
+            FireBaseDataObject.system.getUser(user, completion: { (filteredUser) in
+                    self.users.append(filteredUser)
+                    self.tableView.reloadData()
+            })
+        }
+       // clearLists()
+        activityIndicator.stopAnimating()
+    }
+    func clearLists(){
+        self.friends.removeAll()
+        self.allUsers.removeAll()
+        self.sentRequests.removeAll()
+    }
     
     func startObervingNumberOfRequests() {
         FireBaseDataObject.system.CURRENT_USER_REF.child("requests").observe(FIRDataEventType.value,with: {(snapshot) in

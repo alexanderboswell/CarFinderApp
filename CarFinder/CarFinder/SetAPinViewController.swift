@@ -74,14 +74,16 @@ class SetAPinViewController: UIViewController,CLLocationManagerDelegate {
         }
     }
     @IBAction func share(_ sender: UIBarButtonItem) {
-        if descriptionOfPin != "" {
-            let pin = Pin(title: descriptionOfPin, locationName: String(location.latitude) + ", " + String(location.longitude), latitude:location.latitude, longitude:location.longitude)
-            let shareViewController = self.storyboard?.instantiateViewController(withIdentifier: "ShareViewController") as! ShareViewController
-            shareViewController.pin = pin
-            self.present(shareViewController, animated: false, completion: nil)
-        } else {
-            showAlert("Please fill in a description")
-        }
+            _ = FireBaseDataObject.system.getCurrentUser({ (User) in
+              if self.descriptionOfPin != "" {
+                let pin = Pin(title: self.descriptionOfPin, locationName: "Shared by: " + User.name, latitude:  self.location.latitude, longitude:self.location.longitude)
+                let shareViewController = self.storyboard?.instantiateViewController(withIdentifier: "ShareViewController") as!     ShareViewController
+                shareViewController.pin = pin
+                self.present(shareViewController, animated: false, completion: nil)
+                } else {
+                self.showAlert("Please fill in a description")
+            }
+        })
     }
     func showAlert(_ message: String) {
         let alertController = UIAlertController(title: "CarFinder", message: message, preferredStyle: UIAlertControllerStyle.alert)

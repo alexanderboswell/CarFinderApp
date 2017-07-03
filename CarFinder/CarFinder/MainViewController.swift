@@ -34,7 +34,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
     // MARK: FireBase variables
     var user: FIRUser!
     
-    var databasePins = [Pin]()
+    //var databasePins = [Pin]()
     
     var ref: FIRDatabaseReference!
     

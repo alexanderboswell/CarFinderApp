@@ -68,21 +68,24 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         self.dismiss(animated: true, completion: {})
     }
     @IBAction func save(_ sender: UIBarButtonItem) {
-        let newPinData = [
+        
+        
+        var newPinData = [
             "title": pin?.title as! String,
             "locationName": pin?.locationName as! String,
             "latitude": pin?.latitude as! NSNumber,
             "longitude": pin?.longitude as! NSNumber
             ] as [String : Any]
         var ids = [String]()
-        ids.append(self.user.uid)
+        //ids.append(self.user.uid)
         for NSIndexPath in selectedUserIndexes {
             ids.append(FireBaseDataObject.system.friends[NSIndexPath.row].id)
         }
         for String in ids {
             FireBaseDataObject.system.USER_REF.child(String).child("pins").childByAutoId().setValue(newPinData)
         }
-        
+        newPinData["locationName"] = String((pin?.latitude)!) + " " + String((pin?.longitude)!)
+        FireBaseDataObject.system.CURRENT_USER_REF.child("pins").childByAutoId().setValue(newPinData)
         
        performSegue(withIdentifier: "ShareToMainView", sender: nil)
     }
