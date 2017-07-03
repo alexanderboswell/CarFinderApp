@@ -19,7 +19,10 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet weak var editButton: UIBarButtonItem!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    
+    // MARK: Othe Variables
     private var databaseHandle: FIRDatabaseHandle!
     
     var friends = [User]()
@@ -47,6 +50,7 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
     }
     
     func startObservingDatabase() {
+        activityIndicator.startAnimating()
         databaseHandle = FIRDatabase.database().reference().child("users").child(self.user.uid).child("friends").observe(.value, with : { (snapshot) in
                 self.friends.removeAll()
             for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
@@ -57,6 +61,7 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
                         print(user.name)
                 })
             }
+            self.activityIndicator.stopAnimating()
 
         })
     }

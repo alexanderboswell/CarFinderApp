@@ -22,6 +22,8 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     // MARK: Map Variables
     var pins = [Pin]()
  
@@ -92,6 +94,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
     
     // MARK: FireBase functions
     func startObservingDatabase () {
+        activityIndicator.startAnimating()
         databaseHandle = ref.child("users/\(self.user.uid)/pins").observe(.value, with: { (snapshot) in
             var newPins = [Pin]()
             for itemSnapShot in snapshot.children {
@@ -102,6 +105,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
             self.pins = newPins
             self.tableView.reloadData()
             self.resetAnotations()
+            self.activityIndicator.stopAnimating()
             
         })
     }
