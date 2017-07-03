@@ -145,6 +145,11 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.accessoryType = .none
+        for i in 0...selectedUserIndexes.count - 1  {
+            if selectedUserIndexes[i] as IndexPath == indexPath {
+                selectedUserIndexes.remove(at: i)
+            }
+        }
     }
     
 }
