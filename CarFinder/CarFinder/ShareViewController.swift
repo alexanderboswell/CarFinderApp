@@ -15,12 +15,10 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     // MARK: Variables
     var pin:Pin?
-    
-    var filteredUsers = [User]()
-    
+        
     var selectedUserIndexes = [NSIndexPath]()
-    
- //   let searchController = UISearchController(searchResultsController: nil)
+   
+    var friends = [User]()
     
     // MARK: UI Elements
     @IBOutlet weak var searchBar: UISearchBar!
@@ -33,6 +31,9 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var ref: FIRDatabaseReference!
     
+    
+    private var databaseHandle : FIRDatabaseHandle!
+    
     // MARK: Overriden functions
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,18 +41,9 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // set up Firebase
         user = FIRAuth.auth()?.currentUser
         ref = FIRDatabase.database().reference()
+        startObservingDatabase()
         
-        FireBaseDataObject.system.addFriendObserver {
-            self.tableView.reloadData()
-        }
-        
-        // set up the Search Controller
- //       searchController.searchResultsUpdater = self
- //       searchController.dimsBackgroundDuringPresentation = false
- //       definesPresentationContext = true
-        
- //       tableView.tableHeaderView = searchController.searchBar
- //       tableView.allowsMultipleSelection = true
+        tableView.allowsMultipleSelection = true
         
         // set up navigation bar
         self.navigationController?.isNavigationBarHidden = true
@@ -62,6 +54,25 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
+    
+    func startObservingDatabase() {
+        databaseHandle = FIRDatabase.database().reference().child("users").child(self.user.uid).child("friends").observe(.value, with : { (snapshot) in
+            self.friends.removeAll()
+            for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                FireBaseDataObject.system.getUser(child.key, completion: { (user) in
+                    self.friends.append(user)
+                    self.tableView.reloadData()
+                    print("USER NAME")
+                    print(user.name)
+                })
+            }
+            
+        })
+    }
+    deinit {
+        ref.child("users/\(self.user.uid)/friends").removeObserver(withHandle: databaseHandle)
+    }
+    
     
     //MARK: UI Actions
     @IBAction func exit(_ sender: UIBarButtonItem) {
@@ -77,9 +88,14 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
             "longitude": pin?.longitude as! NSNumber
             ] as [String : Any]
         var ids = [String]()
-        //ids.append(self.user.uid)
+        
         for NSIndexPath in selectedUserIndexes {
-            ids.append(FireBaseDataObject.system.friends[NSIndexPath.row].id)
+            print(NSIndexPath.row)
+            print(friends[0])
+            print("here")
+            var temp = [String]()
+            temp.append("blah")
+            ids.append(friends[NSIndexPath.row].id)
         }
         for String in ids {
             FireBaseDataObject.system.USER_REF.child(String).child("pins").childByAutoId().setValue(newPinData)
@@ -92,10 +108,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     // MARK: tableView functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-   //     if searchController.isActive && searchController.searchBar.text != "" {
-     //       return filteredUsers.count
-      //  }
-        return FireBaseDataObject.system.friends.count
+        return friends.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -104,11 +117,9 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
 
         let user: User
-     //   if searchController.isActive && searchController.searchBar.text != "" {
-     //       user = filteredUsers[indexPath.row]
-     //   } else {
-            user = FireBaseDataObject.system.friends[indexPath.row]
-     //   }
+
+        user = friends[indexPath.row]
+
         cell.nameTextField.text = user.name
         cell.emailTextField.text = user.email
         cell.accessoryType = cell.isSelected ? .checkmark : .none
@@ -136,25 +147,6 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.cellForRow(at: indexPath)?.accessoryType = .none
     }
     
-    func filterContentForSearchText(searchText: String) {
-        filteredUsers = FireBaseDataObject.system.friends.filter { user in
-            return user.email.lowercased().contains(searchText.lowercased())
-        }
-        
-        tableView.reloadData()
-    }
-    
 }
 
-// MARK: Search Controller Extension
-extension ShareViewController: UISearchResultsUpdating {
-    @available(iOS 8.0, *)
-    func updateSearchResults(for searchController: UISearchController) {
-        filterContentForSearchText(searchText: searchController.searchBar.text!)
-    }
-
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
-        filterContentForSearchText(searchText: searchController.searchBar.text!)
-    }
-}
 
