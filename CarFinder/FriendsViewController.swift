@@ -26,18 +26,15 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
     
     var user: FIRUser!
     
-//    var ref =
+    var ref : FIRDatabaseReference!
     
     // MARK: Overriden functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
         user = FIRAuth.auth()?.currentUser
-//        ref = FIRDatabase.database().reference()
+        ref = FIRDatabase.database().reference()
         startObservingDatabase()
-       // addFriendObserver {
-         //   self.tableView.reloadData()
-       // }
         
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()
@@ -50,25 +47,23 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
     }
     
     func startObservingDatabase() {
-//        databaseHandle = ref.child("users/\(self.user.id)/friends").observe(.value)
+        databaseHandle = FIRDatabase.database().reference().child("users").child(self.user.uid).child("friends").observe(.value, with : { (snapshot) in
+                self.friends.removeAll()
+            for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                FireBaseDataObject.system.getUser(child.key, completion: { (user) in
+                    self.friends.append(user)
+                    self.tableView.reloadData()
+                    print("USER NAME")
+                        print(user.name)
+                })
+            }
+
+        })
+    }
+    deinit {
+        ref.child("users/\(self.user.uid)/friends").removeObserver(withHandle: databaseHandle)
     }
     
-    
-//    func addFriendObserver(_ update: @escaping () -> Void) {
-//        FireBaseDataObject.system.CURRENT_USER_FRIENDS_REF.observe(FIRDataEventType.value, with: { (snapshot) in
-//            self.friends.removeAll()
-//            for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
-//                let id = child.key
-//                FireBaseDataObject.system.getUser(id, completion: { (user) in
-//                    self.friends.append(user)
-//                    update()
-//                })
-//            }
-//            if snapshot.childrenCount == 0 {
-//                update()
-//            }
-//        })
-//    }
     
     // MARK: UI Actions
     @IBAction func editButton(_ sender: UIBarButtonItem) {
@@ -103,16 +98,19 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
             print (" no user profile image")
         }
         
-        
         return cell
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let user = friends[indexPath.row]
-            friends.remove(at: indexPath.row)
-            FireBaseDataObject.system.removeFriendRelationship(user.id!)
-            self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
-            self.tableView.reloadData()
+ 
+            let id = friends[indexPath.row].id
+            if let uid = id {
+                friends.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+
+                FireBaseDataObject.system.removeFriendRelationship(uid)
+                self.tableView.reloadData()
+            }
         }
     }
     
