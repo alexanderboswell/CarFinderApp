@@ -4,25 +4,20 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-Spot It.xcscheme</key>
+		<key>Spot It.xcscheme</key>
 		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-Spot ItTests.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
+			<key>orderHint</key>
+			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>20C9D9402BC1974B9D4CD5CB222EADDE</key>
+		<key>F3169B9E1EB04809005DBCA0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>21516D00CF26CAB494F484837CECB420</key>
+		<key>F3169BB51EB04809005DBCA0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
