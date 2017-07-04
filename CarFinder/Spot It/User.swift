@@ -36,7 +36,7 @@ class User {
         ref = snapshot.ref
         
         let data = snapshot.value as! Dictionary<String, Any>
-        
+
         self.email = data["email"] as? String
         self.name = data["name"] as? String
         self.profileImageURL = data["profileImageURL"] as? String

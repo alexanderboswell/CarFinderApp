@@ -18,9 +18,10 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
     var allUsers = [String]()
     
     var filteredUsers = [String]()
+   
     var sentRequests = [String]()
     
-   var friends = [String]()
+    var friends = [String]()
     
     var requestCount = 0
     

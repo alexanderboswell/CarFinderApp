@@ -39,6 +39,7 @@ class FriendRequestViewController: UIViewController, UITableViewDelegate, UITabl
         let user = friendRequests[indexPath.row]
         cell.emailTextField.text = user.email
         cell.nameTextField.text = user.name
+        cell.selectionStyle = .none
         let id = user.id
         cell.setFunction {
             self.friendRequests.remove(at:indexPath.row)

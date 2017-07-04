@@ -49,24 +49,39 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
         
     }
     
-    func startObservingDatabase() {
+//    func startObservingDatabase() {
+//        activityIndicator.startAnimating()
+//        databaseHandle = FIRDatabase.database().reference().child("users").child(self.user.uid).child("friends").observe(.value, with : { (snapshot) in
+//                self.friends.removeAll()
+//            for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
+//                FireBaseDataObject.system.getUser(child.key, completion: { (user) in
+//                    self.friends.append(user)
+//                    self.tableView.reloadData()
+//                    print("USER NAME")
+//                        print(user.name)
+//                })
+//            }
+//            self.activityIndicator.stopAnimating()
+//
+//        })
+//    }
+//    deinit {
+//        ref.child("users/\(self.user.uid)/friends").removeObserver(withHandle: databaseHandle)
+//    }
+    func startObservingDatabase () {
         activityIndicator.startAnimating()
-        databaseHandle = FIRDatabase.database().reference().child("users").child(self.user.uid).child("friends").observe(.value, with : { (snapshot) in
-                self.friends.removeAll()
-            for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
-                FireBaseDataObject.system.getUser(child.key, completion: { (user) in
-                    self.friends.append(user)
+        databaseHandle = ref.child("users/\(self.user.uid)/friends").observe(.value, with: { (snapshot) in
+            var newFriends = [User]()
+            for itemSnapShot in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                FireBaseDataObject.system.getUser(itemSnapShot.key, completion: { (user) in
+                    newFriends.append(user)
+                    self.friends = newFriends
                     self.tableView.reloadData()
-                    print("USER NAME")
-                        print(user.name)
                 })
             }
             self.activityIndicator.stopAnimating()
-
+            
         })
-    }
-    deinit {
-        ref.child("users/\(self.user.uid)/friends").removeObserver(withHandle: databaseHandle)
     }
     
     
@@ -95,6 +110,7 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
         cell.profileImageView.layer.cornerRadius = 25
         cell.profileImageView.clipsToBounds = true
         cell.profileImageView.contentMode = .scaleAspectFill
+        cell.selectionStyle = .none
         if let profileImageURL = user.profileImageURL {
             
             cell.profileImageView.loadImageUsingCacheWithURLString(urlString: profileImageURL)

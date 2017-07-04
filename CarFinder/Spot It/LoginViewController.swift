@@ -113,8 +113,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.text = ""
         emailTextField.text = ""
         FireBaseDataObject.system.getCurrentUser { (User) in
-            print("USER image url on login")
-            print(User.profileImageURL)
             UIImageView().loadImageUsingCacheWithURLString(urlString: User.profileImageURL)
         }
             
