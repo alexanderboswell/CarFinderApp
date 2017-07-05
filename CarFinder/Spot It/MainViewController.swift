@@ -69,6 +69,17 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
     }
+    @IBAction func SetANewPin(_ sender: UIBarButtonItem) {
+        if CLLocationManager.locationServicesEnabled(){
+            switch(CLLocationManager.authorizationStatus()) {
+            case .notDetermined, .restricted, .denied:
+                    showAlert("Please Enable Location Services at Settings -> Spot It -> Location.")
+            case .authorizedWhenInUse, .authorizedAlways:
+                performSegue(withIdentifier: "MainToSetAPin", sender: nil)
+            }
+        }
+    
+    }
     
     // MARK: mapView functions
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -151,4 +162,12 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
+    
+    // MARK: Other functions
+    func showAlert(_ message: String) {
+        let alertController = UIAlertController(title: "Spot It", message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
 }

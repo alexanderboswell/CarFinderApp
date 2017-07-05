@@ -182,7 +182,7 @@
                                     <barButtonItem systemItem="add" id="AAk-7q-GbZ">
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <segue destination="Leg-eB-yHS" kind="show" id="MKe-AS-hD1"/>
+                                            <action selector="SetANewPin:" destination="3Eu-eL-yfM" id="Wgl-1N-Rci"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -278,6 +278,7 @@
                         <outlet property="mapView" destination="BRf-2c-Hpz" id="1FM-aT-0Mf"/>
                         <outlet property="menuButton" destination="tb2-Hz-q43" id="kTr-6W-i6r"/>
                         <outlet property="tableView" destination="Q6K-Df-Qwc" id="VbY-kV-4ug"/>
+                        <segue destination="Leg-eB-yHS" kind="show" identifier="MainToSetAPin" id="qPf-Ew-xaO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GMi-cX-mvp" userLabel="First Responder" sceneMemberID="firstResponder"/>
