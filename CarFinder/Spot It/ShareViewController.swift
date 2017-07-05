@@ -26,6 +26,8 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     // MARK: FireBase variables
     var user: FIRUser!
     
@@ -55,22 +57,46 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         super.viewWillAppear(animated)
     }
     
-    func startObservingDatabase() {
-        databaseHandle = FIRDatabase.database().reference().child("users").child(self.user.uid).child("friends").observe(.value, with : { (snapshot) in
-            self.friends.removeAll()
-            for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
-                FireBaseDataObject.system.getUser(child.key, completion: { (user) in
-                    self.friends.append(user)
-                    self.tableView.reloadData()
-                    print("USER NAME")
-                    print(user.name)
-                })
-            }
-            
+    func startObservingDatabase () {
+        FireBaseDataObject.system.CURRENT_USER_FRIENDS_REF.observe(.childAdded, with: { (snapshot) -> Void in
+            self.activityIndicator.startAnimating()
+            FireBaseDataObject.system.getUser(snapshot.key, completion: { (user) in
+                self.friends.append(user)
+                self.tableView.insertRows(at: [IndexPath(row: self.friends.count - 1, section:0)], with: UITableViewRowAnimation.automatic)
+            })
+            self.activityIndicator.stopAnimating()
         })
-    }
-    deinit {
-        ref.child("users/\(self.user.uid)/friends").removeObserver(withHandle: databaseHandle)
+        FireBaseDataObject.system.CURRENT_USER_FRIENDS_REF.observe(.childRemoved, with: { (snapshot) ->
+            Void in
+            if self.friends.count != 0 {
+                var indexes = [Int]()
+                for i in 0 ... self.friends.count - 1  {
+                    if self.friends[i].id == snapshot.key {
+                        indexes.append(i)
+                        if self.selectedUserIndexes.count != 0 {
+                            for j in 0...self.selectedUserIndexes.count - 1 {
+                                if self.selectedUserIndexes[j].row == i {
+                                    self.selectedUserIndexes.remove(at: j)
+                                    break
+                                }
+                            }
+                        }
+                    }
+                }
+                for index in indexes {
+//                    if self.selectedUserIndexes.count != 0 {
+//                        for i in 0...self.selectedUserIndexes.count - 1 {
+//                            if self.selectedUserIndexes[i].row == index {
+//                                self.selectedUserIndexes.remove(at: i)
+//                            }
+//                        }
+//                    }
+                    self.friends.remove(at: index)
+                    self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: UITableViewRowAnimation.automatic)
+                }
+            }
+        })
+        activityIndicator.stopAnimating()
     }
     
     
@@ -90,11 +116,6 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         var ids = [String]()
         
         for NSIndexPath in selectedUserIndexes {
-            print(NSIndexPath.row)
-            print(friends[0])
-            print("here")
-            var temp = [String]()
-            temp.append("blah")
             ids.append(friends[NSIndexPath.row].id)
         }
         for String in ids {

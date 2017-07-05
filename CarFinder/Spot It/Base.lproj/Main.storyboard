@@ -737,9 +737,19 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="hJb-SO-Spv">
+                                <rect key="frame" x="76" y="32" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="Hb5-2h-bji"/>
+                                    <constraint firstAttribute="height" constant="20" id="VU6-hW-CmU"/>
+                                </constraints>
+                                <color key="color" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="4IF-XP-Ula" firstAttribute="top" secondItem="hJb-SO-Spv" secondAttribute="bottom" constant="13" id="1Ky-xc-4bl"/>
+                            <constraint firstItem="hJb-SO-Spv" firstAttribute="leading" secondItem="rpg-kz-mgh" secondAttribute="leadingMargin" constant="60" id="1fy-GN-y49"/>
                             <constraint firstItem="4IF-XP-Ula" firstAttribute="leading" secondItem="rpg-kz-mgh" secondAttribute="leading" id="8wv-tF-t6O"/>
                             <constraint firstItem="CrP-A8-4cl" firstAttribute="centerX" secondItem="rpg-kz-mgh" secondAttribute="centerX" id="9VE-ZJ-fWO"/>
                             <constraint firstAttribute="trailing" secondItem="4IF-XP-Ula" secondAttribute="trailing" id="E8K-Ga-pGw"/>
@@ -754,6 +764,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="2PT-MN-4Fe"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="hJb-SO-Spv" id="zpE-Ol-0Hz"/>
                         <outlet property="saveButton" destination="aRH-0c-cXp" id="Vaw-ga-y9y"/>
                         <outlet property="searchDisplayController" destination="C1O-WG-6L2" id="0ZF-mK-Y41"/>
                         <outlet property="tableView" destination="4IF-XP-Ula" id="aYa-Yt-ACA"/>
@@ -1547,8 +1558,8 @@
         <image name="menu" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="d3R-lO-Rdf"/>
-        <segue reference="1Tx-5H-byZ"/>
         <segue reference="kR8-9u-6Dp"/>
+        <segue reference="ZN3-Xu-hE3"/>
+        <segue reference="d3R-lO-Rdf"/>
     </inferredMetricsTieBreakers>
 </document>
