@@ -26,6 +26,9 @@ class FireBaseDataObject {
     var CURRENT_USER_FRIENDS_REF: FIRDatabaseReference {
         return CURRENT_USER_REF.child("friends")
     }
+    var CURRENT_USER_PINS_REF: FIRDatabaseReference {
+        return CURRENT_USER_REF.child("pins")
+    }
     var CURRENT_USER_SENT_REQUESTS_REF: FIRDatabaseReference {
         return CURRENT_USER_REF.child("sent requests")
     }

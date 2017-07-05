@@ -15,7 +15,10 @@ class Pin : NSObject, MKAnnotation {
     
     // MARK: Class variables
     let locationName: String
+    
     let title: String?
+    
+    let id: String?
     
     let latitude: Double?
     
@@ -34,6 +37,7 @@ class Pin : NSObject, MKAnnotation {
         self.locationName = locationName
         self.latitude = latitude
         self.longitude = longitude
+        self.id = NSUUID().uuidString
         self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         super.init()
     }
@@ -41,7 +45,7 @@ class Pin : NSObject, MKAnnotation {
         ref = snapshot.ref
         
         let data = snapshot.value as! Dictionary<String, Any>
-        
+        self.id = snapshot.key
         self.title = data["title"]! as? String
         self.locationName = data["locationName"]! as! String
         self.latitude = data["latitude"]! as! NSNumber as? Double

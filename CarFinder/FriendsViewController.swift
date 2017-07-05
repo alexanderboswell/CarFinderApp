@@ -49,39 +49,33 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
         
     }
     
-//    func startObservingDatabase() {
-//        activityIndicator.startAnimating()
-//        databaseHandle = FIRDatabase.database().reference().child("users").child(self.user.uid).child("friends").observe(.value, with : { (snapshot) in
-//                self.friends.removeAll()
-//            for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
-//                FireBaseDataObject.system.getUser(child.key, completion: { (user) in
-//                    self.friends.append(user)
-//                    self.tableView.reloadData()
-//                    print("USER NAME")
-//                        print(user.name)
-//                })
-//            }
-//            self.activityIndicator.stopAnimating()
-//
-//        })
-//    }
-//    deinit {
-//        ref.child("users/\(self.user.uid)/friends").removeObserver(withHandle: databaseHandle)
-//    }
+
+
     func startObservingDatabase () {
-        activityIndicator.startAnimating()
-        databaseHandle = ref.child("users/\(self.user.uid)/friends").observe(.value, with: { (snapshot) in
-            var newFriends = [User]()
-            for itemSnapShot in snapshot.children.allObjects as! [FIRDataSnapshot] {
-                FireBaseDataObject.system.getUser(itemSnapShot.key, completion: { (user) in
-                    newFriends.append(user)
-                    self.friends = newFriends
-                    self.tableView.reloadData()
+        FireBaseDataObject.system.CURRENT_USER_FRIENDS_REF.observe(.childAdded, with: { (snapshot) -> Void in
+            self.activityIndicator.startAnimating()
+                FireBaseDataObject.system.getUser(snapshot.key, completion: { (user) in
+                 self.friends.append(user)
+                    self.tableView.insertRows(at: [IndexPath(row: self.friends.count - 1, section:0)], with: UITableViewRowAnimation.automatic)
                 })
-            }
             self.activityIndicator.stopAnimating()
-            
         })
+        FireBaseDataObject.system.CURRENT_USER_FRIENDS_REF.observe(.childRemoved, with: { (snapshot) ->
+            Void in
+            if self.friends.count != 0 {
+                var indexes = [Int]()
+                for i in 0 ... self.friends.count - 1  {
+                    if self.friends[i].id == snapshot.key {
+                        indexes.append(i)
+                    }
+                }
+                for index in indexes {
+                    self.friends.remove(at: index)
+                    self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: UITableViewRowAnimation.automatic)
+                }
+            }
+        })
+     activityIndicator.stopAnimating()
     }
     
     
@@ -126,9 +120,6 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
  
             let id = friends[indexPath.row].id
             if let uid = id {
-                friends.remove(at: indexPath.row)
-                self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
-
                 FireBaseDataObject.system.removeFriendRelationship(uid)
                 self.tableView.reloadData()
             }

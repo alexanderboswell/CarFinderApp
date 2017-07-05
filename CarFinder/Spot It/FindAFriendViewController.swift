@@ -21,7 +21,7 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
    
     var sentRequests = [String]()
     
-    var friends = [String]()
+   // var friends = [String]()
     
     var requestCount = 0
     
@@ -71,10 +71,9 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
         cell.selectionStyle = .none
         cell.setFunction {
             let id = self.users[indexPath.row].id
-            self.users.removeAll()
             FireBaseDataObject.system.sendRequestToUser(id!)
             FireBaseDataObject.system.saveSentRequestToUser(id!)
-            //self.tableView.reloadData()
+            self.tableView.reloadData()
             
         }
         cell.profileImageView.layer.cornerRadius = 25
@@ -96,57 +95,39 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
         
         startObervingNumberOfRequests()
 
-        FireBaseDataObject.system.CURRENT_USER_FRIENDS_REF.observe(FIRDataEventType.value, with: { (snapshot) in
-            self.friends.removeAll()
-            self.users.removeAll()
-            for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
-                let id = child.key
-                self.friends.append(id)
-            }
         
-            FireBaseDataObject.system.USER_REF.observe(FIRDataEventType.value, with: { (snapshot) in
-                self.allUsers.removeAll()
-                self.users.removeAll()
-                for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
-                    let id = child.key
-                    let user = User( snapshot: child)
-                    user.id = id
-                    if user.id != FIRAuth.auth()?.currentUser?.uid {
-                        self.allUsers.append(id)
+        // Listen for new comments in the Firebase database
+        FireBaseDataObject.system.USER_REF.observe(.childAdded, with: { (snapshot) -> Void in
+            let id = snapshot.key
+            if id != FIRAuth.auth()?.currentUser?.uid{
+                let user = User(snapshot: snapshot)
+                user.id = id
+                self.users.append(user)
+            }
+            self.tableView.reloadData()
+            self.activityIndicator.stopAnimating()
+            
+            //self.tableView.insertRows(at: [IndexPath(row: self.comments.count-1, section: self.kSectionComments)], with: UITableViewRowAnimation.automatic)
+        })
+        FireBaseDataObject.system.CURRENT_USER_SENT_REQUESTS_REF.observe(.childAdded, with: { (snapshot) -> Void in
+            let id = snapshot.key
+            if self.users.count != 0 {
+                var indexes = [Int]()
+                for i in 0...self.users.count - 1 {
+                    if self.users[i].id == id{
+                        indexes.append(i)
+//                        self.users.remove(at: i)
+//                        self.tableView.deleteRows(at: [IndexPath(row: i, section: 0)] , with: UITableViewRowAnimation.automatic)
                     }
                 }
-                self.updateUserList()
-            })
-        })
-        
-        
-    
-    }
-    func updateUserList() {
-        activityIndicator.startAnimating()
-        filteredUsers.removeAll()
-        self.users.removeAll()
-        
-        for user in allUsers {
-            if friends.contains(user) || sentRequests.contains(user) {
-                
-            } else {
-                filteredUsers.append(user)
+                for index in indexes {
+                    self.users.remove(at: index)
+                    self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: UITableViewRowAnimation.automatic)
+                }
             }
-        }
-        for user in filteredUsers {
-            FireBaseDataObject.system.getUser(user, completion: { (filteredUser) in
-                    self.users.append(filteredUser)
-                    self.tableView.reloadData()
+            
             })
-        }
-       // clearLists()
-        activityIndicator.stopAnimating()
-    }
-    func clearLists(){
-        self.friends.removeAll()
-        self.allUsers.removeAll()
-        self.sentRequests.removeAll()
+        
     }
     
     func startObervingNumberOfRequests() {

@@ -94,24 +94,29 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
     
     // MARK: FireBase functions
     func startObservingDatabase () {
-        activityIndicator.startAnimating()
-        databaseHandle = ref.child("users/\(self.user.uid)/pins").observe(.value, with: { (snapshot) in
-            var newPins = [Pin]()
-            for itemSnapShot in snapshot.children {
-                let pin = Pin(snapshot: itemSnapShot as! FIRDataSnapshot)
-                newPins.append(pin)
-            }
-            
-            self.pins = newPins
-            self.tableView.reloadData()
+        FireBaseDataObject.system.CURRENT_USER_PINS_REF.observe(.childAdded, with: { (snapshot) -> Void in
+            self.activityIndicator.startAnimating()
+            let pin = Pin(snapshot: snapshot)
+            self.pins.append(pin)
+            self.tableView.insertRows(at: [IndexPath(row:self.pins.count - 1, section: 0)], with: UITableViewRowAnimation.automatic)
             self.resetAnotations()
             self.activityIndicator.stopAnimating()
-            
+        })
+        FireBaseDataObject.system.CURRENT_USER_PINS_REF.observe(.childRemoved, with: { (snapshot) -> Void in
+            if self.pins.count != 0 {
+                var indexes = [Int]()
+                for i in 0...self.pins.count - 1 {
+                    if self.pins[i].id == snapshot.key {
+                        indexes.append(i)
+                    }
+                }
+                for index in indexes {
+                    self.pins.remove(at: index)
+                    self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: UITableViewRowAnimation.automatic)
+                }
+            }
         })
     }
-    deinit {
-        ref.child("users/\(self.user.uid)/pins").removeObserver(withHandle: databaseHandle)
-        }
 
     // MARK: table functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -129,9 +134,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let pin = pins[indexPath.row]
-            pins.remove(at: indexPath.row)
             pin.ref?.removeValue()
-            tableView.deleteRows(at: [indexPath], with: .fade)
             for annotation in mapView.annotations {
                 if let aTitle = annotation.title, let pinTitle = pin.title, let aSub = annotation.subtitle, let pinSub = pin.subtitle {
                 if aTitle! == pinTitle && aSub == pinSub {
