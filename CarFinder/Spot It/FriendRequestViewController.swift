@@ -15,6 +15,7 @@ class FriendRequestViewController: UIViewController, UITableViewDelegate, UITabl
     // MARK: UI Elements
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     // MARK: Variables
     
     var friendRequests = [User]()
@@ -66,16 +67,13 @@ class FriendRequestViewController: UIViewController, UITableViewDelegate, UITabl
         return cell
     }
     func startObservingDataBase(){
-        FireBaseDataObject.system.CURRENT_USER_REF.child("requests").observe(FIRDataEventType.value,with: {(snapshot) in
-            var newFriendRequests = [User]()
-            for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
-                let id = child.key
-                FireBaseDataObject.system.getUser(id, completion: { (user) in
-                    newFriendRequests.append(user)
-                    self.friendRequests = newFriendRequests
-                    self.tableView.reloadData()
-                })
-            }
+        FireBaseDataObject.system.CURRENT_USER_REQUESTS_REF.observe(.childAdded, with: { (snapshot) -> Void in
+            self.activityIndicator.startAnimating()
+            FireBaseDataObject.system.getUser(snapshot.key, completion: { (user) in
+                self.friendRequests.append(user)
+                self.tableView.insertRows(at: [IndexPath(row: self.friendRequests.count - 1, section:0)], with: UITableViewRowAnimation.automatic)
+            })
+            self.activityIndicator.stopAnimating()
         })
     }
 }
