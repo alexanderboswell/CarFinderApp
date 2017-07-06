@@ -12,22 +12,24 @@ import MapKit
 
 class SetAPinViewController: UIViewController,CLLocationManagerDelegate {
     
+    // MARK: UI Elements
     @IBOutlet weak var descriptionTextField: UITextField!
    
     @IBOutlet weak var mapView: MKMapView!
     
     @IBOutlet weak var shareButton: UIBarButtonItem!
     
+    // MARK: Variables
     var descriptionOfPin = ""
-    var location = CLLocationCoordinate2D()
     
+    // MARK: Map Variables
+    var location = CLLocationCoordinate2D()
     
     let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         // Ask for Authorisation from the User.
         self.locationManager.requestAlwaysAuthorization()
-        
         
         // For use in foreground
         self.locationManager.requestWhenInUseAuthorization()
@@ -46,16 +48,8 @@ class SetAPinViewController: UIViewController,CLLocationManagerDelegate {
         
         shareButton.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], for: UIControlState.normal)
     }
-    func dismissKeyboard() {
-        view.endEditing(true)
-    }
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-        let tempLocation = CLLocationCoordinate2D(latitude: locValue.latitude, longitude: locValue.longitude)
-        centerMapOnLocation(location: CLLocation(latitude: locValue.latitude, longitude: locValue.longitude))
-        location = tempLocation
-    }
     
+    // MARK: UI Actions
     @IBAction func closeNewPin(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: {})
     }
@@ -85,10 +79,23 @@ class SetAPinViewController: UIViewController,CLLocationManagerDelegate {
             }
         })
     }
+
+    // MARK: Map functions
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+        let tempLocation = CLLocationCoordinate2D(latitude: locValue.latitude, longitude: locValue.longitude)
+        centerMapOnLocation(location: CLLocation(latitude: locValue.latitude, longitude: locValue.longitude))
+        location = tempLocation
+    }
+    
+    // MARK: Other functions
     func showAlert(_ message: String) {
         let alertController = UIAlertController(title: "CarFinder", message: message, preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
         self.present(alertController, animated: true, completion: nil)
+    }
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
 
     

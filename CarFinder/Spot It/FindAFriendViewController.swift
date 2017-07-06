@@ -15,14 +15,6 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
     
     var users = [User]()
     
-    var allUsers = [String]()
-    
-    var filteredUsers = [String]()
-   
-    var sentRequests = [String]()
-    
-   // var friends = [String]()
-    
     var requestCount = 0
     
     
@@ -94,40 +86,29 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
     func startObservingDataBase(){
         
         startObervingNumberOfRequests()
-
-        
-        // Listen for new comments in the Firebase database
         FireBaseDataObject.system.USER_REF.observe(.childAdded, with: { (snapshot) -> Void in
-            let id = snapshot.key
-            if id != FIRAuth.auth()?.currentUser?.uid{
-                let user = User(snapshot: snapshot)
-                user.id = id
-                self.users.append(user)
-            }
-            self.tableView.reloadData()
-            self.activityIndicator.stopAnimating()
-            
-            //self.tableView.insertRows(at: [IndexPath(row: self.comments.count-1, section: self.kSectionComments)], with: UITableViewRowAnimation.automatic)
-        })
-        FireBaseDataObject.system.CURRENT_USER_SENT_REQUESTS_REF.observe(.childAdded, with: { (snapshot) -> Void in
-            let id = snapshot.key
-            if self.users.count != 0 {
-                var indexes = [Int]()
-                for i in 0...self.users.count - 1 {
-                    if self.users[i].id == id{
-                        indexes.append(i)
-//                        self.users.remove(at: i)
-//                        self.tableView.deleteRows(at: [IndexPath(row: i, section: 0)] , with: UITableViewRowAnimation.automatic)
-                    }
+            FireBaseDataObject.system.getUser(snapshot.key, completion: { (user) in
+                if FIRAuth.auth()?.currentUser?.uid != user.id {
+                    self.users.append(user)
+                    self.tableView.insertRows(at: [IndexPath(row: self.users.count - 1, section: 0)], with: UITableViewRowAnimation.automatic)
                 }
-                for index in indexes {
-                    self.users.remove(at: index)
-                    self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: UITableViewRowAnimation.automatic)
-                }
-            }
-            
             })
         
+        })
+        FireBaseDataObject.system.USER_REF.observe(.childRemoved, with: { (snapshot) -> Void in
+            var indexes = [Int]()
+            if  self.users.count != 0 {
+                for i in 0...self.users.count - 1 {
+                    if self.users[i].id == snapshot.key{
+                        indexes.append(i)
+                    }
+                }
+            }
+            for index in indexes {
+            self.users.remove(at: index)
+            self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: UITableViewRowAnimation.automatic)
+            }
+          })
     }
     
     func startObervingNumberOfRequests() {

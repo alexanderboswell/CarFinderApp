@@ -36,8 +36,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
     // MARK: FireBase variables
     var user: FIRUser!
     
-    //var databasePins = [Pin]()
-    
     var ref: FIRDatabaseReference!
     
     private var databaseHandle: FIRDatabaseHandle!
@@ -69,6 +67,8 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
     }
+
+    // MARK: UI Actions
     @IBAction func SetANewPin(_ sender: UIBarButtonItem) {
         if CLLocationManager.locationServicesEnabled(){
             switch(CLLocationManager.authorizationStatus()) {

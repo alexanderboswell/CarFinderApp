@@ -28,11 +28,11 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     // MARK: FireBase variables
     var user: FIRUser!
     
     var ref: FIRDatabaseReference!
-    
     
     private var databaseHandle : FIRDatabaseHandle!
     
@@ -57,6 +57,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         super.viewWillAppear(animated)
     }
     
+    // MARK: Firebase functions
     func startObservingDatabase () {
         FireBaseDataObject.system.CURRENT_USER_FRIENDS_REF.observe(.childAdded, with: { (snapshot) -> Void in
             self.activityIndicator.startAnimating()
@@ -84,13 +85,6 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     }
                 }
                 for index in indexes {
-//                    if self.selectedUserIndexes.count != 0 {
-//                        for i in 0...self.selectedUserIndexes.count - 1 {
-//                            if self.selectedUserIndexes[i].row == index {
-//                                self.selectedUserIndexes.remove(at: i)
-//                            }
-//                        }
-//                    }
                     self.friends.remove(at: index)
                     self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: UITableViewRowAnimation.automatic)
                 }
@@ -98,7 +92,6 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         })
         activityIndicator.stopAnimating()
     }
-    
     
     //MARK: UI Actions
     @IBAction func exit(_ sender: UIBarButtonItem) {

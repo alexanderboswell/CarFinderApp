@@ -17,8 +17,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var passwordTextField: UITextField!
     
-//    let FireBaseDAO = FireBaseDataObject.sharedInstance
-    
     // MARK: Overriden functions
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +31,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             self.signIn()
         }
     }
+    
     // MARK: UI Actions
     @IBAction func signIn(_ sender: UIButton) {
         dismissKeyboard()
@@ -59,11 +58,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 assertionFailure("user and error are nil")
                 return
             }
-            print("signed in")
             self.dismiss(animated: false, completion: { (error) in
-               // if error == nil {
                     self.signIn()
-                //}
             })
         })
     }

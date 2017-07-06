@@ -16,8 +16,8 @@ class FriendRequestViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    // MARK: Variables
     
+    // MARK: Variables
     var friendRequests = [User]()
     
     // MARK: Overriden functions
@@ -26,6 +26,8 @@ class FriendRequestViewController: UIViewController, UITableViewDelegate, UITabl
         
         startObservingDataBase()
     }
+    
+    // MARK: UI Actions
     @IBAction func close(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: {})
     }
@@ -66,6 +68,8 @@ class FriendRequestViewController: UIViewController, UITableViewDelegate, UITabl
         }
         return cell
     }
+    
+    // MARK: Firebase functions
     func startObservingDataBase(){
         FireBaseDataObject.system.CURRENT_USER_REQUESTS_REF.observe(.childAdded, with: { (snapshot) -> Void in
             self.activityIndicator.startAnimating()

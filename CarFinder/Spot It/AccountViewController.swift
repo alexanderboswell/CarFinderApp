@@ -13,6 +13,7 @@ import FirebaseDatabase
 
 class AccountViewController: UIViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
+    // MARK: UI Elements
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -21,8 +22,10 @@ class AccountViewController: UIViewController, UIImagePickerControllerDelegate,U
     
     @IBOutlet weak var profileImageView: UIImageView!
     
+    // MARK: Variables
     var currentUser : User!
     
+    // MARK: Overriden functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,6 +49,8 @@ class AccountViewController: UIViewController, UIImagePickerControllerDelegate,U
         }
         profileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImage)))
     }
+    
+    // MARK: ImagePicker functions
     func handleSelectProfileImage() {
         let picker = UIImagePickerController()
         picker.delegate = self
@@ -118,6 +123,7 @@ class AccountViewController: UIViewController, UIImagePickerControllerDelegate,U
         
     }
     
+    // MARK: UI Actions
     @IBAction func resetPassword(_ sender: UIButton) {
         FIRAuth.auth()?.sendPasswordReset(withEmail: currentUser.email, completion: {
             (error) in
@@ -147,6 +153,8 @@ class AccountViewController: UIViewController, UIImagePickerControllerDelegate,U
        present(LoadingOverlay.instance.showLoadingOverlay(message: "Deleting Account..."), animated: true, completion: nil)
         removeFriends()
     }
+    
+    // MARK: Firebase functions
     func removeFriends(){
         print("delete friends")
         FireBaseDataObject.system.CURRENT_USER_FRIENDS_REF.observe(FIRDataEventType.value, with: { (snapshot) in
@@ -195,9 +203,7 @@ class AccountViewController: UIViewController, UIImagePickerControllerDelegate,U
             }
         })
     }
-    
     func removeRequests() {
-        
         FireBaseDataObject.system.CURRENT_USER_REQUESTS_REF.observe(FIRDataEventType.value, with: { (snapshot) in
             for request in snapshot.children.allObjects as! [FIRDataSnapshot] {
                 let id = request.key
@@ -252,7 +258,7 @@ class AccountViewController: UIViewController, UIImagePickerControllerDelegate,U
     
     // MARK: Other functions
     func showAlert(_ message: String) {
-        let alertController = UIAlertController(title: "CarFinder", message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = UIAlertController(title: "Spot It", message: message, preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: { action in
                 self.signOut()
         }))

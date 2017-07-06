@@ -21,7 +21,6 @@ extension UIImageView {
         } else {
         let url = NSURL(string: urlString)
         URLSession.shared.dataTask(with: url! as URL, completionHandler: { (data, response, error) in
-            print("there")
             if error != nil {
                 print(error ?? "unknown value")
                 return

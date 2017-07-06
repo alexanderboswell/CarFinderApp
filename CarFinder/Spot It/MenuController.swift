@@ -18,7 +18,6 @@ class MenuController: UITableViewController {
     @IBOutlet weak var numberOfRequests: UILabel!
     
     // MARK: Other variables
-    
     var requestCount = 0
     
     // MARK: Overridden funcions
@@ -53,8 +52,8 @@ class MenuController: UITableViewController {
         func signOut() {
             performSegue(withIdentifier: "signOutSegue", sender: nil)
         }
-    // FireBase functions
     
+    // FireBase functions
     func startObervingNumberOfRequests() {
         FireBaseDataObject.system.CURRENT_USER_REF.child("requests").observe(FIRDataEventType.value,with: {(snapshot) in
             self.requestCount = 0

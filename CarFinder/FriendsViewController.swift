@@ -49,8 +49,7 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
         
     }
     
-
-
+    // MARK: Firebase functions
     func startObservingDatabase () {
         FireBaseDataObject.system.CURRENT_USER_FRIENDS_REF.observe(.childAdded, with: { (snapshot) -> Void in
             self.activityIndicator.startAnimating()
@@ -77,7 +76,6 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
         })
      activityIndicator.stopAnimating()
     }
-    
     
     // MARK: UI Actions
     @IBAction func editButton(_ sender: UIBarButtonItem) {

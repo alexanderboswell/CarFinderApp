@@ -23,6 +23,7 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
     @IBOutlet weak var passwordTextField: UITextField!
     
     @IBOutlet weak var profileImageView: UIImageView!
+    
     // MARK: Overriden functions
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,36 +36,6 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
         profileImageView.clipsToBounds = true
         profileImageView.contentMode = .scaleAspectFill
     }
-    func handleSelectProfileImage(){
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        picker.allowsEditing = true
-        present(picker, animated: true, completion: nil)
-    }
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        print("canceled")
-        self.dismiss(animated: true, completion: nil)
-    }
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        print(info)
-        
-        var selectedImageFromPicker: UIImage?
-        
-        
-        if let editedImage = info ["UIImagePickerControllerEditedImage"] as? UIImage {
-            selectedImageFromPicker = editedImage
-            
-        } else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
-            selectedImageFromPicker = originalImage
-        }
-        
-        if let selectedImage = selectedImageFromPicker {
-            profileImageView.image = selectedImage
-        }
-        
-        self.dismiss(animated: true, completion: nil)
-    }
-
     
     // MARK: UI Actions
     @IBAction func registerAccount(_ sender: UIButton) {
@@ -89,6 +60,7 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
         self.dismiss(animated: true, completion: {})
     }
     func addNewUser(email: String, password: String, name: String ){
+        dismissKeyboard()
         present(LoadingOverlay.instance.showLoadingOverlay(message: "Registering..."), animated: true, completion: nil)
         FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user, error) in
             if let error = error {
@@ -130,7 +102,6 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
                                     return
                                 })
                             }
-                            print("Saved User Success")
                             imageCache.object(forKey: profileImageURL as AnyObject)
                         })
                         self.dismiss(animated: false, completion: { (error) in
@@ -140,9 +111,35 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
                     }
                 })
             }
-            
-
         })
+    }
+    
+    // MARK: ImagePicker functions
+    func handleSelectProfileImage(){
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true, completion: nil)
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        var selectedImageFromPicker: UIImage?
+        
+        if let editedImage = info ["UIImagePickerControllerEditedImage"] as? UIImage {
+            selectedImageFromPicker = editedImage
+            
+        } else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+            selectedImageFromPicker = originalImage
+        }
+        
+        if let selectedImage = selectedImageFromPicker {
+            profileImageView.image = selectedImage
+        }
+        
+        self.dismiss(animated: true, completion: nil)
     }
     
     // MARK: Other functions
@@ -150,8 +147,6 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
             let alertController = UIAlertController(title: "Spot It", message: message, preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil))
         self.present(alertController,animated: true,completion: nil)
-        
-        
     }
     func signIn(){
         performSegue(withIdentifier: "RegisterToMainView", sender: nil)

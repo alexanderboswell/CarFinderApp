@@ -23,7 +23,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Car Logo" translatesAutoresizingMaskIntoConstraints="NO" id="A5I-iL-j0F">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Pin Logo" translatesAutoresizingMaskIntoConstraints="NO" id="A5I-iL-j0F">
                                 <rect key="frame" x="130" y="45" width="115" height="115"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="115" id="CJT-WB-3uK"/>
@@ -241,7 +241,7 @@
                                     <outlet property="delegate" destination="3Eu-eL-yfM" id="NYm-3z-obl"/>
                                 </connections>
                             </tableView>
-                            <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="vIQ-gH-eR3">
+                            <activityIndicatorView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="vIQ-gH-eR3">
                                 <rect key="frame" x="76" y="32" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="OlD-Bl-191"/>
@@ -1305,7 +1305,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="m3e-Gs-Jng">
+                            <activityIndicatorView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="m3e-Gs-Jng">
                                 <rect key="frame" x="76" y="32" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="A5w-zS-UCV"/>
@@ -1560,19 +1560,19 @@
     </scenes>
     <resources>
         <image name="Account Icon" width="30" height="30"/>
-        <image name="Car Logo" width="357" height="357"/>
         <image name="Default Photo" width="125" height="125"/>
         <image name="Default Photo Placeholder" width="50" height="50"/>
         <image name="Find a Friend Icon" width="30" height="30"/>
         <image name="Friends Icon" width="30" height="30"/>
         <image name="Gear Icon" width="30" height="30"/>
         <image name="Map Icon" width="30" height="30"/>
+        <image name="Pin Logo" width="250" height="250"/>
         <image name="Red Background" width="12" height="12"/>
         <image name="menu" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="kR8-9u-6Dp"/>
-        <segue reference="ZN3-Xu-hE3"/>
+        <segue reference="1Tx-5H-byZ"/>
         <segue reference="d3R-lO-Rdf"/>
     </inferredMetricsTieBreakers>
 </document>
