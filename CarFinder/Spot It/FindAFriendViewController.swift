@@ -17,6 +17,7 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
     
     var requestCount = 0
     
+    var sentRequests = [String:Bool]()
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -61,12 +62,22 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
         cell.emailTextField.text = user.email
         cell.nameTextField.text = user.name
         cell.selectionStyle = .none
+        let id = self.users[indexPath.row].id
+        if let sentRequestCheck = sentRequests[id!] {
+            if sentRequestCheck {
+                cell.button.isEnabled = false
+                cell.button.setTitle("Requested",for: .normal)
+            }
+        }else {
+            cell.button.isEnabled = true
+            cell.button.setTitle("Add", for: .normal)
+        }
         cell.setFunction {
-            let id = self.users[indexPath.row].id
             FireBaseDataObject.system.sendRequestToUser(id!)
             FireBaseDataObject.system.saveSentRequestToUser(id!)
-            self.tableView.reloadData()
-            
+            cell.button.isEnabled = false
+            cell.button.setTitle("Requested", for: .normal)
+            self.sentRequests[id!] = true
         }
         cell.profileImageView.layer.cornerRadius = 25
         cell.profileImageView.clipsToBounds = true
@@ -89,26 +100,87 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
         FireBaseDataObject.system.USER_REF.observe(.childAdded, with: { (snapshot) -> Void in
             FireBaseDataObject.system.getUser(snapshot.key, completion: { (user) in
                 if FIRAuth.auth()?.currentUser?.uid != user.id {
-                    self.users.append(user)
-                    self.tableView.insertRows(at: [IndexPath(row: self.users.count - 1, section: 0)], with: UITableViewRowAnimation.automatic)
+                    FireBaseDataObject.system.CURRENT_USER_FRIENDS_REF.observeSingleEvent(of: .value, with: { (friendSnapshot) in
+                        var friendCheck = false
+                        for child in friendSnapshot.children.allObjects as! [FIRDataSnapshot] {
+                            if child.key == user.id{
+                                friendCheck = true
+                            }
+                        }
+                        if !friendCheck{
+                            FireBaseDataObject.system.CURRENT_USER_SENT_REQUESTS_REF.observeSingleEvent(of: .value, with: {(sentRequestSnapshot) in
+                                var sentRequestCheck = false
+                                for child in sentRequestSnapshot.children.allObjects as! [FIRDataSnapshot] {
+                                    if child.key == user.id {
+                                        sentRequestCheck = true
+                                    }
+                                }
+                                if sentRequestCheck {
+                                    self.sentRequests[user.id] = true
+                                }
+                                self.users.append(user)
+                                self.tableView.insertRows(at: [IndexPath(row: self.users.count - 1, section: 0)], with: UITableViewRowAnimation.automatic)
+                            })
+                        }
+                    })
                 }
             })
-        
         })
         FireBaseDataObject.system.USER_REF.observe(.childRemoved, with: { (snapshot) -> Void in
-            var indexes = [Int]()
-            if  self.users.count != 0 {
-                for i in 0...self.users.count - 1 {
-                    if self.users[i].id == snapshot.key{
-                        indexes.append(i)
+            self.findUserInTableAndRemove(key: snapshot.key)
+          })
+        FireBaseDataObject.system.CURRENT_USER_SENT_REQUESTS_REF.observe(.childRemoved, with: {(snapshot) in
+            
+            FireBaseDataObject.system.CURRENT_USER_FRIENDS_REF.observeSingleEvent(of: .value, with: {(friendSnapshot) in
+                var friendCheck = false
+                print("SNAP")
+                print(friendSnapshot)
+                for child in friendSnapshot.children.allObjects as! [FIRDataSnapshot]{
+                    if snapshot.key == child.key {
+                        if self.users.count != 0{
+                            for i in 0...self.users.count - 1  {
+                                if self.users[i].id == snapshot.key {
+                                    friendCheck = true
+                                    self.users.remove(at: i)
+                                    self.tableView.deleteRows(at: [IndexPath(row: i,section: 0)], with: UITableViewRowAnimation.automatic)
+                                    return
+                                }
+                            }
+                        }
                     }
                 }
+                if !friendCheck {
+                    if self.users.count != 0 {
+                        for i in 0...self.users.count - 1 {
+                            if self.users[i].id == snapshot.key {
+                                guard let cell = self.tableView.cellForRow(at: IndexPath(row: i, section: 0)) as? UserTableViewCell else {
+                                    return
+                                }
+                                cell.button.isEnabled = true
+                                cell.button.setTitle("Add", for: .normal)
+                                if self.sentRequests[self.users[i].id] != nil {
+                                    self.sentRequests[self.users[i].id] = false
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+        })
+    }
+    func findUserInTableAndRemove(key: String) {
+        var indexes = [Int]()
+        if  self.users.count != 0 {
+            for i in 0...self.users.count - 1 {
+                if self.users[i].id == key{
+                    indexes.append(i)
+                }
             }
-            for index in indexes {
+        }
+        for index in indexes {
             self.users.remove(at: index)
             self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: UITableViewRowAnimation.automatic)
-            }
-          })
+        }
     }
     
     func startObervingNumberOfRequests() {

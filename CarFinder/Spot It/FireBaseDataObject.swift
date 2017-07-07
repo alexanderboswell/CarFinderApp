@@ -78,11 +78,13 @@ class FireBaseDataObject {
         USER_REF.child(userID).child("sent requests").child(CURRENT_USER_ID).removeValue()
     }
     func acceptRequestToUser(_ userID: String){
-        removeSentRequestToUser(userID)
-        CURRENT_USER_REF.child("requests").child(userID).removeValue()
-        CURRENT_USER_REF.child("friends").child(userID).setValue(true)
-        FIRDatabase.database().reference().child("users").child(userID).child("friends").child(CURRENT_USER_ID).setValue(true)
-        FIRDatabase.database().reference().child("users").child(userID).child("requests").child(CURRENT_USER_ID).removeValue()
+        CURRENT_USER_REF.child("friends").child(userID).setValue(true, withCompletionBlock: { (error, ref) in
+            FIRDatabase.database().reference().child("users").child(userID).child("friends").child(self.CURRENT_USER_ID).setValue(true, withCompletionBlock: { (error, ref) in
+            FIRDatabase.database().reference().child("users").child(userID).child("requests").child(self.CURRENT_USER_ID).removeValue()
+            self.CURRENT_USER_REF.child("requests").child(userID).removeValue()
+            self.removeSentRequestToUser(userID)
+            })
+        })
     }
 
     func declineRequestToUser(_ userID: String){

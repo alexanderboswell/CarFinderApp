@@ -78,7 +78,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
                 performSegue(withIdentifier: "MainToSetAPin", sender: nil)
             }
         }
-    
     }
     
     // MARK: mapView functions
