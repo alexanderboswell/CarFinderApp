@@ -31,6 +31,10 @@ class Pin : NSObject, MKAnnotation {
     var subtitle: String? {
         return ""
     }
+    
+    func pinImage() -> UIImage  {
+        return UIImage(named: "Red Background")!
+    }
     //MARK: Initizalition
     init( title: String, locationName: String, latitude: Double, longitude: Double) {
         self.title = title

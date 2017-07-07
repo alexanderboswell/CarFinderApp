@@ -14,17 +14,18 @@ extension UIViewController :MKMapViewDelegate {
     public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if let annotation = annotation as? Pin {
             let identifier = "pin"
-            var view: MKPinAnnotationView
-            if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-                as? MKPinAnnotationView {
+            var view: MKAnnotationView
+            if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) {
                 dequeuedView.annotation = annotation
                 view = dequeuedView
             } else {
-                view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
                 view.canShowCallout = true
                 view.calloutOffset = CGPoint(x: -5, y: 5)
                 view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) as UIView
             }
+            
+            view.image = UIImage(named: "Map Pin")
             return view
         }
         return nil
