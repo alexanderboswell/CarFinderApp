@@ -27,9 +27,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let _ = FIRAuth.auth()?.currentUser {
-            self.signIn()
-        }
+        //if let _ = FIRAuth.auth()?.currentUser {
+          //  self.signIn()
+       // }
     }
     
     // MARK: UI Actions
@@ -64,7 +64,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         })
     }
     @IBAction func forgotPassword(_ sender: UIButton) {
-        let prompt = UIAlertController(title: "CarFinder", message: "Email:", preferredStyle: .alert)
+        let prompt = UIAlertController(title: "Spot It", message: "Email:", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
             let userInput = prompt.textFields![0].text
             if (userInput!.isEmpty) {
