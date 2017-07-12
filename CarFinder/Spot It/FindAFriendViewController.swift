@@ -11,7 +11,7 @@ import FirebaseAuth
 import Firebase
 import FirebaseDatabase
 
-class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableViewDataSource {
+class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableViewDataSource, UISearchBarDelegate{
     
     var users = [User]()
     
@@ -60,7 +60,6 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
         performSegue(withIdentifier: "toRequests", sender: nil)
     }
     
-    
     // MARK: tableView functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searchController.isActive && searchController.searchBar.text != "" {
@@ -77,12 +76,11 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
         if searchController.isActive && searchController.searchBar.text != "" {
             user = filteredUsers[indexPath.row]
             id = filteredUsers[indexPath.row].id
-
-        
         } else {
             user = users[indexPath.row]
             id = users[indexPath.row].id
         }
+        
         cell.emailTextField.text = user.email
         cell.nameTextField.text = user.name
         cell.selectionStyle = .none
@@ -90,6 +88,9 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
             if sentRequestCheck {
                 cell.button.isEnabled = false
                 cell.button.setTitle("Requested",for: .normal)
+            }else {
+                cell.button.isEnabled = true
+                cell.button.setTitle("Add", for: .normal)
             }
         }else {
             cell.button.isEnabled = true
@@ -156,9 +157,13 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
                 }
             })
         })
+        
+        
         FireBaseDataObject.system.USER_REF.observe(.childRemoved, with: { (snapshot) -> Void in
             self.findUserInTableAndRemove(key: snapshot.key)
           })
+        
+        
         FireBaseDataObject.system.CURRENT_USER_SENT_REQUESTS_REF.observe(.childRemoved, with: {(snapshot) in
             
             FireBaseDataObject.system.CURRENT_USER_FRIENDS_REF.observeSingleEvent(of: .value, with: {(friendSnapshot) in
@@ -174,7 +179,6 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
                                         self.tableView.deleteRows(at: [IndexPath(row: i,section: 0)], with: UITableViewRowAnimation.automatic)
                                     }
                                     return
-                                    
                                 }
                             }
                         }
@@ -184,20 +188,24 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
                     if self.users.count != 0 {
                         for i in 0...self.users.count - 1 {
                             if self.users[i].id == snapshot.key {
+                                if !self.searchController.isActive && self.searchController.searchBar.text == "" {
                                 guard let cell = self.tableView.cellForRow(at: IndexPath(row: i, section: 0)) as? UserTableViewCell else {
                                     return
                                 }
                                 cell.button.isEnabled = true
                                 cell.button.setTitle("Add", for: .normal)
-                                if self.sentRequests[self.users[i].id] != nil {
+                            }
+//                                if self.sentRequests[self.users[i].id] != nil {
                                     self.sentRequests[self.users[i].id] = false
-                                }
+//                                }
                             }
                         }
                     }
                 }
             })
         })
+        
+        
         FireBaseDataObject.system.CURRENT_USER_FRIENDS_REF.observeSingleEvent(of: .childRemoved, with: {(snapshot) in
             FireBaseDataObject.system.getUser(snapshot.key, completion: {(user) in
                 self.users.append(user)
@@ -240,6 +248,9 @@ extension FindAFriendViewController: UISearchResultsUpdating {
     @available(iOS 8.0, *)
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchText: searchController.searchBar.text!)
+        if searchController.searchBar.text! == "" {
+            tableView.reloadData()
+        }
     }
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
