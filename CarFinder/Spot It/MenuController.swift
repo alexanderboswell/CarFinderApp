@@ -39,6 +39,9 @@ class MenuController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        FireBaseDataObject.system.removeObservers()
+    }
     
     // MARK: UI Actions
     @IBAction func signOut(_ sender: UIButton) {

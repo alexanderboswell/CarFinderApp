@@ -8,8 +8,8 @@
 
 import Foundation
 import MapKit
-import AddressBook
 import FirebaseDatabase
+import Contacts
 
 class Pin : NSObject, MKAnnotation {
     
@@ -60,7 +60,7 @@ class Pin : NSObject, MKAnnotation {
     
     // MARK: Class functions
     func mapItem() -> MKMapItem {
-        let addressDictionary = [String(kABPersonAddressStreetKey): subtitle]
+        let addressDictionary = [String(CNPostalAddressStreetKey): subtitle]
         let coordinate = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
         let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: addressDictionary)
         

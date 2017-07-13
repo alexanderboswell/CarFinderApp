@@ -21,6 +21,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        self.passwordTextField.delegate = self
         // set up tap to close keyboard
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -115,5 +116,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     func dismissKeyboard() {
         view.endEditing(true)
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        dismissKeyboard()
+        
+        return true
     }
 }

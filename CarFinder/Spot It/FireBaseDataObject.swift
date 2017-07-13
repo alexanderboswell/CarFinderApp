@@ -91,8 +91,8 @@ class FireBaseDataObject {
         removeSentRequestToUser(userID)
         CURRENT_USER_REF.child("requests").child(userID).removeValue()
     }
-    func removeUserObserver() {
-        USER_REF.removeAllObservers()
+    func removeObservers() {
+        FIRDatabase.database().reference().removeAllObservers()
     }
     func removeFriendRelationship(_ friendUserID: String){
         USER_REF.child(CURRENT_USER_ID).child("friends").child(friendUserID).removeValue()

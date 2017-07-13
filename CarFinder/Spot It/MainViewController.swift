@@ -67,6 +67,9 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UITableVi
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        FireBaseDataObject.system.removeObservers()
+    }
 
     // MARK: UI Actions
     @IBAction func SetANewPin(_ sender: UIBarButtonItem) {

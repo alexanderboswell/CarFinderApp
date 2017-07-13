@@ -26,6 +26,9 @@ class FriendRequestViewController: UIViewController, UITableViewDelegate, UITabl
         
         startObservingDataBase()
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        FireBaseDataObject.system.removeObservers()
+    }
     
     // MARK: UI Actions
     @IBAction func close(_ sender: UIBarButtonItem) {

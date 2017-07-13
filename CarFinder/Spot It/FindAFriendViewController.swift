@@ -49,10 +49,13 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
         friendRequestsButton.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], for: UIControlState.normal)
         
         // set up searchbar
-        searchController.searchResultsUpdater = self as? UISearchResultsUpdating
+        searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        FireBaseDataObject.system.removeObservers()
     }
     
     // MARK: UI Actions
@@ -113,7 +116,6 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
         }else {
             print (" no user profile image")
         }
-        
         return cell
     }
     func filterContentForSearchText(searchText: String) {
@@ -158,7 +160,6 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
             })
         })
         
-        
         FireBaseDataObject.system.USER_REF.observe(.childRemoved, with: { (snapshot) -> Void in
             self.findUserInTableAndRemove(key: snapshot.key)
           })
@@ -195,16 +196,15 @@ class FindAFriendViewController: UIViewController, UITabBarDelegate, UITableView
                                 cell.button.isEnabled = true
                                 cell.button.setTitle("Add", for: .normal)
                             }
-//                                if self.sentRequests[self.users[i].id] != nil {
+                                if self.sentRequests[self.users[i].id] != nil {
                                     self.sentRequests[self.users[i].id] = false
-//                                }
+                                }
                             }
                         }
                     }
                 }
             })
         })
-        
         
         FireBaseDataObject.system.CURRENT_USER_FRIENDS_REF.observeSingleEvent(of: .childRemoved, with: {(snapshot) in
             FireBaseDataObject.system.getUser(snapshot.key, completion: {(user) in
@@ -248,9 +248,6 @@ extension FindAFriendViewController: UISearchResultsUpdating {
     @available(iOS 8.0, *)
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchText: searchController.searchBar.text!)
-        if searchController.searchBar.text! == "" {
-            tableView.reloadData()
-        }
     }
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {

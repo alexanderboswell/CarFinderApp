@@ -56,6 +56,9 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        FireBaseDataObject.system.removeObservers()
+    }
     
     // MARK: Firebase functions
     func startObservingDatabase () {
@@ -98,14 +101,15 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         self.dismiss(animated: true, completion: {})
     }
     @IBAction func save(_ sender: UIBarButtonItem) {
-        
-        
-        var newPinData = [
-            "title": pin?.title as! String,
-            "locationName": pin?.locationName as! String,
-            "latitude": pin?.latitude as! NSNumber,
-            "longitude": pin?.longitude as! NSNumber
+        var newPinData = [String:Any]()
+        if let title = pin?.title, let locationName = pin?.locationName, let latitude = pin?.latitude, let longitude = pin?.longitude{
+        newPinData = [
+            "title": title,
+            "locationName": locationName,
+            "latitude": latitude,
+            "longitude": longitude
             ] as [String : Any]
+        }
         var ids = [String]()
         
         for NSIndexPath in selectedUserIndexes {

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import MapKit
 
-class SetAPinViewController: UIViewController,CLLocationManagerDelegate {
+class SetAPinViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDelegate {
     
     // MARK: UI Elements
     @IBOutlet weak var descriptionTextField: UITextField!
@@ -28,6 +28,8 @@ class SetAPinViewController: UIViewController,CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
+        
+        self.descriptionTextField.delegate = self
         // Ask for Authorisation from the User.
         self.locationManager.requestAlwaysAuthorization()
         
@@ -97,6 +99,8 @@ class SetAPinViewController: UIViewController,CLLocationManagerDelegate {
     func dismissKeyboard() {
         view.endEditing(true)
     }
-
-    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        dismissKeyboard()
+        return true
+    }
 }

@@ -49,6 +49,9 @@ class AccountViewController: UIViewController, UIImagePickerControllerDelegate,U
         }
         profileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImage)))
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        FireBaseDataObject.system.removeObservers()
+    }
     
     // MARK: ImagePicker functions
     func handleSelectProfileImage() {

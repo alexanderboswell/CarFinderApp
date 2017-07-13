@@ -48,6 +48,9 @@ class FriendsViewController : UIViewController, UITableViewDelegate, UITableView
         editButton.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], for: UIControlState.normal)
         
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        FireBaseDataObject.system.removeObservers()
+    }
     
     // MARK: Firebase functions
     func startObservingDatabase () {
