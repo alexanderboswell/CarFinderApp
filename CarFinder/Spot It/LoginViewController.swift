@@ -21,6 +21,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        self.emailTextField.delegate = self 
         self.passwordTextField.delegate = self
         // set up tap to close keyboard
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
@@ -36,31 +37,40 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     // MARK: UI Actions
     @IBAction func signIn(_ sender: UIButton) {
         dismissKeyboard()
-        present(LoadingOverlay.instance.showLoadingOverlay(message: "Logging in..."), animated: true, completion: nil)
         let email = emailTextField.text
         let password = passwordTextField.text
-        FIRAuth.auth()?.signIn(withEmail: email!, password: password!, completion: {(user, error) in
+        if email == "" {
+            self.showAlert("Please enter a email")
+        } else if password == "" {
+            self.showAlert("Please enter a password ")
+        } else {
+            self.loginUser( email: email!, password: password!)
+        }
+    }
+    func loginUser(email: String, password: String){
+        present(LoadingOverlay.instance.showLoadingOverlay(message: "Logging in..."), animated: true, completion: nil)
+        FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: {(user, error) in
             guard let _ = user else {
                 if let error = error {
                     if let errCode = FIRAuthErrorCode(rawValue: error._code) {
                         self.dismiss(animated: false, completion: { (dissmissOverlayError) in
-                                    switch errCode {
-                                case .errorCodeUserNotFound:
-                                    self.showAlert("User account not found. Try registering")
-                                case .errorCodeWrongPassword:
-                                    self.showAlert("Incorrect username/password combination")
-                                default:
-                                    self.showAlert("Error: \(error.localizedDescription)")
-                                }
+                            switch errCode {
+                            case .errorCodeUserNotFound:
+                                self.showAlert("User account not found. Try registering")
+                            case .errorCodeWrongPassword:
+                                self.showAlert("Incorrect username/password combination")
+                            default:
+                                self.showAlert("Error: \(error.localizedDescription)")
+                            }
                         })
-                    return
-                  }
+                        return
+                    }
                 }
                 assertionFailure("user and error are nil")
                 return
             }
             self.dismiss(animated: false, completion: { (error) in
-                    self.signIn()
+                self.signIn()
             })
         })
     }
@@ -117,9 +127,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     func dismissKeyboard() {
         view.endEditing(true)
     }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        dismissKeyboard()
-        
+        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField {
+                nextField.becomeFirstResponder()
+        } else {
+        self.signIn(UIButton())
+        }
         return true
     }
 }

@@ -13,7 +13,7 @@ import FirebaseDatabase
 import FirebaseStorage
 
 
-class RegisterViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class RegisterViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
     // MARK: UI Elements
     @IBOutlet weak var nameTextField: UITextField!
@@ -27,6 +27,10 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
     // MARK: Overriden functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        nameTextField.delegate = self
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
         // set up tap to close keyboard
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(RegisterViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -157,5 +161,13 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     func dismissKeyboard() {
         view.endEditing(true)
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField{
+            nextField.becomeFirstResponder()
+        } else {
+       self.registerAccount(UIButton())
+        }
+        return true
     }
 }
