@@ -1,4 +1,4 @@
-# CarFinderApp
+# Spot It App
 <div style="display:inline;">
 <img src="https://user-images.githubusercontent.com/21343215/27690927-d627d5ba-5c9f-11e7-8465-9a2e44001faa.png" width ="250" style="padding-right:25px;"/>
 <div style="width:10px;" />
