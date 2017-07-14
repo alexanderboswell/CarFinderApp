@@ -63,12 +63,12 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eya-9Y-vIn">
                                         <rect key="frame" x="0.0" y="0.0" width="97.5" height="36"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="0.67398548126220703" green="0.69015544652938843" blue="0.69845420122146606" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SUf-0V-psy">
                                         <rect key="frame" x="102.5" y="0.0" width="64" height="36"/>
-                                        <color key="backgroundColor" red="0.0031618294310000001" green="0.70007854700000005" blue="0.65687686199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.1342291533946991" green="0.49742263555526733" blue="0.73429423570632935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                         <state key="normal" title="Register">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -100,7 +100,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
-                        <color key="backgroundColor" red="0.0031618294310000001" green="0.70007854700000005" blue="0.65687686199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.1342291533946991" green="0.49742263555526733" blue="0.73429423570632935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="X0z-KW-Xmk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1qV-da-Yls"/>
                             <constraint firstItem="kQE-9e-PPn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3Vd-PY-Jc9"/>
@@ -167,7 +167,7 @@
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iQs-wy-K4Z">
                                 <rect key="frame" x="0.0" y="21" width="375" height="45"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.1342291533946991" green="0.49742263555526733" blue="0.73429423570632935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="xng-Qt-p3t"/>
                                 </constraints>
@@ -186,7 +186,7 @@
                                         </connections>
                                     </barButtonItem>
                                 </items>
-                                <color key="barTintColor" red="0.0031618294310000001" green="0.70007854700000005" blue="0.65687686199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="barTintColor" red="0.1342291533946991" green="0.49742263555526733" blue="0.73429423570632935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </toolbar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spot It" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cjf-5f-aQu">
                                 <rect key="frame" x="162.5" y="32" width="50.5" height="24"/>
@@ -318,7 +318,7 @@
                                         </connections>
                                     </barButtonItem>
                                 </items>
-                                <color key="barTintColor" red="0.0031618294310000001" green="0.70007854700000005" blue="0.65687686199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="barTintColor" red="0.1342291533946991" green="0.49742263555526733" blue="0.73429423570632935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="F2h-Lq-xWI">
                                 <rect key="frame" x="0.0" y="65" width="375" height="602"/>
@@ -348,7 +348,13 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="75" id="XKw-TH-S28"/>
                                                     </constraints>
-                                                    <state key="normal" title="Add"/>
+                                                    <color key="tintColor" red="0.70188313719999995" green="0.70200556520000001" blue="0.70187538859999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <state key="normal" title="Add">
+                                                        <color key="titleColor" red="0.17434722185134888" green="0.59072256088256836" blue="0.86913794279098511" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                    <state key="disabled">
+                                                        <color key="titleColor" red="0.67398548126220703" green="0.69015544652938843" blue="0.69845420122146606" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
                                                     <connections>
                                                         <action selector="buttonTapped:" destination="mns-XV-yCb" eventType="touchUpInside" id="PZ7-2I-TIj"/>
                                                     </connections>
@@ -458,7 +464,7 @@
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OVi-Kn-Hoa">
                                 <rect key="frame" x="82.5" y="372" width="210" height="36"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.74109476804733276" green="0.74122357368469238" blue="0.74108666181564331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                 <state key="normal" title="Create Account">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -474,12 +480,12 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dh1-Kz-UIi">
                                         <rect key="frame" x="0.0" y="0.0" width="198.5" height="36"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="0.68326947789675008" green="0.6923495777438009" blue="0.69956398439378242" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5lq-Do-1QQ">
                                         <rect key="frame" x="203.5" y="0.0" width="44" height="36"/>
-                                        <color key="backgroundColor" red="0.0031618294310000001" green="0.70007854700000005" blue="0.65687686199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.1342291533946991" green="0.49742263555526733" blue="0.73429423570632935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                         <state key="normal" title="Login">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -505,7 +511,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.0031618294310000001" green="0.70007854700000005" blue="0.65687686199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.1342291533946991" green="0.49742263555526733" blue="0.73429423570632935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="UwY-jc-rjH" firstAttribute="top" secondItem="bx9-Gg-bjw" secondAttribute="bottom" constant="20" id="1Gx-j8-dTT"/>
                             <constraint firstItem="WEW-fV-51D" firstAttribute="width" secondItem="UwY-jc-rjH" secondAttribute="width" id="8Ds-5T-tjS"/>
@@ -556,7 +562,7 @@
                             </mapView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="By1-7O-sYI">
                                 <rect key="frame" x="0.0" y="20" width="375" height="45"/>
-                                <color key="backgroundColor" red="0.0031618294310000001" green="0.70007854700000005" blue="0.65687686199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.1342291533946991" green="0.49742263555526733" blue="0.73429423570632935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="cYg-rH-Tgh"/>
                                 </constraints>
@@ -575,7 +581,7 @@
                                         </connections>
                                     </barButtonItem>
                                 </items>
-                                <color key="barTintColor" red="0.0031618294310000001" green="0.70007854700000005" blue="0.65687686199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="barTintColor" red="0.1342291533946991" green="0.49742263555526733" blue="0.73429423570632935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </toolbar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set A Spot" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gnd-nY-jgy">
                                 <rect key="frame" x="147" y="32" width="81" height="24"/>
@@ -650,7 +656,7 @@
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CrP-A8-4cl">
                                 <rect key="frame" x="0.0" y="20" width="375" height="45"/>
-                                <color key="backgroundColor" red="0.0031618294310000001" green="0.70007854700000005" blue="0.65687686199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.1342291533946991" green="0.49742263555526733" blue="0.73429423570632935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="5JE-jL-PpK"/>
                                 </constraints>
@@ -672,7 +678,7 @@
                                         </connections>
                                     </barButtonItem>
                                 </items>
-                                <color key="barTintColor" red="0.0031618294310000001" green="0.70007854700000005" blue="0.65687686199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="barTintColor" red="0.1342291533946991" green="0.49742263555526733" blue="0.73429423570632935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4IF-XP-Ula">
                                 <rect key="frame" x="0.0" y="65" width="375" height="602"/>
@@ -816,7 +822,7 @@
                                         </connections>
                                     </barButtonItem>
                                 </items>
-                                <color key="barTintColor" red="0.0031618294310000001" green="0.70007854700000005" blue="0.65687686199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="barTintColor" red="0.1342291533946991" green="0.49742263555526733" blue="0.73429423570632935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Rgx-eZ-xVI">
                                 <rect key="frame" x="0.0" y="65" width="375" height="602"/>
@@ -963,8 +969,8 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="4EG-5s-E1P">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.0031618294310000001" green="0.70007854700000005" blue="0.65687686199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="sectionIndexBackgroundColor" red="0.0031618294310000001" green="0.70007854700000005" blue="0.65687686199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.1342291533946991" green="0.49742263555526733" blue="0.73429423570632935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="sectionIndexBackgroundColor" red="0.1342291533946991" green="0.49742263555526733" blue="0.73429423570632935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
                             <tableViewSection id="dpg-wy-NwN">
                                 <cells>
@@ -984,7 +990,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.0031618294310000001" green="0.70007854700000005" blue="0.65687686199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.1342291533946991" green="0.49742263555526733" blue="0.73429423570632935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="zQl-pe-DNK">
                                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -1006,7 +1012,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.0031618294310000001" green="0.70007854700000005" blue="0.65687686199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.1342291533946991" green="0.49742263555526733" blue="0.73429423570632935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <segue destination="LUO-aw-gfD" kind="show" customClass="SWRevealViewControllerSeguePushController" id="kR8-9u-6Dp"/>
                                         </connections>
@@ -1068,7 +1074,7 @@
                                                 <constraint firstItem="mYL-UJ-Jnl" firstAttribute="leading" secondItem="8qv-DZ-r2F" secondAttribute="leading" constant="18" id="wLm-bL-xq3"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.0031618294310000001" green="0.70007854700000005" blue="0.65687686199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.1342291533946991" green="0.49742263555526733" blue="0.73429423570632935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <segue destination="Atu-ZB-0cL" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="0RN-TJ-rLd"/>
                                         </connections>
@@ -1093,7 +1099,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.0031618294310000001" green="0.70007854700000005" blue="0.65687686199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.1342291533946991" green="0.49742263555526733" blue="0.73429423570632935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <segue destination="kuw-sf-Pec" kind="show" customClass="SWRevealViewControllerSeguePushController" id="Pec-gD-vhU"/>
                                         </connections>
@@ -1118,7 +1124,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.0031618294310000001" green="0.70007854700000005" blue="0.65687686199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.1342291533946991" green="0.49742263555526733" blue="0.73429423570632935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <segue destination="LDx-jA-bkF" kind="show" customClass="SWRevealViewControllerSeguePushController" id="IfX-B9-w2J"/>
                                         </connections>
@@ -1147,7 +1153,7 @@
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.0031618294310000001" green="0.70007854700000005" blue="0.65687686199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.1342291533946991" green="0.49742263555526733" blue="0.73429423570632935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1200,7 +1206,7 @@
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CYU-dC-KEX">
                                 <rect key="frame" x="0.0" y="20" width="375" height="45"/>
-                                <color key="backgroundColor" red="0.0031618294310000001" green="0.70007854700000005" blue="0.65687686199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.1342291533946991" green="0.49742263555526733" blue="0.73429423570632935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="stc-h5-5Qz"/>
                                 </constraints>
@@ -1213,7 +1219,7 @@
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="BRh-mU-nC1"/>
                                 </items>
-                                <color key="barTintColor" red="0.0031618294310000001" green="0.70007854700000005" blue="0.65687686199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="barTintColor" red="0.1342291533946991" green="0.49742263555526733" blue="0.73429423570632935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FRd-2p-ocn">
                                 <rect key="frame" x="0.0" y="65" width="375" height="602"/>
@@ -1245,7 +1251,7 @@
                                                         <constraint firstAttribute="height" constant="30" id="WrP-AP-JKo"/>
                                                     </constraints>
                                                     <state key="normal" title="Decline">
-                                                        <color key="titleColor" red="0.88235294119999996" green="0.34509803919999998" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="titleColor" red="0.91545593738555908" green="0.29308891296386719" blue="0.20751205086708069" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <connections>
                                                         <action selector="declineButtonTapped:" destination="KIJ-XE-Nr3" eventType="touchUpInside" id="rU6-LO-QAH"/>
@@ -1257,7 +1263,9 @@
                                                         <constraint firstAttribute="width" constant="49" id="4bt-bb-Ebp"/>
                                                         <constraint firstAttribute="height" constant="30" id="F22-yC-UOH"/>
                                                     </constraints>
-                                                    <state key="normal" title="Accept"/>
+                                                    <state key="normal" title="Accept">
+                                                        <color key="titleColor" red="0.17434722185134888" green="0.59072256088256836" blue="0.86913794279098511" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
                                                     <connections>
                                                         <action selector="buttonTapped:" destination="KIJ-XE-Nr3" eventType="touchUpInside" id="54N-x0-5NR"/>
                                                     </connections>
@@ -1369,7 +1377,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="yVo-lt-nSk"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="ERm-8d-JFO"/>
                                 </items>
-                                <color key="barTintColor" red="0.0031618294310000001" green="0.70007854700000005" blue="0.65687686199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="barTintColor" red="0.1342291533946991" green="0.49742263555526733" blue="0.73429423570632935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </toolbar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n7r-gP-8WK">
                                 <rect key="frame" x="99.5" y="245" width="176" height="45.5"/>
@@ -1426,7 +1434,9 @@
                                     <constraint firstAttribute="width" constant="208" id="yY3-I2-ex8"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="23"/>
-                                <state key="normal" title="Reset Password"/>
+                                <state key="normal" title="Reset Password">
+                                    <color key="titleColor" red="0.17434722185134888" green="0.59072256088256836" blue="0.86913794279098511" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="resetPassword:" destination="xUe-Lz-tU2" eventType="touchUpInside" id="FtT-kw-YHH"/>
                                 </connections>
@@ -1446,7 +1456,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="23"/>
                                 <state key="normal" title="Delete Account">
-                                    <color key="titleColor" red="0.88235294119999996" green="0.34509803919999998" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.91545593738555908" green="0.29308891296386719" blue="0.20751205086708069" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="deleteAccount:" destination="xUe-Lz-tU2" eventType="touchUpInside" id="KgR-FK-COE"/>
@@ -1571,8 +1581,8 @@
         <image name="menu" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gUU-Mp-53O"/>
-        <segue reference="Oew-Ar-Qih"/>
+        <segue reference="1Tx-5H-byZ"/>
+        <segue reference="d3R-lO-Rdf"/>
         <segue reference="kR8-9u-6Dp"/>
     </inferredMetricsTieBreakers>
 </document>
